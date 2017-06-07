@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/friendsicon"
+            android:title="Friends" />
+
+        <item
+            android:id="@+id/nav_groups"
+            android:icon="@drawable/group"
+            android:title="Groups" />
+
+        <item
+            android:id="@+id/nav_progress"
+            android:icon="@drawable/progress"
+            android:title="Progress" />
+        <item
+            android:id="@+id/nav_library"
+            android:icon="@drawable/library"
+            android:title="Library" />
+
+        <item
+            android:id="@+id/nav_timeline"
+            android:icon="@drawable/timeline"
+            android:title="Timeline" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/settings"
+            android:title="Settings " />
+
+
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/logout"
+            android:title="Log Out" />
+
+
+    </group>
+
+
+</menu>

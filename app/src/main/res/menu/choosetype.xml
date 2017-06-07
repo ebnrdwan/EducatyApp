@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:androclass="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/Teacher"
+        android:icon="@drawable/ic_teacher_"
+        androclass:title="Teacher"/>
+
+    <item
+        android:id="@+id/Student"
+        android:icon="@drawable/ic_parent"
+        androclass:title="Student"/>
+
+    <item
+        android:id="@+id/Parent"
+        android:icon="@drawable/ic_student"
+        androclass:title="Parent"/>
+    <item
+        android:id="@+id/Admin"
+        android:icon="@drawable/ic_admin"
+        androclass:title="Admin"/>
+</menu>

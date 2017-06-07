@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_groups"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.asi.educatyapp.Groups"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/back">
+        <views.CircleImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:src="@drawable/mypic"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anwar Samir"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_below="@+id/imageView"/>
+
+
+    </RelativeLayout>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+    </GridLayout>
+
+</LinearLayout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.asi.educatyapp">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        // at this part you must authorities your pakage to work on pic image ==>
+        com.github.jrvansuita:PickImage:v2.0.2
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.asi.educatyapp"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="exported,authorities" />
+
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".loginDir.LoginActivity"
+            android:theme="@style/AppThemeNoActonBar" />
+        <activity
+            android:name=".firstscreen"
+            android:theme="@style/AppThemeNoActonBar">
+
+        </activity>
+        <activity
+            android:name=".SecondScreen"
+            android:theme="@style/AppThemeTwo" />
+        <activity
+            android:name=".RegisterDir.TeacherRegisterOne"
+            android:theme="@style/AppThemeTwo" />
+        <activity
+            android:name=".RegisterDir.TeacherRegisterTwo"
+            android:label="Teacher Register"
+            android:parentActivityName=".firstscreen"
+            android:theme="@style/AppThemeeRegister"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".RegisterDir.StudentRegister"
+            android:label="Student Register"
+            android:parentActivityName=".firstscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".RegisterDir.ParentRegister"
+            android:label="Parent Register"
+            android:parentActivityName=".firstscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".Home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".TeacherA"
+            android:theme="@style/AppThemeTwo" />
+        <activity android:name=".Groups" />
+        <activity
+            android:name=".Admin_Activity"
+            android:label="Admin" />
+        <activity
+            android:name=".RegisterDir.AdminRegisterTwo"
+            android:label="Admin Register"
+            android:parentActivityName=".firstscreen"
+            android:theme="@style/AppThemeeRegister"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".RegisterDir.Admin_RegisterOne" />
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".FirebaseIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".theGroup"
+            android:parentActivityName=".Home"
+            android:label="Group"
+            />
+        <activity android:name=".loginDir.ParentAndStudentLogin" />
+        <activity
+            android:name=".AddHomePosts"
+            android:label="Add Post"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppThemee" />
+        <activity android:name=".CodeOfAdmin" />
+        <activity
+            android:name=".AddNewGroup"
+            android:label="Add new group "
+            android:parentActivityName=".Admin_Activity"
+            android:theme="@style/AppThemee" />
+        <activity
+            android:name=".Comment_Home"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppThemee" />
+        <activity
+            android:name=".theEvaluationCustomDialog"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"></activity>
+        <activity android:name=".Splash">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

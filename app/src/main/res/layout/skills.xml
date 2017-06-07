@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/list_item_height">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+
+        android:minHeight="@dimen/list_item_height"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_margin="8dp"
+            android:id="@+id/imageskills"
+            android:layout_width="@dimen/skill_image"
+            android:layout_height="@dimen/list_item_height"
+            android:src="@drawable/skills"/>
+
+        <RelativeLayout
+            android:id="@+id/text_container_skills"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:id="@+id/name_text_view_skills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageactivation"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@android:color/black"
+                tools:text="ICDL Technology specialist"
+                android:layout_toRightOf="@+id/imageactivation" />
+
+
+            <ImageButton
+                android:layout_margin="8dp"
+                android:id="@+id/skillsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="endorse"
+                android:textColor="#fff"
+                android:src="@drawable/addicon"
+
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
+

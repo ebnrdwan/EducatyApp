@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:scaleType="centerCrop"
+            android:id="@+id/ivGroup"
+
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#50000000"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:id="@+id/tvGname"
+            android:text="Group Name"
+            android:textAlignment="center"
+            android:layout_gravity="center_vertical"
+            android:textColor="#fff"
+            android:textSize="25sp"
+            />
+
+
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>
