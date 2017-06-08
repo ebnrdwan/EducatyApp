@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_weight=".23">
-                <views.CircleImageView
+                <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:id="@+id/ivprofile"

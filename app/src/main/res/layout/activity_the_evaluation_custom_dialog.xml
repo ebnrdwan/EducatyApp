@@ -7,7 +7,7 @@
     android:id="@+id/activity_admin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asi.educatyapp.Admin_Activity">
+    tools:context="com.asi.educatyapp.View.Activities.Admin_Activity">
     <android.support.design.widget.TabLayout
         android:id="@+id/mytablayout"
         style="@style/Theme.AppCompat.DayNight.DarkActionBar"

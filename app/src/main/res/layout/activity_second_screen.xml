@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back"
     android:orientation="vertical"
-    tools:context="com.asi.educatyapp.firstscreen">
+    tools:context="com.asi.educatyapp.View.Activities.firstscreen">
 
     <FrameLayout
         android:layout_width="match_parent"

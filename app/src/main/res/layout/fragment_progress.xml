@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.ProgressF">
+    tools:context="com.asi.educatyapp.Data.View.Fragments.ProgressF">
 
 
     <com.github.mikephil.charting.charts.PieChart

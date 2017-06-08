@@ -8,7 +8,7 @@
     android:background="@drawable/side_nav_bar"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <views.CircleImageView
+    <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
         android:id="@+id/imageProfile"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -22,7 +22,7 @@
         android:id="@+id/nameProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Anwar Samir"
+        android:text="@string/pname"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
@@ -40,7 +40,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:text="programmerasi@yahoo.com" />
+        android:text="@string/pdiscription" />
 
 
 

@@ -17,4 +17,6 @@
     <string name="large_text">Pages you view in incognito tabs won’t stick around in your browser’s history, cookie store, or search history after you’ve closed all of your incognito tabs. Any files you download or bookmarks you create will be kept.  However, you aren’t invisible. Going incognito doesn’t hide your browsing from your employer, your internet service provider, or the websites you visit.</string>
     <string name="MyNameSample">Anwar Samir</string>
     <string name="spinner_prompt">OK</string>
+    <string name="pname">Abdulrahman Radwan</string>
+    <string name="pdiscription">Math Teacher</string>
 </resources>

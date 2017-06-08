@@ -4,7 +4,7 @@
     android:id="@+id/activity_groups"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asi.educatyapp.Groups"
+    tools:context="com.asi.educatyapp.Data.View.Activities.Groups"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/back">
-        <views.CircleImageView
+        <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"

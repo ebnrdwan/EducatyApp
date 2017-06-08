@@ -7,7 +7,7 @@
         android:id="@+id/Recycler_activity_comment__home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.asi.educatyapp.Comment_Home">
+        tools:context="com.asi.educatyapp.View.Activities.Comment_Home">
 
     </android.support.v7.widget.RecyclerView>
     <LinearLayout

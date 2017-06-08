@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".AppController"
+        android:name="com.asi.educatyapp.Data.View.Activities.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,90 +21,90 @@
             android:grantUriPermissions="true"
             tools:replace="exported,authorities" />
 
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.asi.educatyapp.Data.View.Activities.MainActivity" />
         <activity
-            android:name=".loginDir.LoginActivity"
+            android:name="com.asi.educatyapp.Data.View.Activities.loginDir.LoginActivity"
             android:theme="@style/AppThemeNoActonBar" />
         <activity
-            android:name=".firstscreen"
+            android:name="com.asi.educatyapp.Data.View.Activities.firstscreen"
             android:theme="@style/AppThemeNoActonBar">
 
         </activity>
         <activity
-            android:name=".SecondScreen"
+            android:name="com.asi.educatyapp.Data.View.Activities.SecondScreen"
             android:theme="@style/AppThemeTwo" />
         <activity
-            android:name=".RegisterDir.TeacherRegisterOne"
+            android:name="com.asi.educatyapp.Data.View.Activities.RegisterDir.TeacherRegisterOne"
             android:theme="@style/AppThemeTwo" />
         <activity
-            android:name=".RegisterDir.TeacherRegisterTwo"
+            android:name="com.asi.educatyapp.Data.View.Activities.RegisterDir.TeacherRegisterTwo"
             android:label="Teacher Register"
-            android:parentActivityName=".firstscreen"
+            android:parentActivityName="com.asi.educatyapp.Data.View.Activities.firstscreen"
             android:theme="@style/AppThemeeRegister"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".RegisterDir.StudentRegister"
+            android:name="com.asi.educatyapp.Data.View.Activities.RegisterDir.StudentRegister"
             android:label="Student Register"
-            android:parentActivityName=".firstscreen"
+            android:parentActivityName="com.asi.educatyapp.Data.View.Activities.firstscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".RegisterDir.ParentRegister"
+            android:name="com.asi.educatyapp.Data.View.Activities.RegisterDir.ParentRegister"
             android:label="Parent Register"
-            android:parentActivityName=".firstscreen"
+            android:parentActivityName="com.asi.educatyapp.Data.View.Activities.firstscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".Home"
+            android:name="com.asi.educatyapp.Data.View.Activities.Home"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".TeacherA"
+            android:name="com.asi.educatyapp.Data.View.Activities.TeacherA"
             android:theme="@style/AppThemeTwo" />
-        <activity android:name=".Groups" />
+        <activity android:name="com.asi.educatyapp.Data.View.Activities.Groups" />
         <activity
-            android:name=".Admin_Activity"
+            android:name="com.asi.educatyapp.Data.View.Activities.Admin_Activity"
             android:label="Admin" />
         <activity
-            android:name=".RegisterDir.AdminRegisterTwo"
+            android:name="com.asi.educatyapp.Data.View.Activities.RegisterDir.AdminRegisterTwo"
             android:label="Admin Register"
-            android:parentActivityName=".firstscreen"
+            android:parentActivityName="com.asi.educatyapp.Data.View.Activities.firstscreen"
             android:theme="@style/AppThemeeRegister"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".RegisterDir.Admin_RegisterOne" />
+        <activity android:name="com.asi.educatyapp.Data.View.Activities.RegisterDir.Admin_RegisterOne" />
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name="com.asi.educatyapp.Data.View.Services.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".FirebaseIDService">
+        <service android:name="com.asi.educatyapp.Data.View.Services.FirebaseIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".theGroup"
-            android:parentActivityName=".Home"
+        <activity android:name="com.asi.educatyapp.Data.View.Activities.theGroup"
+            android:parentActivityName="com.asi.educatyapp.Data.View.Activities.Home"
             android:label="Group"
             />
-        <activity android:name=".loginDir.ParentAndStudentLogin" />
+        <activity android:name="com.asi.educatyapp.Data.View.Activities.loginDir.ParentAndStudentLogin" />
         <activity
-            android:name=".AddHomePosts"
+            android:name="com.asi.educatyapp.Data.View.Activities.AddHomePosts"
             android:label="Add Post"
-            android:parentActivityName=".Home"
+            android:parentActivityName="com.asi.educatyapp.Data.View.Activities.Home"
             android:theme="@style/AppThemee" />
-        <activity android:name=".CodeOfAdmin" />
+        <activity android:name="com.asi.educatyapp.Data.View.Activities.CodeOfAdmin" />
         <activity
-            android:name=".AddNewGroup"
+            android:name="com.asi.educatyapp.Data.View.Activities.AddNewGroup"
             android:label="Add new group "
-            android:parentActivityName=".Admin_Activity"
+            android:parentActivityName="com.asi.educatyapp.Data.View.Activities.Admin_Activity"
             android:theme="@style/AppThemee" />
         <activity
-            android:name=".Comment_Home"
-            android:parentActivityName=".Home"
+            android:name="com.asi.educatyapp.Data.View.Activities.Comment_Home"
+            android:parentActivityName="com.asi.educatyapp.Data.View.Activities.Home"
             android:theme="@style/AppThemee" />
         <activity
-            android:name=".theEvaluationCustomDialog"
+            android:name="com.asi.educatyapp.Data.View.Activities.theEvaluationCustomDialog"
             android:theme="@style/Theme.AppCompat.Light.Dialog"></activity>
-        <activity android:name=".Splash">
+        <activity android:name="com.asi.educatyapp.Data.View.Activities.Splash">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

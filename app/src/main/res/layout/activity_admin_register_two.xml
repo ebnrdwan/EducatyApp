@@ -52,7 +52,7 @@
                     android:layout_height="150dp"
                     android:layout_marginTop="10dp">
 
-                    <views.CircleImageView
+                    <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_gravity="center"

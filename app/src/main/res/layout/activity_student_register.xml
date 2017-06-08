@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.asi.educatyapp.RegisterDir.StudentRegister">
+    tools:context="com.asi.educatyapp.Data.View.Activities.RegisterDir.StudentRegister">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
 
         >
 
-        <views.CircleImageView
+        <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/man"

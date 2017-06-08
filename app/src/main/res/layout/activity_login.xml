@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:background="@drawable/back"
-    tools:context=".loginDir.LoginActivity">
+    tools:context="com.asi.educatyapp.Data.View.Activities.loginDir.LoginActivity">
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"

@@ -16,7 +16,7 @@
         android:minHeight="@dimen/list_item_height"
         android:orientation="horizontal">
 
-        <views.CircleImageView
+        <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
             android:layout_margin="8dp"
             android:id="@+id/imageadectivation"
             android:layout_width="@dimen/list_item_height"

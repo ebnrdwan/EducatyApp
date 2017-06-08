@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".8"
             >
-            <views.CircleImageView
+            <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/mypic22"
