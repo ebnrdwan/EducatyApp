@@ -52,10 +52,9 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         session =new SessionManager(Home.this);
         db=new SQLiteHandler(Home.this);
-        //TypefaceUtil.overrideFont(MainActivity.this, "SERIF", "fonts/Font-Bold.otf");
+        //TypefaceUtil.overrideFont(chatActivity.this, "SERIF", "fonts/Font-Bold.otf");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -199,19 +198,19 @@ public class Home extends AppCompatActivity {
 
         }
         else if (id == R.id.nav_library) {
-           // startActivity(new Intent(MainActivity.this,Healthy.class));
+           // startActivity(new Intent(chatActivity.this,Healthy.class));
         }
         else if (id == R.id.nav_timeline) {
-           // startActivity(new Intent(MainActivity.this,foodAndDrinks.class));
+           // startActivity(new Intent(chatActivity.this,foodAndDrinks.class));
         }
 
         else if (id == R.id.nav_setting) {
-           // startActivity(new Intent(MainActivity.this,Offers.class));
+           // startActivity(new Intent(chatActivity.this,Offers.class));
         } else if (id == R.id.nav_login) {
 //            if (!session.isLoggedIn()) {
 //                item.setTitle("Log in");
 //                applyFontToMenuItem(item);
-//               // startActivity(new Intent(MainActivity.this, LoginMahall.class));
+//               // startActivity(new Intent(chatActivity.this, LoginMahall.class));
 //
 //            } else {
 //                item.setTitle("Log out" +
@@ -275,7 +274,7 @@ public class Home extends AppCompatActivity {
 //    private void logoutUser() {
 //        session.setLogin(false);
 //        db.deleteUsers();
-//        Toast.makeText(MainActivity.this, "تم تسجيل الخروج", Toast.LENGTH_LONG).show();
+//        Toast.makeText(chatActivity.this, "تم تسجيل الخروج", Toast.LENGTH_LONG).show();
 //        this.finish();
 //
 //    }

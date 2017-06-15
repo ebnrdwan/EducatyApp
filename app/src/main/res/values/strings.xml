@@ -19,4 +19,7 @@
     <string name="spinner_prompt">OK</string>
     <string name="pname">Abdulrahman Radwan</string>
     <string name="pdiscription">Math Teacher</string>
+
+    <string name="sign_out">Sign Out</string>
+    <string name="send_button_label">Send</string>
 </resources>

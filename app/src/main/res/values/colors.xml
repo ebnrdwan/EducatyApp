@@ -6,4 +6,5 @@
     <color name="backConnection">#d4dde6</color>
     <color name="backRecycler">	#d9d9d9</color>
     <color name="Cbackground">#00B8FE</color>
+    <color name="colorTitle">#ffffff</color>
 </resources>

@@ -51,8 +51,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 				+ KEY_TYPE + " TEXT,"
 				+ KEY_SID + " TEXT" + ")";
 		db.execSQL(CREATE_LOGIN_TABLE);
-
-
 	}
 
 	// Upgrading database
@@ -60,7 +58,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-
 		// Create tables again
 		onCreate(db);
 	}
@@ -78,11 +75,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 		values.put(KEY_PATH, path); // Created At
 		values.put(KEY_TYPE, type); // Created At
 		values.put(KEY_SID, sid); // Created At
-
 		// Inserting Row
 		long id = db.insert(TABLE_USER, null, values);
 		db.close(); // Closing database connection
-
 
 	}
 

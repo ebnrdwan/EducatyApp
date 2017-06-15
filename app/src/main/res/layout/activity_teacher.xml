@@ -7,11 +7,12 @@
     android:id="@+id/ToolbarLinear"
     android:fitsSystemWindows="true">
 
+
     <android.support.design.widget.AppBarLayout
+
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/Cbackground"
+        android:layout_height="300dp"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -25,11 +26,10 @@
             app:statusBarScrim="@color/colorPrimary">
 
             <LinearLayout
+                android:background="@drawable/teach"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingBottom="40dp"
@@ -122,6 +122,7 @@
                         android:textColor="#fff" />
 
                     <Button
+                        android:id="@+id/messageTeacher"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
@@ -257,6 +258,7 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
 
     <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
         android:id="@+id/ProfilePic"

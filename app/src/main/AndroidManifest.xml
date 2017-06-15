@@ -20,7 +20,14 @@
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="exported,authorities" />
+<activity android:name=".Data.chat.chatActivity"
+    android:label="@string/app_name">
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
 
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
         <activity android:name="com.asi.educatyapp.Data.View.Activities.MainActivity" />
         <activity
             android:name="com.asi.educatyapp.Data.View.Activities.loginDir.LoginActivity"
@@ -106,11 +113,7 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog"></activity>
         <activity android:name="com.asi.educatyapp.Data.View.Activities.Splash">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

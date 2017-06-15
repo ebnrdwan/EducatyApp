@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
 import com.asi.educatyapp.Data.Data.Models.homeModel;
 import com.asi.educatyapp.Data.View.Adapters.ConnenctionAdpter;
 import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.Data.chat.chatActivity;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -59,6 +61,13 @@ public class TeacherA extends AppCompatActivity {
         ConnenctionAdpter homeAdpter = new ConnenctionAdpter(TeacherA.this, homeModels);
         rvConnenctions.setAdapter(homeAdpter);
 
+        Button messageButton = (Button) findViewById(R.id.messageTeacher);
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TeacherA.this, chatActivity.class));
+            }
+        });
     }
 
     public void BackTOMAin(View view) {
