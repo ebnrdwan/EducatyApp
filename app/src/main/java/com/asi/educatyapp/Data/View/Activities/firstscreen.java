@@ -2,17 +2,32 @@ package com.asi.educatyapp.Data.View.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-
-import com.asi.educatyapp.R;
+import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.helper.SessionManager;
+import com.asi.educatyapp.Data.View.Activities.loginDir.LoginActivity;
+import com.asi.educatyapp.R;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.BuildConfig;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
 
 public class firstscreen extends AppCompatActivity {
 
     private SessionManager session;
+    FirebaseAuth firebaseAuth;
+    private String mUsername;
+    public static final String ANONYMOUS = "anonymous";
+    public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
+    private static final int RC_SIGN_IN = 1;
+    private static final int RC_PHOTO_PICKER = 2;
+    FirebaseAuth.AuthStateListener fAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +35,35 @@ public class firstscreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firstscreen);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+
+        fAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user!=null){
+
+                    Toast.makeText(firstscreen.this,"you are logined",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(firstscreen.this,Home.class));
+                   //user is signed in
+                }
+                else {
+                    startActivityForResult(
+                            AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                                    .setAvailableProviders(
+                                            Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
+//                                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
+                                            ))
+                                    .build(),
+                            RC_SIGN_IN);
+                }
+            }
+        };
         session =new SessionManager(firstscreen.this);
         if (session.isLoggedIn()) {
 
@@ -35,8 +79,23 @@ public class firstscreen extends AppCompatActivity {
             finish();
 
         }
+
+
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAuth.addAuthStateListener(fAuthStateListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        firebaseAuth.removeAuthStateListener(fAuthStateListener);
+
+    }
     public void goToLogin(View view) {
 //        //Creating the instance of PopupMenu
 //        PopupMenu popup = new PopupMenu(firstscreen.this,view);
@@ -75,7 +134,7 @@ public class firstscreen extends AppCompatActivity {
 //
 //        menuHelper.show();//showing popup menu
 
-        startActivity(new Intent(firstscreen.this,SecondScreen.class).putExtra("type","login"));
+        startActivity(new Intent(firstscreen.this,LoginActivity.class).putExtra("type","login"));
     }
 
     public void goToSinup(View view) {
@@ -115,4 +174,5 @@ public class firstscreen extends AppCompatActivity {
 
         startActivity(new Intent(firstscreen.this,SecondScreen.class).putExtra("type","signup"));
     }
+
 }

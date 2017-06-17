@@ -21,6 +21,13 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
+import com.asi.educatyapp.Data.Data.helper.SessionManager;
+import com.asi.educatyapp.Data.View.Activities.Admin_Activity;
+import com.asi.educatyapp.Data.View.Activities.AppController;
+import com.asi.educatyapp.Data.View.Activities.Home;
+import com.asi.educatyapp.Data.View.Activities.MainActivity;
+import com.asi.educatyapp.Data.View.Utils.Constants;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -39,14 +46,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
-import com.asi.educatyapp.Data.Data.helper.SessionManager;
-import com.asi.educatyapp.Data.View.Activities.Admin_Activity;
-import com.asi.educatyapp.Data.View.Activities.AppController;
-import com.asi.educatyapp.Data.View.Activities.Home;
-import com.asi.educatyapp.Data.View.Activities.MainActivity;
-import com.asi.educatyapp.Data.View.Utils.Constants;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,
@@ -89,6 +88,10 @@ public class LoginActivity extends AppCompatActivity implements
 //        imgProfilePic = (ImageView) findViewById(R.id.imgProfilePic);
         txtName = (TextView) findViewById(R.id.txtName);
         txtEmail = (TextView) findViewById(R.id.txtEmail);
+        // TODO: 17/06/2017 hide views
+        txtEmail.setVisibility(View.GONE);
+        txtName.setVisibility(View.GONE);
+        btnRevokeAccess.setVisibility(View.GONE);
 
         btnSignIn.setOnClickListener(this);
         btnSignOut.setOnClickListener(this);
@@ -113,7 +116,18 @@ public class LoginActivity extends AppCompatActivity implements
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==RESULT_OK){
+            Toast.makeText(this,"sign in success",Toast.LENGTH_SHORT).show();
 
+        }else if (requestCode==RESULT_CANCELED){
+            Toast.makeText(this,"sign in failed",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+    }
 
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -187,16 +201,16 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+//        if (requestCode == RC_SIGN_IN) {
+//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//            handleSignInResult(result);
+//        }
+//    }
 
     @Override
     public void onStart() {

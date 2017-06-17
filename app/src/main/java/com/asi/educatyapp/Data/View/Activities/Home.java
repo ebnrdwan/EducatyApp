@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -24,17 +25,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.asi.educatyapp.R;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
 import com.asi.educatyapp.Data.Data.helper.SessionManager;
 import com.asi.educatyapp.Data.Utility.CustomTypefaceSpan;
+import com.asi.educatyapp.Data.View.Activities.loginDir.LoginActivity;
 import com.asi.educatyapp.Data.View.Fragments.Groups;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
 import com.asi.educatyapp.Data.View.Fragments.TimeLine;
 import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class Home extends AppCompatActivity {
     Toolbar toolbar;
@@ -207,6 +211,15 @@ public class Home extends AppCompatActivity {
         else if (id == R.id.nav_setting) {
            // startActivity(new Intent(chatActivity.this,Offers.class));
         } else if (id == R.id.nav_login) {
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(Home.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
 //            if (!session.isLoggedIn()) {
 //                item.setTitle("Log in");
 //                applyFontToMenuItem(item);

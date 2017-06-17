@@ -11,15 +11,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.asi.educatyapp.R;
-
+import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
+import com.asi.educatyapp.Data.Data.helper.SessionManager;
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
 import com.asi.educatyapp.Data.View.Fragments.AdminGroups;
 import com.asi.educatyapp.Data.View.Fragments.Admin_active_1;
 import com.asi.educatyapp.Data.View.Fragments.Admin_inactive_2;
 import com.asi.educatyapp.Data.View.Fragments.ProgressF;
-import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
-import com.asi.educatyapp.Data.Data.helper.SessionManager;
+import com.asi.educatyapp.Data.chat.chatActivity;
+import com.asi.educatyapp.R;
+import com.firebase.ui.auth.AuthUI;
 
 public class Admin_Activity extends AppCompatActivity {
     ViewPager viewPager;
@@ -68,6 +69,8 @@ public class Admin_Activity extends AppCompatActivity {
 
     private void logoutUser() {
         session.setLoginAdmin(false);
+        chatActivity chatActivity= new chatActivity();
+        AuthUI.getInstance().signOut(this);
 
 
         new SQLiteHandler(getApplicationContext()).deleteUsers();
