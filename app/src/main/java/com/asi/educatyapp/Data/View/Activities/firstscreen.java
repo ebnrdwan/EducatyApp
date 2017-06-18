@@ -12,7 +12,6 @@ import com.asi.educatyapp.Data.Data.helper.SessionManager;
 import com.asi.educatyapp.Data.View.Activities.loginDir.LoginActivity;
 import com.asi.educatyapp.R;
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -53,12 +52,14 @@ public class firstscreen extends AppCompatActivity {
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+//                                    .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                                     .setAvailableProviders(
                                             Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                                                     new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
-//                                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
+//                                                   , new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
                                             ))
+                                    .setLogo(R.drawable.logo)
+
                                     .build(),
                             RC_SIGN_IN);
                 }
@@ -83,7 +84,18 @@ public class firstscreen extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==RESULT_OK){
+            Toast.makeText(this,"sign in success",Toast.LENGTH_SHORT).show();
 
+        }else if (requestCode==RESULT_CANCELED){
+            Toast.makeText(this,"sign in failed",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+    }
     @Override
     protected void onResume() {
         super.onResume();

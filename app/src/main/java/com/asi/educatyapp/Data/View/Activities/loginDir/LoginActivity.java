@@ -116,18 +116,7 @@ public class LoginActivity extends AppCompatActivity implements
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==RESULT_OK){
-            Toast.makeText(this,"sign in success",Toast.LENGTH_SHORT).show();
 
-        }else if (requestCode==RESULT_CANCELED){
-            Toast.makeText(this,"sign in failed",Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-    }
 
     private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(

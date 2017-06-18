@@ -5,5 +5,12 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:colorForeground">@color/nliveo_white</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/nliveo_white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondaryInverse">@color/cardview_shadow_end_color</item>
+        <item name="colorAccent">@color/backRecycler</item>
     </style>
 </resources>
