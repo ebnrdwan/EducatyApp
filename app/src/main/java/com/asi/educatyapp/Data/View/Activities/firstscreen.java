@@ -59,6 +59,7 @@ public class firstscreen extends AppCompatActivity {
 //                                                   , new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
                                             ))
                                     .setLogo(R.drawable.logo)
+                                    .setTheme(R.style.LoginTheme)
 
                                     .build(),
                             RC_SIGN_IN);

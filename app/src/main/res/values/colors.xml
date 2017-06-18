@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#00bcd4</color>
     <color name="colorPrimaryDark">#00bcd4</color>
-    <color name="colorAccent">#ffab40</color>
+    <color name="colorAccent">#ffc640</color>
     <color name="backConnection">#d4dde6</color>
     <color name="backRecycler">#cbcaca</color>
     <color name="Cbackground">#00B8FE</color>
