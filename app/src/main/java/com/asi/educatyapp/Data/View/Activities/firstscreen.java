@@ -14,6 +14,11 @@ import com.asi.educatyapp.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 
@@ -42,13 +47,36 @@ public class firstscreen extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user!=null){
 
-                    Toast.makeText(firstscreen.this,"you are logined",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(firstscreen.this,Home.class));
-                   //user is signed in
-                }
-                else {
+                if (user != null) {
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    final DatabaseReference databaseReference = firebaseDatabase.getReference().child("teachers");
+                    final String id = user.getUid();
+
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.hasChild(id)) {
+                                Toast.makeText(firstscreen.this, "you are rocket", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(firstscreen.this, firstscreen.class));
+                                startActivity(new Intent(firstscreen.this, Home.class));
+
+
+                            } else if (!dataSnapshot.hasChild(id)) {
+                                Toast.makeText(firstscreen.this, "you are logined", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(firstscreen.this, firstscreen.class));
+                                startActivity(new Intent(firstscreen.this, SecondScreen.class));
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                } else {
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
@@ -66,21 +94,6 @@ public class firstscreen extends AppCompatActivity {
                 }
             }
         };
-        session =new SessionManager(firstscreen.this);
-        if (session.isLoggedIn()) {
-
-
-            startActivity(new Intent(firstscreen.this,Home.class));
-            finish();
-
-        }
-
-        if (session.isLoggedInAdmin())
-        {
-            startActivity(new Intent(firstscreen.this,Admin_Activity.class));
-            finish();
-
-        }
 
 
     }
@@ -88,15 +101,16 @@ public class firstscreen extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==RESULT_OK){
-            Toast.makeText(this,"sign in success",Toast.LENGTH_SHORT).show();
+        if (requestCode == RESULT_OK) {
+            Toast.makeText(this, "sign in success", Toast.LENGTH_SHORT).show();
 
-        }else if (requestCode==RESULT_CANCELED){
-            Toast.makeText(this,"sign in failed",Toast.LENGTH_SHORT).show();
+        } else if (requestCode == RESULT_CANCELED) {
+            Toast.makeText(this, "sign in failed", Toast.LENGTH_SHORT).show();
             finish();
         }
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -109,6 +123,7 @@ public class firstscreen extends AppCompatActivity {
         firebaseAuth.removeAuthStateListener(fAuthStateListener);
 
     }
+
     public void goToLogin(View view) {
 //        //Creating the instance of PopupMenu
 //        PopupMenu popup = new PopupMenu(firstscreen.this,view);
@@ -147,7 +162,7 @@ public class firstscreen extends AppCompatActivity {
 //
 //        menuHelper.show();//showing popup menu
 
-        startActivity(new Intent(firstscreen.this,LoginActivity.class).putExtra("type","login"));
+        startActivity(new Intent(firstscreen.this, LoginActivity.class).putExtra("type", "login"));
     }
 
     public void goToSinup(View view) {
@@ -185,7 +200,7 @@ public class firstscreen extends AppCompatActivity {
 //
 //        menuHelper.show();//showing popup menu
 
-        startActivity(new Intent(firstscreen.this,SecondScreen.class).putExtra("type","signup"));
+        startActivity(new Intent(firstscreen.this, SecondScreen.class).putExtra("type", "signup"));
     }
 
 }

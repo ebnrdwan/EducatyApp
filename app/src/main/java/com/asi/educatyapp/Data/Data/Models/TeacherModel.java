@@ -13,6 +13,20 @@ public class TeacherModel {
     private String field;
     private int image ;
     private String num;
+    private String email;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public TeacherModel(String id, String name, String title, String num, String email) {
+
+        this.id = id;
+        this.name = name;
+        Title = title;
+        this.num = num;
+        this.email = email;
+    }
 
     private String imagepath;
     public int getImage() {
@@ -23,11 +37,11 @@ public class TeacherModel {
         this.image = image;
     }
 
-    public TeacherModel(String name, String title, int image) {
-        this.name = name;
-        Title = title;
-        this.image = image;
-    }
+//    public TeacherModel(String name, String title, int image) {
+//        this.name = name;
+//        Title = title;
+//        this.image = image;
+//    }
 
 
 

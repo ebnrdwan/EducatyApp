@@ -51,7 +51,7 @@ public class StudentRegister extends AppCompatActivity implements IPickResult {
         fname= (EditText) findViewById(R.id.fname);
         lname= (EditText) findViewById(R.id.lname);
         username= (EditText) findViewById(R.id.username);
-        studentcode= (EditText) findViewById(R.id.groupcode);
+
         pass= (EditText) findViewById(R.id.pass);
         profilePic= (ImageView) findViewById(R.id.profilePic);
     }

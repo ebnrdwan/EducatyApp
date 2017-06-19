@@ -38,39 +38,7 @@
                     android:layout_gravity="center_vertical"
                     >
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
-                        android:layout_marginTop="50dp"
-                        android:hint="email"
-                        android:id="@+id/emailinput"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        />
-                    </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:id="@+id/passinput"
-                        android:layout_marginTop="10dp"
-                        android:hint="password"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        />
-                    </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -89,40 +57,9 @@
                         />
                     </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:id="@+id/fname"
-                        android:layout_marginTop="10dp"
-                        android:hint="First Name"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        />
-                    </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:layout_marginTop="10dp"
-                        android:hint="Last Name"
-                        android:id="@+id/lname"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        />
 
-                    </android.support.design.widget.TextInputLayout>
+
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -184,6 +121,7 @@
             android:background="@drawable/round_back_h"
             android:text="Done"
             android:textSize="18sp"
+            android:layout_margin="8dp"
             android:textColor="#fff"
             android:layout_alignBottom="@+id/scrollLayout" />
     </RelativeLayout>

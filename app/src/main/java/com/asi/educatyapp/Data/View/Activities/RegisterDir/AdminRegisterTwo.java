@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.asi.educatyapp.Data.View.Activities.AppController;
 import com.asi.educatyapp.Data.View.Activities.CodeOfAdmin;
+import com.asi.educatyapp.Data.View.CustomViews.CircleImageView;
 import com.asi.educatyapp.Data.View.Utils.Constants;
 import com.asi.educatyapp.R;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -37,8 +38,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.asi.educatyapp.Data.View.CustomViews.CircleImageView;
-
 
 public class AdminRegisterTwo extends AppCompatActivity implements IPickResult {
 
@@ -51,8 +50,6 @@ public class AdminRegisterTwo extends AppCompatActivity implements IPickResult {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_register_two);
-        Email= (EditText) findViewById(R.id.emailinput);
-        pass= (EditText) findViewById(R.id.passinput);
         num= (EditText) findViewById(R.id.num);
         school= (EditText) findViewById(R.id.schoolname);
         curriculum= (EditText) findViewById(R.id.curriculum);

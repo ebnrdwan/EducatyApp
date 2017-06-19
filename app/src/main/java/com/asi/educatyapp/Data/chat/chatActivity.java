@@ -99,6 +99,8 @@ public class chatActivity extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
     firebaseDatabase = firebaseDatabase.getInstance();
     databaseReference = firebaseDatabase.getReference().child("messages");
+
+
         storageReference = firebaseStorage.getReference().child("educaty_chat");
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -110,6 +112,8 @@ public class chatActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user!=null){
 
+                    user.getIdToken(true);
+                    user.getDisplayName();
                     onSigned(user.getDisplayName());
                 }
                 else {
