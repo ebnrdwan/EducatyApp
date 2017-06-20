@@ -21,12 +21,13 @@ public class FirebaseUtil {
 
 
 
+
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         final String id = user.getUid();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-         final DatabaseReference databaseReference = firebaseDatabase.getReference().child(url);
-        
+       DatabaseReference databaseReference = firebaseDatabase.getReference(url);
         
       databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
           @Override

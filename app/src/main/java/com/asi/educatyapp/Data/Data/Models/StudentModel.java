@@ -10,13 +10,19 @@ public class StudentModel {
     private String school;
     private String title;
     private int image;
-    private String text;
+    private String id;
 
-    public StudentModel(String name, String text, int image) {
+    public StudentModel(String name, String id, int image) {
         this.name = name;
         this.image = image;
-        this.text = text;
+        this.id = id;
 
+    }
+
+    public StudentModel(String id,String name, String school) {
+        this.name = name;
+        this.school = school;
+        this.id=id;
     }
 
     public StudentModel(String name, int image) {

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/welcomeclass">
+
+    <ImageView
+        android:layout_marginTop="16dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:stateListAnimator="@anim/milkshake"
+        android:tint="@color/colorPrimary"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="32dp">
+        <com.asi.educatyapp.Data.customfonts.MyTextView
+            android:id="@+id/studentLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rect"
+            android:text="Student"
+            android:padding="16dp"
+            android:gravity="center"
+            android:textColor="#fff"/>
+        <com.asi.educatyapp.Data.customfonts.MyTextView
+            android:id="@+id/teacherLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rect2"
+            android:text="Teacher"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_marginLeft="8dp"
+            android:textColor="#fff"/>
+    </LinearLayout>
+</RelativeLayout>
+

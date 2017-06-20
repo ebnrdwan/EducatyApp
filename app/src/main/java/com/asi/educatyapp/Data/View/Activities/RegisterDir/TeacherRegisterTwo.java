@@ -78,9 +78,7 @@ public class TeacherRegisterTwo extends AppCompatActivity  {
         });
     }
 
-
     public void Register() {
-
 
         final ProgressDialog progressDialog;
         progressDialog=new ProgressDialog(this);
@@ -88,8 +86,6 @@ public class TeacherRegisterTwo extends AppCompatActivity  {
         progressDialog.show();
 
       {
-
-
 
         };
         // Adding request to request queue

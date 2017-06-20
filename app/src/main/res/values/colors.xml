@@ -3,8 +3,16 @@
     <color name="colorPrimary">#00bcd4</color>
     <color name="colorPrimaryDark">#00bcd4</color>
     <color name="colorAccent">#ffc640</color>
+    <!--<color name="colorPrimary">#8EC0E4</color>-->
+    <!--<color name="colorPrimaryDark">#6AAFE6</color>-->
+    <!--<color name="colorAccent">#CADBE9</color>-->
     <color name="backConnection">#d4dde6</color>
     <color name="backRecycler">#cbcaca</color>
     <color name="Cbackground">#00B8FE</color>
     <color name="colorTitle">#ffffff</color>
+    <color name="backgroundEditText">#5cffffff</color>
+    <color name="colorAccentDark">#0b1039</color>
+    <color name="pink">#ff7473</color>
+    <color name="colortext">#100b20</color>
+    <color name="colorhint">#a9aaac</color>
 </resources>

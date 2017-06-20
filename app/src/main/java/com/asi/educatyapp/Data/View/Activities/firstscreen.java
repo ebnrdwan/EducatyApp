@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
@@ -50,10 +51,44 @@ public class firstscreen extends AppCompatActivity {
 
                 if (user != null) {
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    final DatabaseReference databaseReference = firebaseDatabase.getReference().child("teachers");
+                    final DatabaseReference teacherDatabaseReference = firebaseDatabase.getReference().child("teachers");
+//                    final DatabaseReference teacherDatabaseReference = firebaseDatabase.getReference();
                     final String id = user.getUid();
 
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    Query reference= firebaseDatabase.getReference().equalTo(id);
+                    if (!reference.equals(null))
+                        Toast.makeText(firstscreen.this,"yaaaaay "+reference.toString(),Toast.LENGTH_SHORT).show();
+
+
+
+                    teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.hasChild(id)) {
+                                Toast.makeText(firstscreen.this, "you are rocket", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(firstscreen.this, firstscreen.class));
+                                startActivity(new Intent(firstscreen.this, Home.class));
+
+
+                            } else if (!dataSnapshot.hasChild(id)) {
+                                Toast.makeText(firstscreen.this, "you are logined", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(firstscreen.this, firstscreen.class));
+                                startActivity(new Intent(firstscreen.this, SecondScreen.class));
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    final DatabaseReference studentDatabaseReference = firebaseDatabase.getReference().child("students");
+//                    final DatabaseReference teacherDatabaseReference = firebaseDatabase.getReference();
+
+
+                    teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 

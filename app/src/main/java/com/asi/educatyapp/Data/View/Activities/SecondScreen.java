@@ -54,10 +54,8 @@ public class SecondScreen extends AppCompatActivity {
                 bundle.putString(userKey, keyy);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
             }
         });
-
         studentReg = (LinearLayout) findViewById(R.id.studentRegid);
         studentReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,15 +64,10 @@ public class SecondScreen extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString(nameEx, name);
                 bundle.putString(numberEx, number);
-                bundle.putString(nameEx, name);
-
-                intent.putExtra(bundleKey, bundle);
+                bundle.putString(userKey, keyy);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-
-
     }
-
-
 }

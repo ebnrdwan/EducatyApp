@@ -28,18 +28,18 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:layout_marginTop="10dp"
-            android:hint="First Name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/fname"
-            />
+
+            <EditText
+                android:id="@+id/fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:hint="First Name"
+                android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -50,17 +50,15 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:layout_marginTop="10dp"
-            android:hint="Last Name"
+            android:hint="School Name"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:id="@+id/lname"
-            />
+            android:id="@+id/school_name" />
 
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <EditText
@@ -74,11 +72,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:id="@+id/username"
-
             />
-
         </android.support.design.widget.TextInputLayout>
-
 
         <Button
             android:id="@+id/Reg_student"

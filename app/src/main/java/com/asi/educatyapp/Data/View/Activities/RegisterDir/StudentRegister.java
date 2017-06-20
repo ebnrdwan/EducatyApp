@@ -3,25 +3,32 @@ package com.asi.educatyapp.Data.View.Activities.RegisterDir;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.asi.educatyapp.Data.Data.Models.StudentModel;
 import com.asi.educatyapp.Data.View.Activities.AppController;
-import com.asi.educatyapp.Data.View.Utils.Constants;
 import com.asi.educatyapp.Data.View.Activities.Home;
+import com.asi.educatyapp.Data.View.Activities.SecondScreen;
+import com.asi.educatyapp.Data.View.Utils.Constants;
 import com.asi.educatyapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.vansuita.pickimage.EPickTypes;
 import com.vansuita.pickimage.PickImageDialog;
@@ -37,64 +44,93 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class StudentRegister extends AppCompatActivity implements IPickResult {
 
-    EditText fname,lname,username,studentcode,pass;
+    EditText fname, schoo_name, username, studentcode, pass;
     ImageView profilePic;
     private String base64_encoded;
+    Button regist;
+    private String name, number, email, key;
+    FirebaseDatabase firebaseDatabase;
+
+
+    DatabaseReference teachersDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_register);
-        fname= (EditText) findViewById(R.id.fname);
-        lname= (EditText) findViewById(R.id.lname);
-        username= (EditText) findViewById(R.id.username);
+        fname = (EditText) findViewById(R.id.fname);
+        schoo_name = (EditText) findViewById(R.id.school_name);
+        username = (EditText) findViewById(R.id.username);
+        pass = (EditText) findViewById(R.id.pass);
+        profilePic = (ImageView) findViewById(R.id.profilePic);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        name = bundle.getString(SecondScreen.nameEx);
+        email = bundle.getString(SecondScreen.emailEx);
+        key = bundle.getString(SecondScreen.userKey);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        teachersDatabaseReference = firebaseDatabase.getReference("students");
+        regist = (Button) findViewById(R.id.Reg_student);
+        regist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StudentModel model = new StudentModel(key, name, schoo_name.getText().toString());
+                teachersDatabaseReference.child(key).setValue(model)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(StudentRegister.this, "regitered students", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(StudentRegister.this, Home.class));
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(StudentRegister.this, "faild regist student" + e, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
-        pass= (EditText) findViewById(R.id.pass);
-        profilePic= (ImageView) findViewById(R.id.profilePic);
+
     }
 
     public void MoveToHome(View view) {
         StudentRegister();
     }
 
-    public void StudentRegister()
-    {
+    public void StudentRegister() {
 
         final ProgressDialog progressDialog;
-        progressDialog=new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
 
+
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                Constants.BASEURL+"StudentRegister.php", new Response.Listener<String>() {
+                Constants.BASEURL + "StudentRegister.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //here is the response of server
 
-                Log.e("ERROR==>",response);
+                Log.e("ERROR==>", response);
                 progressDialog.dismiss();
                 try {
-                    JSONObject ob =new JSONObject(response);
+                    JSONObject ob = new JSONObject(response);
 
-                    String isLogin= ob.getString("isExist");
+                    String isLogin = ob.getString("isExist");
 
-                    if(isLogin.equals("1"))
-                    {
+                    if (isLogin.equals("1")) {
 
 
-                        Toast.makeText(StudentRegister.this,"User Exist",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(StudentRegister.this,Home.class));
-                    }else if(isLogin.equals("0"))
-                    {
-                        Toast.makeText(StudentRegister.this,"New Account Added",Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
+                        Toast.makeText(StudentRegister.this, "User Exist", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(StudentRegister.this, Home.class));
+                    } else if (isLogin.equals("0")) {
+                        Toast.makeText(StudentRegister.this, "New Account Added", Toast.LENGTH_LONG).show();
+                    } else {
                         //  Constant.showAlertDialog("Oops!",message,R.drawable.info,Login.this);
-                        Toast.makeText(StudentRegister.this,"There are an error try again later",Toast.LENGTH_LONG).show();
+                        Toast.makeText(StudentRegister.this, "There are an error try again later", Toast.LENGTH_LONG).show();
                     }
 
                 } catch (JSONException e) {
@@ -119,11 +155,11 @@ public class StudentRegister extends AppCompatActivity implements IPickResult {
 //                HashMap<String, String> user = db.getUserDetails();
 //                String id = user.get("uid");
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name",fname.getText().toString()+" "+lname.getText().toString());
-                params.put("username",username.getText().toString());
-                params.put("pass",pass.getText().toString());
-                params.put("base",base64_encoded);
-                params.put("groupcode",studentcode.getText().toString());
+                params.put("name", fname.getText().toString() + " " + schoo_name.getText().toString());
+                params.put("username", username.getText().toString());
+                params.put("pass", pass.getText().toString());
+                params.put("base", base64_encoded);
+                params.put("groupcode", studentcode.getText().toString());
                 params.put("token", FirebaseInstanceId.getInstance().getToken());
                 return params;
             }
@@ -163,10 +199,9 @@ public class StudentRegister extends AppCompatActivity implements IPickResult {
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             r.getBitmap().compress(Bitmap.CompressFormat.PNG, 70, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream .toByteArray();
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
             base64_encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
             profilePic.setImageBitmap(r.getBitmap());
-
 
 
         } else {
