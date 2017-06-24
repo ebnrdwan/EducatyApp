@@ -20,6 +20,7 @@ public class teacher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myteacherlogin);
 
+
         remember = (CheckBox)findViewById(R.id.remember);
 
         fonts1 =  Typeface.createFromAsset(teacher.this.getAssets(),

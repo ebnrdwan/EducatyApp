@@ -32,4 +32,6 @@
     <string name="or">OR</string>
     <string name="fb_icon">Facebook icon</string>
     <string name="instagram_icon">Instagram Icon</string>
+    <string name="signup">Sign Up </string>
+
 </resources>

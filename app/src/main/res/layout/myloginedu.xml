@@ -13,6 +13,7 @@
         android:tint="@color/colorPrimary"
         android:layout_centerHorizontal="true"/>
     <LinearLayout
+        android:id="@+id/loginglogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -20,7 +21,7 @@
         android:gravity="bottom"
         android:layout_marginRight="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginBottom="32dp">
+        android:layout_marginBottom="72dp">
         <com.asi.educatyapp.Data.customfonts.MyTextView
             android:id="@+id/studentLogin"
             android:layout_width="0dp"
@@ -43,5 +44,15 @@
             android:layout_marginLeft="8dp"
             android:textColor="#fff"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/signuptext"
+        android:text="@string/signup"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"/>
 </RelativeLayout>
 

@@ -18,7 +18,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
@@ -55,12 +54,6 @@ public class firstscreen extends AppCompatActivity {
 //                    final DatabaseReference teacherDatabaseReference = firebaseDatabase.getReference();
                     final String id = user.getUid();
 
-                    Query reference= firebaseDatabase.getReference().equalTo(id);
-                    if (!reference.equals(null))
-                        Toast.makeText(firstscreen.this,"yaaaaay "+reference.toString(),Toast.LENGTH_SHORT).show();
-
-
-
                     teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -87,6 +80,29 @@ public class firstscreen extends AppCompatActivity {
                     final DatabaseReference studentDatabaseReference = firebaseDatabase.getReference().child("students");
 //                    final DatabaseReference teacherDatabaseReference = firebaseDatabase.getReference();
 
+                    studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.hasChild(id)) {
+                                Toast.makeText(firstscreen.this, "you are rocket", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(firstscreen.this, firstscreen.class));
+                                startActivity(new Intent(firstscreen.this, Home.class));
+
+
+                            } else if (!dataSnapshot.hasChild(id)) {
+                                Toast.makeText(firstscreen.this, "you are logined", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(firstscreen.this, firstscreen.class));
+                                startActivity(new Intent(firstscreen.this, SecondScreen.class));
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
 
                     teacherDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -149,14 +165,13 @@ public class firstscreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        firebaseAuth.addAuthStateListener(fAuthStateListener);
+//        firebaseAuth.addAuthStateListener(fAuthStateListener);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        firebaseAuth.removeAuthStateListener(fAuthStateListener);
-
+//        firebaseAuth.removeAuthStateListener(fAuthStateListener);
     }
 
     public void goToLogin(View view) {
