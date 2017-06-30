@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asi.educatyapp.Data.customfonts.LoginEdu"
+    tools:context="com.asi.educatyapp.Data.View.Activities.userAccount.LoginEdu"
     android:background="#fff">
 
 

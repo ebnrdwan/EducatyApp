@@ -26,7 +26,7 @@
             app:statusBarScrim="@color/colorPrimary">
 
             <LinearLayout
-                android:background="@drawable/teach"
+                android:background="@drawable/back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
@@ -39,12 +39,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HI!"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/background_dark"
                     android:textSize="30dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvDesc"
+                    android:textColor="#000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -59,6 +60,7 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <ImageView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="BackTOMAin"
@@ -85,6 +87,7 @@
         app:targetAlpha="1"
         android:id="@+id/tvUserName"
         app:targetY="0dp" />
+
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/ns"
@@ -150,12 +153,12 @@
                 android:weightSum="3">
 
                 <LinearLayout
+                    android:id="@+id/connectionLyout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/connectionLyout"
-                    android:padding="3dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="3dp">
 
                     <TextView
                         android:id="@+id/textView"
@@ -185,10 +188,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/Badges"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/Badges"
                     android:orientation="vertical">
 
                     <TextView
@@ -218,10 +221,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/Skills"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/Skills"
                     android:orientation="vertical">
 
                     <TextView
@@ -258,7 +261,6 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
 
     <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
         android:id="@+id/ProfilePic"

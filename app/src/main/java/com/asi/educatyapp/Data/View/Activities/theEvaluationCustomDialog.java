@@ -6,11 +6,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.R;
 
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
 import com.asi.educatyapp.Data.View.Fragments.Admin_inactive_2;
-import com.asi.educatyapp.Data.View.Fragments.Groups;
 
 public class theEvaluationCustomDialog extends AppCompatActivity {
 
@@ -29,9 +29,9 @@ public class theEvaluationCustomDialog extends AppCompatActivity {
 
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragments(new Groups(), "Positive behavior ");
+        pagerAdapter.addFragments(new GroupsF(), "Positive behavior ");
         pagerAdapter.addFragments(new Admin_inactive_2(), "To work in");
-        pagerAdapter.addFragments(new Groups(), "Grades");
+        pagerAdapter.addFragments(new GroupsF(), "Grades");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

@@ -45,7 +45,7 @@ public class Admin_Activity extends AppCompatActivity {
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new Admin_active_1(), "Active");
         pagerAdapter.addFragments(new Admin_inactive_2(), "Waiting");
-        pagerAdapter.addFragments(new AdminGroups(), "Groups");
+        pagerAdapter.addFragments(new AdminGroups(), "GroupsF");
         pagerAdapter.addFragments(new ProgressF(), "Progress");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

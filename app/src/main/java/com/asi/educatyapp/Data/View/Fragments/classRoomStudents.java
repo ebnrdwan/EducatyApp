@@ -11,15 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.asi.educatyapp.R;
-import com.asi.educatyapp.Data.View.Activities.theEvaluationCustomDialog;
-
-import java.util.ArrayList;
-
-
-import com.asi.educatyapp.Data.View.Adapters.classroomAdapter;
 import com.asi.educatyapp.Data.Data.Models.StudentModel;
 import com.asi.educatyapp.Data.Utility.itemclickforRecycler;
+import com.asi.educatyapp.Data.View.Activities.theEvaluationCustomDialog;
+import com.asi.educatyapp.Data.View.Adapters.classroomAdapter;
+import com.asi.educatyapp.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,12 +37,12 @@ public class classRoomStudents extends Fragment  {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_class_room_students, container, false);
         StudentList =new ArrayList<>();
-        StudentList.add(new StudentModel("Abdulrhman1", R.drawable.my));
-        StudentList.add(new StudentModel("Anwar1", R.drawable.mypic));
-        StudentList.add(new StudentModel("Abdulrhman2", R.drawable.my));
-        StudentList.add(new StudentModel("Anwar2", R.drawable.mypic));
-        StudentList.add(new StudentModel("Abdulrhman3", R.drawable.my));
-        StudentList.add(new StudentModel("Anwar3", R.drawable.mypic));
+//        StudentList.add(new StudentModel("Abdulrhman1", R.drawable.my));
+//        StudentList.add(new StudentModel("Anwar1", R.drawable.mypic));
+//        StudentList.add(new StudentModel("Abdulrhman2", R.drawable.my));
+//        StudentList.add(new StudentModel("Anwar2", R.drawable.mypic));
+//        StudentList.add(new StudentModel("Abdulrhman3", R.drawable.my));
+//        StudentList.add(new StudentModel("Anwar3", R.drawable.mypic));
         myrecylcer = (RecyclerView) rootView.findViewById(R.id.recyclerStudentClassroom);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         Log.d("Recycler Teacher",myrecylcer.toString());

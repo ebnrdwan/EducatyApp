@@ -9,21 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.asi.educatyapp.Data.Data.Models.GroupsModel;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import com.asi.educatyapp.Data.Data.Models.groupsModel;
 
 
+public class GroupsAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-public class groupsAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    ArrayList<groupsModel> arrayList;
+    ArrayList<GroupsModel> arrayList;
     Context context;
 
-    public groupsAdpter(Context context, ArrayList<groupsModel> arrayList) {
+    public GroupsAdpter(Context context, ArrayList<GroupsModel> arrayList) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -40,7 +39,7 @@ public class groupsAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Typeface typefacee=Typeface.createFromAsset(context.getAssets(),"fonts/Font-Bold.otf");
 
             genericViewHolder.info1.setText(arrayList.get(position).getName());
-            Glide.with(context).load(arrayList.get(position).getPath()).into(genericViewHolder.Gpic);
+            Glide.with(context).load(arrayList.get(position).getPath()).placeholder(R.drawable.back).into(genericViewHolder.Gpic);
 
          }
     }
@@ -57,7 +56,6 @@ public class groupsAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
     class GenericViewHolder extends RecyclerView.ViewHolder {
-
         TextView info1;
         ImageView Gpic;
         //ImageView fb,logo;

@@ -6,100 +6,78 @@ package com.asi.educatyapp.Data.Data.Models;
 
 public class TeacherModel {
 
-    private String id ;
+
     private String name;
-    private String Title;
-    private String school;
-    private String field;
-    private int image ;
-    private String num;
+    private String password;
+    private String feild;
+    private String title;
+    private String image ;
+    private String idusername;
     private String email;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public TeacherModel(String id, String name, String title, String num, String email) {
-
-        this.id = id;
+    public TeacherModel(String email,String password, String name, String title,String feild,  String idusername ,String image) {
+        this.password = password;
         this.name = name;
-        Title = title;
-        this.num = num;
+        this.feild = feild;
         this.email = email;
-    }
-
-    private String imagepath;
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
         this.image = image;
+        this.title=title;
+        this.idusername = idusername;
     }
 
-//    public TeacherModel(String name, String title, int image) {
-//        this.name = name;
-//        Title = title;
-//        this.image = image;
-//    }
-
-
-
-    public TeacherModel(String id, String name, String title, String school, String field,String num ,String imagepath) {
-        this.id = id;
-        this.name = name;
-        Title = title;
-        this.school = school;
-        this.field = field;
-        this.imagepath = imagepath;
-        this.num=num;
-    }
-
-    public String getNum() {
-        return num;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getImagepath() {
-        return imagepath;
-    }
-
-    public String getTitle() {
-        return Title;
-    }
-
-    public void setTitle(String title) {
-        Title = title;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getSchool() {
-        return school;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSchool(String school) {
-        this.school = school;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getField() {
-        return field;
+    public String getFeild() {
+        return feild;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setFeild(String feild) {
+        this.feild = feild;
     }
 
-    public TeacherModel(String name) {
-        this.name = name;
+    public String getTitle() {
+        return title;
     }
 
-    public String getName() {
-        return name;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getIdusername() {
+        return idusername;
+    }
+
+    public void setIdusername(String idusername) {
+        this.idusername = idusername;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

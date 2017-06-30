@@ -6,28 +6,38 @@ package com.asi.educatyapp.Data.Data.Models;
 
 public class StudentModel {
 
+    private String password;
     private String name;
     private String school;
-    private String title;
-    private int image;
-    private String id;
+    private String email;
+    private String image;
+    private String idusername;
 
-    public StudentModel(String name, String id, int image) {
-        this.name = name;
-        this.image = image;
-        this.id = id;
-
-    }
-
-    public StudentModel(String id,String name, String school) {
+    //constructors
+    public StudentModel(String email,String password, String name, String school,  String idusername ,String image) {
+        this.password = password;
         this.name = name;
         this.school = school;
-        this.id=id;
+        this.email = email;
+        this.image = image;
+        this.idusername = idusername;
     }
 
-    public StudentModel(String name, int image) {
+    public StudentModel( String idusername,String name, String school, String email, String image) {
         this.name = name;
+        this.school = school;
+        this.email = email;
         this.image = image;
+        this.idusername = idusername;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -46,26 +56,27 @@ public class StudentModel {
         this.school = school;
     }
 
-    public String getTitle() {
-        return title;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
-    public StudentModel(String name, String school, String title, int image) {
-        this.name = name;
-        this.school = school;
-        this.title = title;
-        this.image = image;
+    public String getIdusername() {
+        return idusername;
+    }
+
+    public void setIdusername(String idusername) {
+        this.idusername = idusername;
     }
 }

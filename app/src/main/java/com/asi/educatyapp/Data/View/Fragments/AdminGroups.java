@@ -15,10 +15,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
+import com.asi.educatyapp.Data.Data.Models.GroupsModel;
+import com.asi.educatyapp.Data.Utility.itemclickforRecycler;
 import com.asi.educatyapp.Data.View.Activities.AppController;
+import com.asi.educatyapp.Data.View.Activities.theGroup;
+import com.asi.educatyapp.Data.View.Adapters.GroupsAdpter;
 import com.asi.educatyapp.Data.View.Utils.Constants;
 import com.asi.educatyapp.R;
-import com.asi.educatyapp.Data.View.Activities.theGroup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,17 +32,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.asi.educatyapp.Data.View.Adapters.groupsAdpter;
-import com.asi.educatyapp.Data.Data.Models.groupsModel;
-import com.asi.educatyapp.Data.Utility.itemclickforRecycler;
-import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AdminGroups extends Fragment {
-    ArrayList<groupsModel> GroupModels = new ArrayList<>();
+    ArrayList<GroupsModel> GroupModels = new ArrayList<>();
     private View view;
 
     RecyclerView rvGroups;
@@ -65,7 +64,7 @@ public class AdminGroups extends Fragment {
         {
             showData();
         }else {
-            groupsAdpter homeAdpter = new groupsAdpter(getActivity(), GroupModels);
+            GroupsAdpter homeAdpter = new GroupsAdpter(getActivity(), GroupModels);
             rvGroups.setLayoutManager(new GridLayoutManager(getActivity(),2));
             rvGroups.setAdapter(homeAdpter);
         }
@@ -90,7 +89,7 @@ public class AdminGroups extends Fragment {
 
                 try {
                     JSONObject ob= new JSONObject(response);
-                    JSONArray array=ob.getJSONArray("Groups");
+                    JSONArray array=ob.getJSONArray("GroupsF");
                     int count=0;
                     while (count<array.length())
                     {
@@ -102,13 +101,13 @@ public class AdminGroups extends Fragment {
                         String path = object.getString("path");
 
 
-                        GroupModels.add(new groupsModel(id,schoolid,name,Constants.BASEURL+path));
+                        GroupModels.add(new GroupsModel(id,schoolid,name,Constants.BASEURL+path));
                         count++;
                     }
 
                     rvGroups.setNestedScrollingEnabled(false);
 
-                    groupsAdpter homeAdpter = new groupsAdpter(getActivity(), GroupModels);
+                    GroupsAdpter homeAdpter = new GroupsAdpter(getActivity(), GroupModels);
                     rvGroups.setLayoutManager(new GridLayoutManager(getActivity(),2));
                     rvGroups.setAdapter(homeAdpter);
                 } catch (JSONException e) {

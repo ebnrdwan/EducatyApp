@@ -1,42 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_groups"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:frisson="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.asi.educatyapp.Data.View.Activities.Groups"
-    android:orientation="vertical">
-
-    <RelativeLayout
+    android:layout_height="match_parent">
+    <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
+        android:id="@+id/ProfilePic"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="50dp"
+        android:elevation="10dp"
+        android:src="@drawable/mypic"
+        app:dependTargetY="-176dp"
+        app:dependType="y"
+        app:dependsOn="@+id/app_bar_layout"
+        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+        app:targetHeight="40dp"
+        app:targetWidth="40dp"
+        app:targetX="16dp"
+        app:targetY="8dp" />
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        app:elevation="0dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/back">
-        <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:src="@drawable/mypic"
-            android:layout_centerInParent="true"/>
-        <TextView
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Anwar Samir"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:layout_below="@+id/imageView"/>
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="?attr/colorPrimary">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
 
 
-    </RelativeLayout>
-    <GridLayout
+
+            </android.support.v7.widget.Toolbar>
+            <RelativeLayout
+                android:id="@+id/activity_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.example.android.prolib.FrissonView
+                    android:id="@+id/wave_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:scaleType="centerCrop"
+                    frisson:tideCount="3"
+                    frisson:src="@drawable/back"
+                    frisson:tideHeight="40dp"
+                    frisson:alphaValue="40"
+                    frisson:autoTint="true"/>
+
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="48dp"
+                    android:background="@drawable/ic_edit" />
+
+
+
+                    <ImageView
+                        android:id="@+id/imagegroup"
+                        app:layout_behavior="com.zoonref.SimpleViewBehavior"
+                        app:layout_collapseMode="pin"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerCrop"
+                       />
+
+
+
+
+                <TextView
+
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="28dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/imagegroup"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Abdulrhman"
+                    android:gravity="center"
+                    android:textColor="#ccffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name"
+                    android:layout_marginLeft="28dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:text="UI/UX Designer | Android Developer"
+                    android:textColor="#aaffffff" />
+
+
+
+
+
+            </RelativeLayout>
+
+
+            <View
+                android:id="@+id/backtoolbar"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/ic_arrow_back_white_24dp" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbargroup"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" >
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </GridLayout>
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/groufrag"></FrameLayout>
 
-</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        app:elevation="6dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:pressedTranslationZ="12dp"
+        android:src="@drawable/add_vector"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|right|end"/>
+</android.support.design.widget.CoordinatorLayout>

@@ -1,170 +1,151 @@
 package com.asi.educatyapp.Data.View.Activities;
 
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.Data.Data.Models.GroupsModel;
 import com.asi.educatyapp.R;
-import com.vansuita.pickimage.EPickTypes;
-import com.vansuita.pickimage.PickImageDialog;
-import com.vansuita.pickimage.PickSetup;
-import com.vansuita.pickimage.bean.PickResult;
-import com.vansuita.pickimage.listeners.IPickResult;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+public class AddNewGroup extends AppCompatActivity {
 
-import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
-
-public class AddNewGroup extends AppCompatActivity  implements IPickResult {
-
+    private static final int RC_PHOTO_PICKER = 2;
     EditText Gname;
     ImageView Gpic;
     private String base64_encoded;
+    FirebaseDatabase firebaseDatabase;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    Uri downloadPhoto;
+    private String name, email, key, password, school, groupname;
+
+    // Firebase Variables
+    DatabaseReference groupsDatabaseReference;
+    FirebaseStorage firebaseStorage;
+    StorageReference groupPhotoReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_group);
-        Gname= (EditText) findViewById(R.id.etGroupName);
-        Gpic= (ImageView) findViewById(R.id.ivGroup);
-    }
+        Gname = (EditText) findViewById(R.id.etGroupName);
+        Gpic = (ImageView) findViewById(R.id.ivGroup);
+        groupname = Gname.getText().toString();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase =FirebaseDatabase.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+//        user = firebaseAuth.getCurrentUser();
 
-    public void AddGroupPost(View view) {
-        PickSetup setup = new PickSetup();
+        
+        groupsDatabaseReference = firebaseDatabase.getReference("Groups");
+        groupPhotoReference = firebaseStorage.getReference().child("group_photo");
 
-        //setup.setBackgroundColor(yourColor);
-        //setup.setTitle(yourTitle);
-        //setup.setDimAmount(yourFloat);
-        //setup.setTitleColor(yourColor);
-        //setup.setFlip(true);
-        //setup.setCancelText("Test");
-        //setup.setImageSize(500);
-        setup.setPickTypes(EPickTypes.GALERY);
-        //setup.setProgressText("Loading...");
-        //setup.setProgressTextColor(Color.BLUE);
-
-
-        PickImageDialog.on(AddNewGroup.this, setup);
-
-    }
-
-    public void AddPost(View view) {
-        AddPost();
-    }
-
-
-    public void AddPost()
-    {
-
-
-        final ProgressDialog progressDialog;
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait");
-        progressDialog.show();
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                Constants.BASEURL+"AddGroup.php", new Response.Listener<String>() {
+        Gpic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-                //here is the response of server
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/jpeg");
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+            }
+        });
 
-                progressDialog.dismiss();
-                try {
-                    JSONObject ob =new JSONObject(response);
+        Button addGroup = (Button) findViewById(R.id.add_group);
+        addGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(groupname)){
+                            Gname.setError("choose another groupname");
+                            Toast.makeText(AddNewGroup.this, "choose another groupname", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
 
-                    String isLogin= ob.getString("status");
+//                    key = user.getUid();
+                            int i=1;
 
+                            key=String.valueOf(i);
+                            i++;
 
-                    if(isLogin.equals("1"))
-                    {
-
-
-                        Toast.makeText(AddNewGroup.this,"New Group added",Toast.LENGTH_LONG).show();
-                        finish();
-
-
-                    }else if(isLogin.equals("0"))
-                    {
-                        Toast.makeText(AddNewGroup.this,"There is an error",Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        //  Constant.showAlertDialog("Oops!",message,R.drawable.info,Login.this);
-                        Toast.makeText(AddNewGroup.this,"There are an error try again later",Toast.LENGTH_LONG).show();
+                            if (downloadPhoto == null) {
+                                downloadPhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/profile_photo%2F31610-NYB3MB.jpg?alt=media&token=92d86e46-d9de-4eec-8f22-9d73f3f297db");
+                            }
+                            GroupsModel model = new GroupsModel(key,groupname,downloadPhoto.toString());
+                            groupsDatabaseReference.child(groupname).setValue(model)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(AddNewGroup.this, "saved group", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(AddNewGroup.this, Home.class));
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddNewGroup.this, "faild create group" + e, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) { }
+                });
             }
+        });
 
-
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                progressDialog.dismiss();
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Calendar c = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String formattedDate = df.format(c.getTime());
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("name",Gname.getText().toString());
-               // params.put("tid",new SQLiteHandler(getApplicationContext()).getUserDetails().get("uid"));
-                params.put("base",base64_encoded);
-                params.put("schoolid",new SQLiteHandler(getApplicationContext()).getUserDetails().get("uid"));
-                return params;
-            }
-
-        };
-        // Adding request to request queue
-        int socketTimeout = 30000;//30 seconds - change to what you want
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        strReq.setRetryPolicy(policy);
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, "tag");
     }
+
+
     @Override
-    public void onPickResult(PickResult r) {
-        if (r.getError() == null) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            r.getBitmap().compress(Bitmap.CompressFormat.PNG, 70, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream .toByteArray();
-            base64_encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            Gpic.setImageBitmap(r.getBitmap());
+        if (requestCode == RC_PHOTO_PICKER) {
+            final Uri uriImage = data.getData();
+            groupPhotoReference = groupPhotoReference.child(uriImage.getLastPathSegment());
+            Glide.with(AddNewGroup.this)
+                    .load(uriImage)
+                    .into(Gpic);
 
+            groupPhotoReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(AddNewGroup.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                    downloadPhoto = taskSnapshot.getDownloadUrl();
 
-
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(AddNewGroup.this, "failed to upload", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
-            Log.e("ERROR==>",r.getError().getMessage());
+            Toast.makeText(AddNewGroup.this, "error photo picker", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 }

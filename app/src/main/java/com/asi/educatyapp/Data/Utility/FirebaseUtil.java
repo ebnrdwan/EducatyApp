@@ -10,12 +10,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 /**
  * Created by Abdulrhman on 19/06/2017.
  */
 
 public class FirebaseUtil {
  public     boolean childStatus =false;
+  static   HashMap<String, String> groupmap = new HashMap<>();
+
+    public static HashMap<String, String> getGroupmap() {
+        return groupmap;
+    }
+
+
+
     // get user status
     public static boolean isUserLogined(String url) {
 
@@ -81,6 +91,20 @@ public class FirebaseUtil {
             }
         });
         return id.toString();
+    }
+
+    public static void SetGroupsMap(String UsedName, String key) {
+        if (groupmap.containsKey(UsedName)){
+          //do nothing for now
+        }
+        else {
+            groupmap.put(UsedName, key);
+
+        }
+    }
+
+    public static String getGroupmap(String usedname){
+      return   groupmap.get(usedname);
     }
 
 }

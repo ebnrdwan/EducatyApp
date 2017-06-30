@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:background="@drawable/welcomeclass">
 
-    <ImageView
-        android:layout_marginTop="16dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/logo"
-        android:stateListAnimator="@anim/milkshake"
+    <!--<ImageView-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:src="@drawable/logo"-->
+        <!---->
+        <!--android:stateListAnimator="@anim/milkshake"-->
+        <!--android:tint="@color/colorPrimary"-->
+        <!--android:layout_centerHorizontal="true"/>-->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:lottie_fileName="layers.json"
         android:tint="@color/colorPrimary"
-        android:layout_centerHorizontal="true"/>
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true" />
+    <TextView
+        android:text="Educaty"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_below="@+id/animation_view"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
     <LinearLayout
         android:id="@+id/loginglogin"
         android:layout_width="match_parent"

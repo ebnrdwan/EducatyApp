@@ -34,11 +34,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/imageactivation"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/black"
                 tools:text="ICDL Technology specialist"
-                android:layout_toRightOf="@+id/imageactivation" />
+                 />
 
 
             <ImageButton

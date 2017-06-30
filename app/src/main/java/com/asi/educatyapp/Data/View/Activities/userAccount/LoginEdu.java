@@ -1,4 +1,4 @@
-package com.asi.educatyapp.Data.customfonts;
+package com.asi.educatyapp.Data.View.Activities.userAccount;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.asi.educatyapp.Data.View.Activities.SecondScreen;
+import com.asi.educatyapp.Data.customfonts.MyTextView;
 import com.asi.educatyapp.R;
 
 ;
@@ -21,6 +22,7 @@ public class LoginEdu extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myloginedu);
+
 
         student = (MyTextView) findViewById(R.id.studentLogin);
         teacher = (MyTextView) findViewById(R.id.teacherLogin);
@@ -54,8 +56,6 @@ public class LoginEdu extends AppCompatActivity  {
 
             }
         });
-
-
 
     }
 

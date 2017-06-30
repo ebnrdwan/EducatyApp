@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -23,22 +22,22 @@ import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
 import com.asi.educatyapp.Data.Data.helper.SessionManager;
 import com.asi.educatyapp.Data.Utility.CustomTypefaceSpan;
 import com.asi.educatyapp.Data.View.Activities.loginDir.LoginActivity;
-import com.asi.educatyapp.Data.View.Fragments.Groups;
+import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
 import com.asi.educatyapp.Data.View.Fragments.TimeLine;
-import com.asi.educatyapp.Data.View.Utils.Constants;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Home extends AppCompatActivity {
     Toolbar toolbar;
@@ -49,7 +48,7 @@ public class Home extends AppCompatActivity {
     private Menu m;
     private SessionManager session;
     private SQLiteHandler db;
-    private FloatingActionButton floatingActionButton;
+
 
 
     @Override
@@ -84,11 +83,13 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         Glide
                 .with(Home.this)
-                .load(Constants.BASEURL+new SQLiteHandler(getApplicationContext()).getUserDetails().get("path"))
+                .load(user.getPhotoUrl())
                 .centerCrop()
-                .placeholder(R.drawable.logo)
+                .placeholder(R.drawable.mypic)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ImageProfile);
@@ -101,19 +102,6 @@ public class Home extends AppCompatActivity {
         }
 
 
-        floatingActionButton= (FloatingActionButton) findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (new SQLiteHandler(getApplicationContext()).getUserDetails().get("type").equals("teacher")) {
-                    startActivity(new Intent(Home.this, AddHomePosts.class));
-                }else
-                {
-                    Toast.makeText(getApplicationContext(),"Only Teacher Allowed to Add Posts",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
         /**  to change font for app*/
         m = navigationView.getMenu();
@@ -187,7 +175,7 @@ public class Home extends AppCompatActivity {
         }
 
         else if (id == R.id.nav_groups) {
-            Fragment homeFragment = new Groups();
+            Fragment homeFragment = new GroupsF();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.contaner, homeFragment, null);
             fragmentTransaction.commit();

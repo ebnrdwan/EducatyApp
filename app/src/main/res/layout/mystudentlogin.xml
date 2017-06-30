@@ -171,13 +171,15 @@
 
 
         <com.asi.educatyapp.Data.customfonts.MyTextView
-            android:id="@+id/or"
+            android:id="@+id/orrigest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/acc"
             android:gravity="center"
-            android:lines="1"
-            android:text="or"
+            android:layout_margin="8dp"
+            android:lines="2"
+            android:textStyle="bold"
+            android:text="Or Register?"
             android:textColor="@color/colorhint" />
 
     </LinearLayout>
@@ -189,6 +191,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linear"
         android:layout_marginBottom="16dp"
+
         android:orientation="horizontal">
 
         <LinearLayout

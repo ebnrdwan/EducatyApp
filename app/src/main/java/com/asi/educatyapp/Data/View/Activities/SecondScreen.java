@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.asi.educatyapp.Data.View.Activities.RegisterDir.StudentRegister;
-import com.asi.educatyapp.Data.View.Activities.RegisterDir.TeacherRegisterTwo;
+import com.asi.educatyapp.Data.View.Activities.userAccount.StudentRegister;
+import com.asi.educatyapp.Data.View.Activities.userAccount.TeacherRegister;
 import com.asi.educatyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,7 +46,7 @@ public class SecondScreen extends AppCompatActivity {
         teacherReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(SecondScreen.this, TeacherRegisterTwo.class);
+                intent = new Intent(SecondScreen.this, TeacherRegister.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(nameEx, name);
                 bundle.putString(numberEx, number);

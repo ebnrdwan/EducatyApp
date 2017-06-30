@@ -16,10 +16,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.asi.educatyapp.Data.Data.Models.TeacherModel;
 import com.asi.educatyapp.Data.View.Activities.AppController;
 import com.asi.educatyapp.Data.View.Utils.Constants;
 import com.asi.educatyapp.R;
-import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,8 +27,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.asi.educatyapp.Data.Data.Models.TeacherModel;
 
 
 /**
@@ -61,11 +59,11 @@ public class deActivateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Typeface typeface=Typeface.createFromAsset(context.getAssets(),"fonts/Font-Regular.otf");
             Typeface typefacee=Typeface.createFromAsset(context.getAssets(),"fonts/Font-Bold.otf");
 
-            genericViewHolder.name.setText(arrayList.get(position).getName());
-            genericViewHolder.name.setTypeface(typefacee);
-            genericViewHolder.title.setText(arrayList.get(position).getTitle()+" in "+arrayList.get(position).getSchool());
-            genericViewHolder.title.setTypeface(typefacee);
-            Glide.with(context).load(arrayList.get(position).getImagepath()).into(genericViewHolder.picture);
+//            genericViewHolder.name.setText(arrayList.get(position).getName());
+//            genericViewHolder.name.setTypeface(typefacee);
+//            genericViewHolder.title.setText(arrayList.get(position).getTitle()+" in "+arrayList.get(position).getSchool());
+//            genericViewHolder.title.setTypeface(typefacee);
+////            Glide.with(context).load(arrayList.get(position).getImagepath()).into(genericViewHolder.picture);
 
             genericViewHolder.deactivate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,7 +113,7 @@ public class deActivateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<String, String>();
                             params.put("active","0");
-                            params.put("id",arrayList.get(position).getId());
+//                            params.put("id",arrayList.get(position).getId());
                             return params;
                         }
 

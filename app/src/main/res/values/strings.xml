@@ -33,5 +33,10 @@
     <string name="fb_icon">Facebook icon</string>
     <string name="instagram_icon">Instagram Icon</string>
     <string name="signup">Sign Up </string>
+    <string name="hodlername">Abdulrahman</string>
+    <string name="classattendance">Math Attendance</string>
+    <string name="teacher_name">Mr.Ali</string>
+    <string name="footer_button_close">Close</string>
+    <string name="footer_button_confirm">Confirm</string>
 
 </resources>

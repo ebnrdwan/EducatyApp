@@ -231,7 +231,7 @@ public class firstscreen extends AppCompatActivity {
 //
 //                if(item.getItemId()==R.id.Teacher)
 //                {
-//                    startActivity(new Intent(firstscreen.this,TeacherRegisterTwo.class));
+//                    startActivity(new Intent(firstscreen.this,TeacherRegister.class));
 //                }else if(item.getItemId()==R.id.Parent)
 //                {
 //                    startActivity(new Intent(firstscreen.this,ParentRegister.class));

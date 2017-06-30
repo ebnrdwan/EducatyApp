@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.asi.educatyapp.Data.View.Activities.userAccount.TeacherRegister;
 import com.asi.educatyapp.R;
 import com.vansuita.pickimage.EPickTypes;
 import com.vansuita.pickimage.PickImageDialog;
@@ -38,7 +39,7 @@ public class TeacherRegisterOne extends AppCompatActivity implements IPickResult
         RegistTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(TeacherRegisterOne.this,TeacherRegisterTwo.class);
+                Intent intent=new Intent(TeacherRegisterOne.this,TeacherRegister.class);
                 intent.putExtra("base",base64_encoded);
                 intent.putExtra("email",Email.getText().toString());
                 intent.putExtra("pass",pass.getText().toString());

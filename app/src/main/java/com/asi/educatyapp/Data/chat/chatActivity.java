@@ -288,6 +288,7 @@ public class chatActivity extends AppCompatActivity {
     public void onSignout (){
         mUsername=ANONYMOUS;
         mMessageAdapter.clear();
+
         databaseReference.removeEventListener(childEventListener);
     }
     public void onSignoutuser(View v) {

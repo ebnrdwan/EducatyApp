@@ -39,13 +39,13 @@
             android:name=".Data.View.Activities.RegisterDir.TeacherRegisterOne"
             android:theme="@style/AppThemeTwo" />
         <activity
-            android:name=".Data.View.Activities.RegisterDir.TeacherRegisterTwo"
+            android:name=".Data.View.Activities.userAccount.TeacherRegister"
             android:label="Teacher Register"
             android:parentActivityName=".Data.View.Activities.firstscreen"
             android:theme="@style/AppThemeeRegister"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".Data.View.Activities.RegisterDir.StudentRegister"
+            android:name=".Data.View.Activities.userAccount.StudentRegister"
             android:label="Student Register"
             android:parentActivityName=".Data.View.Activities.firstscreen"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -60,7 +60,14 @@
         <activity
             android:name=".Data.View.Activities.TeacherA"
             android:theme="@style/AppThemeTwo" />
-        <activity android:name=".Data.View.Activities.Groups" />
+        <activity android:name=".Data.View.Activities.Groups" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".Data.View.Activities.Admin_Activity"
             android:label="Admin" />
@@ -86,19 +93,21 @@
         <activity
             android:name=".Data.View.Activities.theGroup"
             android:label="Group"
-            android:parentActivityName=".Data.View.Activities.Home" />
+            android:parentActivityName=".Data.View.Activities.Home" >
+
+        </activity>
         <activity android:name=".Data.View.Activities.loginDir.ParentAndStudentLogin" />
         <activity
             android:name=".Data.View.Activities.AddHomePosts"
             android:label="Add Post"
             android:parentActivityName=".Data.View.Activities.Home"
-            android:theme="@style/AppThemee" />
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".Data.View.Activities.CodeOfAdmin" />
         <activity
             android:name=".Data.View.Activities.AddNewGroup"
             android:label="Add new group "
             android:parentActivityName=".Data.View.Activities.Admin_Activity"
-            android:theme="@style/AppThemee" />
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
         <activity
             android:name=".Data.View.Activities.Comment_Home"
             android:parentActivityName=".Data.View.Activities.Home"
@@ -108,21 +117,17 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".Data.View.Activities.Splash">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".Data.customfonts.LoginEdu">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Data.View.Activities.userAccount.LoginEdu"
+            android:theme="@style/FullscreenActionBarStyle">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".Data.customfonts.student"></activity>
-        <activity android:name=".Data.customfonts.teacher"></activity>
-
+        <activity android:name=".Data.View.Activities.userAccount.student"></activity>
+        <activity android:name=".Data.View.Activities.userAccount.teacher"></activity>
 
     </application>
 

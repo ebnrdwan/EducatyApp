@@ -9,24 +9,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.asi.educatyapp.Data.Data.Models.HomeModel;
 import com.asi.educatyapp.Data.View.Activities.Comment_Home;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import com.asi.educatyapp.Data.Data.Models.homeModel;
-
 
 /**
  * Created by mustafa on 6/26/2016.
  */
-public class homeAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ArrayList<homeModel> arrayList;
+    ArrayList<HomeModel> arrayList;
     Context context;
 
-    public homeAdpter(Context context, ArrayList<homeModel> arrayList) {
+    public HomeAdpter(Context context, ArrayList<HomeModel> arrayList) {
         this.arrayList = arrayList;
         this.context = context;
     }

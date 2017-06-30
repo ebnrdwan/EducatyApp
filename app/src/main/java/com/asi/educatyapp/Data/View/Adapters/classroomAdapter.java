@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.asi.educatyapp.Data.Data.Models.StudentModel;
 import com.asi.educatyapp.R;
 
 import java.util.ArrayList;
-
-import com.asi.educatyapp.Data.Data.Models.StudentModel;
 
 
 public class classroomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -47,15 +46,15 @@ public class classroomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/Font-Regular.otf");
             Typeface typefacee = Typeface.createFromAsset(context.getAssets(), "fonts/Font-Bold.otf");
 
-            genericViewHolder.name.setText(arrayList.get(position).getName());
-            genericViewHolder.name.setTypeface(typefacee);
-            genericViewHolder.picture.setImageResource(arrayList.get(position).getImage());
-            genericViewHolder.StudentCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
+//            genericViewHolder.name.setText(arrayList.get(position).getName());
+//            genericViewHolder.name.setTypeface(typefacee);
+//            genericViewHolder.picture.setImageResource(arrayList.get(position).getImage());
+//            genericViewHolder.StudentCard.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                }
+//            });
 
         }
     }
