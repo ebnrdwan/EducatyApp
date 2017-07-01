@@ -189,7 +189,7 @@ public class firstscreen extends AppCompatActivity {
 //
 //                if(item.getItemId()==R.id.Teacher)
 //                {
-//                    startActivity(new Intent(firstscreen.this,LoginActivity.class).putExtra("type","teacher"));
+//                    startActivity(new Intent(firstscreen.this,LoginActivity.class).putExtra("type","Teacher"));
 //                    finish();
 //                }else if(item.getItemId()==R.id.Parent)
 //                {

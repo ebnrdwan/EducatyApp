@@ -17,50 +17,47 @@ import java.util.HashMap;
  */
 
 public class FirebaseUtil {
- public     boolean childStatus =false;
-  static   HashMap<String, String> groupmap = new HashMap<>();
+    private static final long SPLASH_DISPLAY_LENGTH =1000 ;
+    public boolean childStatus = false;
+    static HashMap<String, String> groupmap = new HashMap<>();
 
     public static HashMap<String, String> getGroupmap() {
         return groupmap;
     }
 
 
-
     // get user status
     public static boolean isUserLogined(String url) {
-
-
-
 
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         final String id = user.getUid();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-       DatabaseReference databaseReference = firebaseDatabase.getReference(url);
-        
-      databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-          @Override
-          public void onDataChange(DataSnapshot dataSnapshot) {
+        DatabaseReference databaseReference = firebaseDatabase.getReference(url);
+        boolean islogined;
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-              boolean childStatus;
-              if (dataSnapshot.hasChild(id)){
-                 childStatus = true;
+                boolean childStatus;
+                if (dataSnapshot.hasChild(id)) {
+                    childStatus = true;
 
 
-              }
-              else if (!dataSnapshot.hasChild(id)){
-                  childStatus=false;
-              }
+                } else if (!dataSnapshot.hasChild(id)) {
+                    childStatus = false;
+                }
 
-          }
+            }
 
-          @Override
-          public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-          }
-      });
+            }
+        });
 
         return true;
 
@@ -68,8 +65,9 @@ public class FirebaseUtil {
 
     //get user
 
-   public static Integer id ;
-    public static String handleIds(){
+    public static Integer id;
+
+    public static String handleIds() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = firebaseDatabase.getReference("ids");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -77,7 +75,7 @@ public class FirebaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 id = dataSnapshot.getValue(Integer.class);
-                id ++;
+                id++;
 
                 databaseReference.setValue(id);
 
@@ -87,24 +85,41 @@ public class FirebaseUtil {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-                Log.d("IDID","can't get your id ");
+                Log.d("IDID", "can't get your id ");
             }
         });
         return id.toString();
     }
 
     public static void SetGroupsMap(String UsedName, String key) {
-        if (groupmap.containsKey(UsedName)){
-          //do nothing for now
-        }
-        else {
+        if (groupmap.containsKey(UsedName)) {
+            //do nothing for now
+        } else {
             groupmap.put(UsedName, key);
 
         }
     }
 
-    public static String getGroupmap(String usedname){
-      return   groupmap.get(usedname);
+    public static String getGroupmap(String usedname) {
+        return groupmap.get(usedname);
     }
 
+
+//    public static boolean isUserLogin(Context context) {
+//
+//       new Handler().postDelayed(new Runnable() {
+//           FirebaseAuth f = FirebaseAuth.getInstance();
+//           FirebaseUser user = f.getCurrentUser();
+//           @Override
+//           public void run() {
+//             if (user!=null){
+//
+//
+//             }
+//
+//
+//           }
+//       },1000);
+//
+//    }
 }

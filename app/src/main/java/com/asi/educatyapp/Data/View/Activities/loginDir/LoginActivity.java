@@ -344,7 +344,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     public void Login(View view) {
 
-        if (getIntent().getStringExtra("type").equals("teacher"))
+        if (getIntent().getStringExtra("type").equals("Teacher"))
         {
             logInTeacher();
         }else{
@@ -470,7 +470,7 @@ public class LoginActivity extends AppCompatActivity implements
                         String path=ob.getString("path");
                         String sid=ob.getString("schoolid");
                         Toast.makeText(LoginActivity.this,"User Exist",Toast.LENGTH_LONG).show();
-                        db.addUser(name,email,id,path,"teacher",sid);
+                        db.addUser(name,email,id,path,"Teacher",sid);
                         session.setLogin(true);
                         if(type.equals("Teacher"))
                         {

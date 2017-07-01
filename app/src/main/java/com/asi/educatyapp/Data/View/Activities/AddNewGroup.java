@@ -50,11 +50,11 @@ public class AddNewGroup extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_group);
         Gname = (EditText) findViewById(R.id.etGroupName);
         Gpic = (ImageView) findViewById(R.id.ivGroup);
-        groupname = Gname.getText().toString();
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase =FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-//        user = firebaseAuth.getCurrentUser();
+        user = firebaseAuth.getCurrentUser();
 
         
         groupsDatabaseReference = firebaseDatabase.getReference("Groups");
@@ -74,7 +74,10 @@ public class AddNewGroup extends AppCompatActivity {
         addGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                groupname = Gname.getText().toString();
+
                 groupsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(groupname)){
@@ -83,10 +86,10 @@ public class AddNewGroup extends AppCompatActivity {
                         }
                         else {
 
-//                    key = user.getUid();
+                    key = user.getUid();
                             int i=1;
 
-                            key=String.valueOf(i);
+//                            key=String.valueOf(i);
                             i++;
 
                             if (downloadPhoto == null) {
@@ -98,7 +101,7 @@ public class AddNewGroup extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(AddNewGroup.this, "saved group", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(AddNewGroup.this, Home.class));
+                                            startActivity(new Intent(AddNewGroup.this, Groups.class));
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                 @Override

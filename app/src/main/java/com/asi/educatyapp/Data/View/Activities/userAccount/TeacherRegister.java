@@ -3,6 +3,7 @@ package com.asi.educatyapp.Data.View.Activities.userAccount;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -45,7 +46,7 @@ public class TeacherRegister extends AppCompatActivity {
     ImageView profilePic;
     Button regist;
 
-    // teacher Model Parameters
+    // Teacher Model Parameters
     private String name, email, key, password, title, field, username;
 
     //Firebase Parameters
@@ -56,6 +57,9 @@ public class TeacherRegister extends AppCompatActivity {
     FirebaseStorage firebaseStorage;
     StorageReference profilePhotoReference;
     DatabaseReference teachersDatabaseReference;
+    FirebaseAuth.AuthStateListener fAuthStateListener;
+    UserProfileChangeRequest profileChangeRequest;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,46 +115,106 @@ public class TeacherRegister extends AppCompatActivity {
                 } else {
                     createAccount(email, password);
 
-                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                    profileChangeRequest = new UserProfileChangeRequest.Builder()
                             .setDisplayName(name)
                             .setPhotoUri(downloadPhoto).build();
-                    user = firebaseAuth.getCurrentUser();
-                    user.updateProfile(profileChangeRequest);
-                    user.sendEmailVerification();
 
-                    //todo save teacher info to database
-                    teachersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    //// TODO: 30/06/2017 handle session
+                    new Handler().postDelayed(new Runnable() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.hasChild(username)) {
-                                usernameEditText.setError("choose another username ");
-                                Toast.makeText(TeacherRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
-                            } else {
+                        public void run() {
 
-                                key = user.getUid();
-                                TeacherModel model = new TeacherModel(email, password, name, title, field, username, downloadPhoto.toString());
-                                teachersDatabaseReference.child(username).setValue(model)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            fAuthStateListener = new FirebaseAuth.AuthStateListener() {
+                                @Override
+                                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                                    //here logic if user is logined
+                                    if (user != null) {
+
+                                        user = firebaseAuth.getCurrentUser();
+
+
+                                        // TODO: 30/06/2017 upload image
+                                        profilePhotoReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(TeacherRegister.this, "saved teacher", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(TeacherRegister.this, Home.class));
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                Toast.makeText(TeacherRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                                                downloadPhoto = taskSnapshot.getDownloadUrl();
+
+
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(TeacherRegister.this, "faild regist teacher" + e, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
-                        }
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+
+                                        //// TODO: 01/07/2017 handle user account
+                                        profileChangeRequest = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(name)
+                                                .setPhotoUri(downloadPhoto).build();
+                                        user.updateProfile(profileChangeRequest);
+                                        user.sendEmailVerification();
+
+                                        //todo save Teacher info to database
+
+                                        final FirebaseUser finalUser = user;
+                                        teachersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.hasChild(username)) {
+                                                    usernameEditText.setError("choose another username ");
+                                                    Toast.makeText(TeacherRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
+                                                } else {
+
+                                                    key = finalUser.getUid();
+                                                    TeacherModel model = new TeacherModel(email, password, name, title, field, username, downloadPhoto.toString());
+                                                    teachersDatabaseReference.child(username).setValue(model)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Toast.makeText(TeacherRegister.this, "saved Teacher", Toast.LENGTH_SHORT).show();
+                                                                    startActivity(new Intent(TeacherRegister.this, Home.class));
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(TeacherRegister.this, "faild regist Teacher" + e, Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+
+
+
+                                    } else {
+                                        Toast.makeText(TeacherRegister.this, "not logined", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(TeacherRegister.this,LoginEdu.class));
+                                    }
+
+
+
+                                }
+                            };
+                            firebaseAuth.addAuthStateListener(fAuthStateListener);
+
                         }
-                    });
+                    },100);
+
                 }
+
+
+
             }
+
         });
     }
 
@@ -187,27 +251,12 @@ public class TeacherRegister extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_PHOTO_PICKER) {
-            final Uri uriImage = data.getData();
-            profilePhotoReference = profilePhotoReference.child(uriImage.getLastPathSegment());
+            imageUri = data.getData();
+            profilePhotoReference = profilePhotoReference.child(imageUri.getLastPathSegment());
             Glide.with(TeacherRegister.this)
-                    .load(uriImage)
+                    .load(imageUri)
                     .into(profilePic);
 
-            profilePhotoReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(TeacherRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
-                    downloadPhoto = taskSnapshot.getDownloadUrl();
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(TeacherRegister.this, "fialed to upload", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            Toast.makeText(TeacherRegister.this, "error photo picker", Toast.LENGTH_SHORT).show();
         }
 
     }

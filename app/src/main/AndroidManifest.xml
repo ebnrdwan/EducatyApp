@@ -62,10 +62,10 @@
             android:theme="@style/AppThemeTwo" />
         <activity android:name=".Data.View.Activities.Groups" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
 
         </activity>
         <activity
@@ -116,18 +116,18 @@
             android:name=".Data.View.Activities.theEvaluationCustomDialog"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".Data.View.Activities.Splash">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Data.View.Activities.userAccount.LoginEdu"
             android:theme="@style/FullscreenActionBarStyle">
 
         </activity>
-        <activity android:name=".Data.View.Activities.userAccount.student"></activity>
-        <activity android:name=".Data.View.Activities.userAccount.teacher"></activity>
+        <activity android:name=".Data.View.Activities.userAccount.Student"></activity>
+        <activity android:name=".Data.View.Activities.userAccount.Teacher"></activity>
 
     </application>
 

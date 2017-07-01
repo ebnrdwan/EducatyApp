@@ -3,7 +3,9 @@ package com.asi.educatyapp.Data.View.Activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -22,11 +24,12 @@ import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
 import com.asi.educatyapp.Data.Data.helper.SessionManager;
 import com.asi.educatyapp.Data.Utility.CustomTypefaceSpan;
-import com.asi.educatyapp.Data.View.Activities.loginDir.LoginActivity;
+import com.asi.educatyapp.Data.View.Activities.userAccount.LoginEdu;
 import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
 import com.asi.educatyapp.Data.View.Fragments.TimeLine;
@@ -44,19 +47,37 @@ public class Home extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     DrawerLayout drawer;
     NavigationView navigationView;
-    String type="";
+    String type = "";
     private Menu m;
     private SessionManager session;
     private SQLiteHandler db;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    ImageView ImageProfile;
+    FirebaseAuth.AuthStateListener fAuthStateListener;
+    ;
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        firebaseAuth.removeAuthStateListener(fAuthStateListener);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        session =new SessionManager(Home.this);
-        db=new SQLiteHandler(Home.this);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        session = new SessionManager(Home.this);
+        db = new SQLiteHandler(Home.this);
         //TypefaceUtil.overrideFont(chatActivity.this, "SERIF", "fonts/Font-Bold.otf");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,28 +92,59 @@ public class Home extends AppCompatActivity {
         setupDrawerContent(navigationView);
         View header = LayoutInflater.from(this).inflate(R.layout.nav_header_home, null);
         navigationView.addHeaderView(header);
-        ImageView ImageProfile = (ImageView) header.findViewById(R.id.imageProfile);
-        TextView name= (TextView) header.findViewById(R.id.nameProfile);
+        ImageProfile = (ImageView) header.findViewById(R.id.imageProfile);
+        TextView name = (TextView) header.findViewById(R.id.nameProfile);
         name.setText(new SQLiteHandler(getApplicationContext()).getUserDetails().get("name"));
-        TextView email= (TextView) header.findViewById(R.id.emailtv);
+        TextView email = (TextView) header.findViewById(R.id.emailtv);
         email.setText(new SQLiteHandler(getApplicationContext()).getUserDetails().get("email"));
         ImageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Home.this,TeacherA.class));
+                startActivity(new Intent(Home.this, TeacherA.class));
             }
         });
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        Glide
-                .with(Home.this)
-                .load(user.getPhotoUrl())
-                .centerCrop()
-                .placeholder(R.drawable.mypic)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(ImageProfile);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                fAuthStateListener = new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        user = firebaseAuth.getCurrentUser();
+                        if (user != null) {
+
+
+                            Uri uri = user.getPhotoUrl();
+
+
+                            if (uri ==null) {
+                                uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+                            }
+
+                            Glide
+                                    .with(Home.this)
+                                    .load(uri)
+                                    .error(R.drawable.mypic22)
+                                    .centerCrop()
+                                    .crossFade()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(ImageProfile);
+
+                        } else {
+                            Toast.makeText(Home.this, "you are not logined ", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                };
+                firebaseAuth.addAuthStateListener(fAuthStateListener);
+
+            }
+        }, 100);
+
+
         if (savedInstanceState == null) {
             Fragment homeFragment = new HomeF();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -100,7 +152,6 @@ public class Home extends AppCompatActivity {
             fragmentTransaction.commit();
             toolbar.setTitle("Home");
         }
-
 
 
         /**  to change font for app*/
@@ -136,7 +187,6 @@ public class Home extends AppCompatActivity {
 //        }
 
 
-
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -153,9 +203,10 @@ public class Home extends AppCompatActivity {
                     }
                 });
     }
+
     public void selectDrawerItem(MenuItem menuItem) {
         int id = menuItem.getItemId();
-       // FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left);
+        // FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left);
 
         if (id == R.id.nav_main) {
             Fragment homeFragment = new HomeF();
@@ -163,62 +214,45 @@ public class Home extends AppCompatActivity {
             fragmentTransaction.replace(R.id.contaner, homeFragment, null);
             fragmentTransaction.commit();
             toolbar.setTitle("Home");
-        }
-        else if (id == R.id.nav_friends) {
+        } else if (id == R.id.nav_friends) {
 //            Fragment homeFragment = new TimeLine();
 //            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //            fragmentTransaction.replace(R.id.contaner, homeFragment, null);
 //            fragmentTransaction.commit();
 //            toolbar.setTitle("Teacher");
-            startActivity(new Intent(Home.this,TeacherA.class));
+            startActivity(new Intent(Home.this, TeacherA.class));
 
-        }
-
-        else if (id == R.id.nav_groups) {
+        } else if (id == R.id.nav_groups) {
             Fragment homeFragment = new GroupsF();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.contaner, homeFragment, null);
-            fragmentTransaction.commit();
-            toolbar.setTitle("Teacher");
-        }
-        else if (id == R.id.nav_progress) {
+//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.contaner, homeFragment, null);
+//            fragmentTransaction.commit();
+//            toolbar.setTitle("Teacher");
+            startActivity(new Intent(Home.this, Groups.class));
+        } else if (id == R.id.nav_progress) {
             Fragment homeFragment = new TimeLine();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.contaner, homeFragment, null);
             fragmentTransaction.commit();
             toolbar.setTitle("Time Line");
 
-        }
-        else if (id == R.id.nav_library) {
-           // startActivity(new Intent(chatActivity.this,Healthy.class));
-        }
-        else if (id == R.id.nav_timeline) {
-           // startActivity(new Intent(chatActivity.this,foodAndDrinks.class));
-        }
-
-        else if (id == R.id.nav_setting) {
-           // startActivity(new Intent(chatActivity.this,Offers.class));
+        } else if (id == R.id.nav_library) {
+            // startActivity(new Intent(chatActivity.this,Healthy.class));
+        } else if (id == R.id.nav_timeline) {
+            // startActivity(new Intent(chatActivity.this,foodAndDrinks.class));
+        } else if (id == R.id.nav_setting) {
+            // startActivity(new Intent(chatActivity.this,Offers.class));
         } else if (id == R.id.nav_login) {
             AuthUI.getInstance()
                     .signOut(this)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         public void onComplete(@NonNull Task<Void> task) {
                             // user is now signed out
-                            startActivity(new Intent(Home.this, LoginActivity.class));
+                            startActivity(new Intent(Home.this, LoginEdu.class));
                             finish();
                         }
                     });
-//            if (!session.isLoggedIn()) {
-//                item.setTitle("Log in");
-//                applyFontToMenuItem(item);
-//               // startActivity(new Intent(chatActivity.this, LoginMahall.class));
-//
-//            } else {
-//                item.setTitle("Log out" +
-//                        "");
-//                applyFontToMenuItem(item);
-//                logoutUser();
-//            }
+
             logoutUser();
 
         }
@@ -286,7 +320,7 @@ public class Home extends AppCompatActivity {
 
 
         db.deleteUsers();
-        startActivity(new Intent(Home.this,firstscreen.class));
+        startActivity(new Intent(Home.this, firstscreen.class));
         finish();
 
     }

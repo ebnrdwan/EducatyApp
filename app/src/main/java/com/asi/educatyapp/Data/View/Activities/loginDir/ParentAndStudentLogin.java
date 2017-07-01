@@ -336,7 +336,7 @@ public class ParentAndStudentLogin extends AppCompatActivity implements
 
     public void Login(View view) {
 
-        if(getIntent().getStringExtra("type").equals("student"))
+        if(getIntent().getStringExtra("type").equals("Student"))
         {
             logInAsStudent();
         }else if (getIntent().getStringExtra("type").equals("parent")){
@@ -373,7 +373,7 @@ public class ParentAndStudentLogin extends AppCompatActivity implements
                         String username = ob.getString("username");
                         String path=ob.getString("path");
                         String id = ob.getString("id");
-                        db.addUser(name, username, id,path,"student","d");
+                        db.addUser(name, username, id,path,"Student","d");
                         session.setLogin(true);
                         startActivity(new Intent(ParentAndStudentLogin.this,Home.class));
                         finish();

@@ -41,7 +41,7 @@ public class LoginEdu extends AppCompatActivity  {
         teacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(LoginEdu.this, teacher.class);
+                Intent it = new Intent(LoginEdu.this, Teacher.class);
                 startActivity(it);
 
             }
@@ -50,7 +50,7 @@ public class LoginEdu extends AppCompatActivity  {
         student.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(LoginEdu.this, student.class);
+                Intent it = new Intent(LoginEdu.this, Student.class);
                 startActivity(it);
 
 

@@ -51,6 +51,7 @@ public class StudentRegister extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     Uri downloadPhoto;
+    Uri imageUri;
 
     // Firebase Variables
     DatabaseReference studentDatabaseReference;
@@ -117,7 +118,7 @@ public class StudentRegister extends AppCompatActivity {
                     user.sendEmailVerification();
 
 
-                    //todo save student info to database
+                    //todo save Student info to database
                     studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -133,13 +134,13 @@ public class StudentRegister extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(StudentRegister.this, "saved student", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(StudentRegister.this, "saved Student", Toast.LENGTH_SHORT).show();
                                                 startActivity(new Intent(StudentRegister.this, Home.class));
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(StudentRegister.this, "faild regist student" + e, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(StudentRegister.this, "faild regist Student" + e, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -197,8 +198,8 @@ public class StudentRegister extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(StudentRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
                     downloadPhoto = taskSnapshot.getDownloadUrl();
-                    StudentModel model = new StudentModel(key, name, password, school, key);
-//                    studentDatabaseReference.push().setValue(model);
+
+
 
                 }
             });
