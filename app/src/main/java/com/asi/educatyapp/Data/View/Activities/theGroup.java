@@ -21,7 +21,7 @@ import com.asi.educatyapp.Data.View.Fragments.ClassRoomStudents;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
 import com.asi.educatyapp.Data.View.Fragments.ProgressF;
 import com.asi.educatyapp.Data.View.Fragments.Skills;
-import com.asi.educatyapp.Data.attendance.AttendanceAdapter;
+import com.asi.educatyapp.Data.View.Adapters.AttendanceAdapter;
 import com.asi.educatyapp.R;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;

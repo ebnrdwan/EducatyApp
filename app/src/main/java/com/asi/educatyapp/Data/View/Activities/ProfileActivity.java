@@ -65,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(ProfileActivity.this, chatActivity.class));
             }
         });

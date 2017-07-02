@@ -1,4 +1,4 @@
-package com.asi.educatyapp.Data.attendance;
+package com.asi.educatyapp.Data.View.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

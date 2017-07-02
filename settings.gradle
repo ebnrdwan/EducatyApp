@@ -1,1 +1,1 @@
-include ':app', ':prolib'
+include ':app'
