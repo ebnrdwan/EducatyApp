@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +46,12 @@ public class AddNewGroup extends AppCompatActivity {
     StorageReference groupPhotoReference;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_group);
@@ -75,8 +82,8 @@ public class AddNewGroup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 groupname = Gname.getText().toString();
-
                 groupsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -87,6 +94,7 @@ public class AddNewGroup extends AppCompatActivity {
                         else {
 
                     key = user.getUid();
+                            String theName= user.getDisplayName();
                             int i=1;
 
 //                            key=String.valueOf(i);
@@ -95,7 +103,11 @@ public class AddNewGroup extends AppCompatActivity {
                             if (downloadPhoto == null) {
                                 downloadPhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/profile_photo%2F31610-NYB3MB.jpg?alt=media&token=92d86e46-d9de-4eec-8f22-9d73f3f297db");
                             }
+
+                            FirebaseUtil.SetGroupsMap(groupname,theName);
+
                             GroupsModel model = new GroupsModel(key,groupname,downloadPhoto.toString());
+
                             groupsDatabaseReference.child(groupname).setValue(model)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -151,4 +163,5 @@ public class AddNewGroup extends AppCompatActivity {
 
 
     }
+
 }

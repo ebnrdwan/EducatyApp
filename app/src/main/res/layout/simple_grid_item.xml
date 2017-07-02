@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="100dp"
+    android:background="@drawable/borderblack"
     android:layout_marginTop="16dp"
     android:layout_gravity="center_horizontal"
     android:layout_margin="@dimen/margin"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
         android:id="@+id/image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
-        android:layout_weight="4"
+        android:layout_weight="1"
         android:src="@drawable/mypic" />
 
     <TextView
+
+        tools:text="Abdulrahman"
         android:id="@+id/text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="@dimen/title_text_size" />
 

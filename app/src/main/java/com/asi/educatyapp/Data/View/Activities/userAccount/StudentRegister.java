@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.StudentModel;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.View.Activities.Home;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
@@ -100,6 +101,7 @@ public class StudentRegister extends AppCompatActivity {
                 email = emailTextview.getText().toString().trim();
                 password = pass.getText().toString().trim();
                 username = usernameEditText.getText().toString().trim();
+
                 school = schoo_name.getText().toString();
                 if (downloadPhoto == null) {
                     downloadPhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/profile_photo%2F31610-NYB3MB.jpg?alt=media&token=92d86e46-d9de-4eec-8f22-9d73f3f297db");
@@ -110,6 +112,7 @@ public class StudentRegister extends AppCompatActivity {
                 } else {
                     createAccount(email, password);
 
+                    FirebaseUtil.SetStudentsMap(name,username);
                     UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                             .setDisplayName(name)
                             .setPhotoUri(downloadPhoto).build();

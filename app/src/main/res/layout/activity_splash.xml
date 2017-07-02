@@ -24,10 +24,10 @@
 
     <ImageView
         android:layout_centerInParent="true"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/splash"
         android:tint="#f9f9f9"
-        android:src="@drawable/logo"
+        android:src="@drawable/logo2"
         />
 </RelativeLayout>

@@ -14,7 +14,7 @@ import com.asi.educatyapp.R;
 
 ;
 
-public class LoginEdu extends AppCompatActivity  {
+public class LoginEdu extends AppCompatActivity {
     private static final String TAG = "TAGG";
     MyTextView student, teacher;
 
@@ -23,10 +23,12 @@ public class LoginEdu extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myloginedu);
 
-
+        TextView ff = (TextView) findViewById(R.id.bb);
+        ff.setVisibility(View.GONE);
         student = (MyTextView) findViewById(R.id.studentLogin);
         teacher = (MyTextView) findViewById(R.id.teacherLogin);
         TextView signup = (TextView) findViewById(R.id.signuptext);
+        signup.setVisibility(View.GONE);
         SpannableString content = new SpannableString("Sign Up?");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         signup.setText(content);
@@ -58,8 +60,6 @@ public class LoginEdu extends AppCompatActivity  {
         });
 
     }
-
-
 
 
     @Override

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.TeacherModel;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.View.Activities.Home;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
@@ -115,6 +116,7 @@ public class TeacherRegister extends AppCompatActivity {
                 } else {
                     createAccount(email, password);
 
+                    FirebaseUtil.SetTeachersMap(name, username);
                     profileChangeRequest = new UserProfileChangeRequest.Builder()
                             .setDisplayName(name)
                             .setPhotoUri(downloadPhoto).build();
@@ -194,12 +196,10 @@ public class TeacherRegister extends AppCompatActivity {
                                         });
 
 
-
                                     } else {
                                         Toast.makeText(TeacherRegister.this, "not logined", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(TeacherRegister.this,LoginEdu.class));
+                                        startActivity(new Intent(TeacherRegister.this, LoginEdu.class));
                                     }
-
 
 
                                 }
@@ -207,10 +207,9 @@ public class TeacherRegister extends AppCompatActivity {
                             firebaseAuth.addAuthStateListener(fAuthStateListener);
 
                         }
-                    },100);
+                    }, 100);
 
                 }
-
 
 
             }

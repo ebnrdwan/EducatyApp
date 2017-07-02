@@ -100,7 +100,7 @@ public class Home extends AppCompatActivity {
         ImageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Home.this, TeacherA.class));
+                startActivity(new Intent(Home.this, ProfileActivity.class));
             }
         });
 
@@ -220,7 +220,7 @@ public class Home extends AppCompatActivity {
 //            fragmentTransaction.replace(R.id.contaner, homeFragment, null);
 //            fragmentTransaction.commit();
 //            toolbar.setTitle("Teacher");
-            startActivity(new Intent(Home.this, TeacherA.class));
+            startActivity(new Intent(Home.this, ProfileActivity.class));
 
         } else if (id == R.id.nav_groups) {
             Fragment homeFragment = new GroupsF();

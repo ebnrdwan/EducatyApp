@@ -26,15 +26,15 @@ public class Skills extends Fragment{
     public Skills() {
         // Required empty public constructor
     }
-
-    public static Skills newSkillsInstance(SkillModel skillModel){
-        Skills instance = new Skills();
-        Bundle args = new Bundle();
-        args.putParcelable(ParceTag,skillModel);
-
-
-        return instance;
-    }
+//
+//    public static Skills newSkillsInstance(SkillModel skillModel){
+//        Skills instance = new Skills();
+//        Bundle args = new Bundle();
+//        args.putParcelable(ParceTag,skillModel);
+//
+//
+//        return instance;
+//    }
 
 
 

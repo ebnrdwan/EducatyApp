@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.asi.educatyapp.Data.View.Activities.userAccount.LoginEdu;
+import com.asi.educatyapp.Data.View.Activities.userAccount.GetStart;
 import com.asi.educatyapp.R;
 
 public class Splash extends AppCompatActivity{
@@ -89,7 +89,7 @@ public class Splash extends AppCompatActivity{
 
                     Intent intent = new Intent(Splash.this,
 
-                            LoginEdu.class);
+                       GetStart.class);
 
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 

@@ -13,6 +13,10 @@ public class StudentModel {
     private String image;
     private String idusername;
 
+    public StudentModel() {
+        //required for firebase database
+    }
+
     //constructors
     public StudentModel(String email,String password, String name, String school,  String idusername ,String image) {
         this.password = password;

@@ -1,5 +1,7 @@
 package com.asi.educatyapp.Data.Data.Models;
 
+import android.view.View;
+
 /**
  * Created by ASI on 2/23/2017.
  */
@@ -10,8 +12,18 @@ public class GroupsModel {
 
 int image ;
 
+    public GroupsModel() {
+    }
+
     public GroupsModel(String name, int image) {
         this.name = name;
+        this.image = image;
+    }
+
+    public GroupsModel(View itemView, String name, String tid, String path, int image) {
+        this.name = name;
+        this.tid = tid;
+        this.path = path;
         this.image = image;
     }
 

@@ -26,6 +26,9 @@ public class GroupsAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.arrayList = arrayList;
         this.context = context;
     }
+
+
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_child_container,parent,false));
@@ -39,7 +42,8 @@ public class GroupsAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Typeface typefacee=Typeface.createFromAsset(context.getAssets(),"fonts/Font-Bold.otf");
 
             genericViewHolder.info1.setText(arrayList.get(position).getName());
-            Glide.with(context).load(arrayList.get(position).getPath()).placeholder(R.drawable.back).into(genericViewHolder.Gpic);
+            Glide.with(context).load(arrayList.get(position).getPath()).error(R.drawable.back).into(genericViewHolder.Gpic);
+
 
          }
     }

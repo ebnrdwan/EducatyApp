@@ -20,11 +20,18 @@ public class FirebaseUtil {
     private static final long SPLASH_DISPLAY_LENGTH =1000 ;
     public boolean childStatus = false;
     static HashMap<String, String> groupmap = new HashMap<>();
+    static HashMap<String, String> studentmap = new HashMap<>();
+    static HashMap<String, String> teachermap = new HashMap<>();
+    public static String studentObject ="students";
+    public static String groupsObject ="Groups";
+    public static String teacherObject ="teachers";
+    public static String messageObject ="messages";
+
+
 
     public static HashMap<String, String> getGroupmap() {
         return groupmap;
     }
-
 
     // get user status
     public static boolean isUserLogined(String url) {
@@ -91,11 +98,12 @@ public class FirebaseUtil {
         return id.toString();
     }
 
-    public static void SetGroupsMap(String UsedName, String key) {
-        if (groupmap.containsKey(UsedName)) {
+    public static void SetGroupsMap(String UsedName, String username) {
+        if (groupmap.containsValue(username)) {
+         
             //do nothing for now
         } else {
-            groupmap.put(UsedName, key);
+            groupmap.put(UsedName, username);
 
         }
     }
@@ -103,23 +111,30 @@ public class FirebaseUtil {
     public static String getGroupmap(String usedname) {
         return groupmap.get(usedname);
     }
+    public static void SetStudentsMap(String UsedName, String username) {
+        if (studentmap.containsValue(username)) {
+            //do nothing for now
+        } else {
+           studentmap.put(UsedName, username);
 
+        }
+    }
 
-//    public static boolean isUserLogin(Context context) {
-//
-//       new Handler().postDelayed(new Runnable() {
-//           FirebaseAuth f = FirebaseAuth.getInstance();
-//           FirebaseUser user = f.getCurrentUser();
-//           @Override
-//           public void run() {
-//             if (user!=null){
-//
-//
-//             }
-//
-//
-//           }
-//       },1000);
-//
-//    }
+    public static String getStudentMap(String usedname) {
+        return studentmap.get(usedname);
+    }
+
+    public static void SetTeachersMap(String UsedName, String username) {
+        if (teachermap.containsValue(username)) {
+            //do nothing for now
+        } else {
+            teachermap.put(UsedName, username);
+
+        }
+    }
+
+    public static String getTeachermap(String usedname) {
+        return teachermap.get(usedname);
+    }
+
 }

@@ -67,7 +67,6 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             public void onComplete(@NonNull Task<Void> task) {
                                 // user is now signed out
-
                             }
                         });
                 signIn();

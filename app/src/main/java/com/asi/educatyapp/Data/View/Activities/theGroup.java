@@ -14,17 +14,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
+import com.asi.educatyapp.Data.View.Fragments.ClassRoomStudents;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
 import com.asi.educatyapp.Data.View.Fragments.ProgressF;
 import com.asi.educatyapp.Data.View.Fragments.Skills;
-import com.asi.educatyapp.Data.View.Fragments.classRoomStudents;
 import com.asi.educatyapp.Data.attendance.AttendanceAdapter;
 import com.asi.educatyapp.R;
 import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.Holder;
+import com.orhanobut.dialogplus.ListHolder;
 import com.orhanobut.dialogplus.OnCancelListener;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
@@ -54,7 +55,7 @@ public class theGroup extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.myviewpager);
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new HomeF(), "Home ");
-        pagerAdapter.addFragments(new classRoomStudents(), "Students");
+        pagerAdapter.addFragments(new ClassRoomStudents(), "Students");
         pagerAdapter.addFragments(new Skills(), "Quizzes");
         pagerAdapter.addFragments(new ProgressF(), "Progress");
 
@@ -77,9 +78,13 @@ public class theGroup extends AppCompatActivity {
 
                 AttendanceAdapter attendanceAdapter = new AttendanceAdapter(theGroup.this);
 
-                Holder holder = new GridHolder(attendColum);
+                Holder holder = new ListHolder();
                 showCompleteDialog(holder, Gravity.BOTTOM,attendanceAdapter);
+                break;
 
+            case R.id.add_student_menu:
+                Toast.makeText(theGroup.this,"clicked add student menu",Toast.LENGTH_SHORT).show();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
