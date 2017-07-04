@@ -28,6 +28,6 @@
         android:layout_height="200dp"
         android:id="@+id/splash"
         android:tint="#f9f9f9"
-        android:src="@drawable/logo2"
+        android:src="@drawable/logo"
         />
 </RelativeLayout>

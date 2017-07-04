@@ -53,6 +53,7 @@ public class StudentRegister extends AppCompatActivity {
     FirebaseUser user;
     Uri downloadPhoto;
     Uri imageUri;
+    boolean isRegistered;
 
     // Firebase Variables
     DatabaseReference studentDatabaseReference;
@@ -121,44 +122,52 @@ public class StudentRegister extends AppCompatActivity {
                     user.sendEmailVerification();
 
 
-                    //todo save Student info to database
-                    studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.hasChild(username)){
-                                usernameEditText.setError("choose another username");
-                                Toast.makeText(StudentRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                    if (createAccount(email,password)){
+                        //todo save Student info to database
+                        studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.hasChild(username)){
+                                    usernameEditText.setError("choose another username");
+                                    Toast.makeText(StudentRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
 
-                                key = user.getUid();
-                                StudentModel model = new StudentModel(email,password,name,school,username,downloadPhoto.toString());
-                                studentDatabaseReference.child(username).setValue(model)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(StudentRegister.this, "saved Student", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(StudentRegister.this, Home.class));
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(StudentRegister.this, "faild regist Student" + e, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                    key = user.getUid();
+                                    StudentModel model = new StudentModel(email,password,name,school,username,downloadPhoto.toString());
+                                    studentDatabaseReference.child(username).setValue(model)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(StudentRegister.this, "saved Student", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(StudentRegister.this, Home.class));
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(StudentRegister.this, "faild regist Student" + e, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) { }
-                    });
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) { }
+                        });
+                    }
+                    else {
+                        Toast.makeText(StudentRegister.this, "invalid info to Register" , Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
         });
     }
 
-    private void createAccount(String email, String password) {
+    private boolean createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
+
+
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
 
@@ -172,17 +181,21 @@ public class StudentRegister extends AppCompatActivity {
                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
+                          isRegistered = true;
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(StudentRegister.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                           isRegistered = false;
 
 
                         }
                     }
                 });
-        // [END create_user_with_email]
+
+      return isRegistered;
     }
 
     @Override

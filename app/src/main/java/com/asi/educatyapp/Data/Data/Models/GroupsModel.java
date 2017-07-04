@@ -1,7 +1,5 @@
 package com.asi.educatyapp.Data.Data.Models;
 
-import android.view.View;
-
 /**
  * Created by ASI on 2/23/2017.
  */
@@ -10,22 +8,12 @@ public class GroupsModel {
 
     String name,id,tid,path;
 
-int image ;
 
     public GroupsModel() {
+        // required for firebase databse
     }
 
-    public GroupsModel(String name, int image) {
-        this.name = name;
-        this.image = image;
-    }
 
-    public GroupsModel(View itemView, String name, String tid, String path, int image) {
-        this.name = name;
-        this.tid = tid;
-        this.path = path;
-        this.image = image;
-    }
 
     public GroupsModel(String id, String tid, String name, String path) {
         this.id = id;

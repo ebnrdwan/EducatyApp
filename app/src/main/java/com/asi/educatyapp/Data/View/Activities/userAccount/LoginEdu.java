@@ -22,9 +22,6 @@ public class LoginEdu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myloginedu);
-
-        TextView ff = (TextView) findViewById(R.id.bb);
-        ff.setVisibility(View.GONE);
         student = (MyTextView) findViewById(R.id.studentLogin);
         teacher = (MyTextView) findViewById(R.id.teacherLogin);
         TextView signup = (TextView) findViewById(R.id.signuptext);

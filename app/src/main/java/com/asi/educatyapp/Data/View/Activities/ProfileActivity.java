@@ -109,7 +109,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 firebaseAuth.addAuthStateListener(fAuthStateListener);
 
             }
-        }, 100);
+        }, 10);
 
     }
 

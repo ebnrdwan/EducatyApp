@@ -168,23 +168,9 @@ public class Home extends AppCompatActivity {
 
                 }
             }
-
-            //the method we have create in activity
             applyFontToMenuItem(mi);
         }
 
-
-//        item = m.findItem(R.id.nav_login);
-//        if (session.isLoggedIn()) {
-//            item.setTitle("Log out");
-//            applyFontToMenuItem(item);
-//
-//
-//        } else {
-//            item.setTitle("Log in");
-//            applyFontToMenuItem(item);
-//
-//        }
 
 
     }
@@ -305,14 +291,6 @@ public class Home extends AppCompatActivity {
         mi.setTitle(mNewTitle);
     }
 
-
-//    private void logoutUser() {
-//        session.setLogin(false);
-//        db.deleteUsers();
-//        Toast.makeText(chatActivity.this, "تم تسجيل الخروج", Toast.LENGTH_LONG).show();
-//        this.finish();
-//
-//    }
 
 
     private void logoutUser() {

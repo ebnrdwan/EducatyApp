@@ -113,7 +113,13 @@ public class TeacherRegister extends AppCompatActivity {
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
                         || TextUtils.isEmpty(username)) {
                     Toast.makeText(TeacherRegister.this, "all filds must be filled ", Toast.LENGTH_SHORT).show();
+
+                } else if (isValidEmail(email.toString().trim())) {
+                    Toast.makeText(TeacherRegister.this, "email not vaild", Toast.LENGTH_SHORT).show();
                 } else {
+
+
+
                     createAccount(email, password);
 
                     FirebaseUtil.SetTeachersMap(name, username);
@@ -139,20 +145,21 @@ public class TeacherRegister extends AppCompatActivity {
 
 
                                         // TODO: 30/06/2017 upload image
-                                        profilePhotoReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                Toast.makeText(TeacherRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
-                                                downloadPhoto = taskSnapshot.getDownloadUrl();
+                                        if (imageUri != null) {
+                                            profilePhotoReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    Toast.makeText(TeacherRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                                                    downloadPhoto = taskSnapshot.getDownloadUrl();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
 
+                                                }
+                                            });
+                                        }
 
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-
-                                            }
-                                        });
 
                                         //// TODO: 01/07/2017 handle user account
                                         profileChangeRequest = new UserProfileChangeRequest.Builder()
@@ -207,7 +214,7 @@ public class TeacherRegister extends AppCompatActivity {
                             firebaseAuth.addAuthStateListener(fAuthStateListener);
 
                         }
-                    }, 100);
+                    }, 10);
 
                 }
 
@@ -284,6 +291,17 @@ public class TeacherRegister extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    public final static boolean isValidEmail(CharSequence target) {
+        boolean isvaild = false;
+       String email= target.toString().trim();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if (TextUtils.isEmpty(email)&& email.matches(emailPattern))
+            isvaild=true;
+
+        return isvaild;
+//        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 }
 
