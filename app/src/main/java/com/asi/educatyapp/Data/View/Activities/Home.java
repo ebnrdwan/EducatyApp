@@ -61,13 +61,11 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        firebaseAuth.removeAuthStateListener(fAuthStateListener);
     }
 
     @Override
@@ -75,7 +73,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         firebaseAuth = FirebaseAuth.getInstance();
-
         session = new SessionManager(Home.this);
         db = new SQLiteHandler(Home.this);
         //TypefaceUtil.overrideFont(chatActivity.this, "SERIF", "fonts/Font-Bold.otf");
@@ -119,7 +116,7 @@ public class Home extends AppCompatActivity {
                             Uri uri = user.getPhotoUrl();
 
 
-                            if (uri ==null) {
+                            if (uri == null) {
                                 uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
                             }
 
@@ -170,7 +167,6 @@ public class Home extends AppCompatActivity {
             }
             applyFontToMenuItem(mi);
         }
-
 
 
     }
@@ -235,14 +231,10 @@ public class Home extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             // user is now signed out
                             startActivity(new Intent(Home.this, LoginEdu.class));
-                            finish();
                         }
                     });
 
-            logoutUser();
-
         }
-
 
         //Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -275,7 +267,6 @@ public class Home extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (toggle.onOptionsItemSelected(item)) {
@@ -289,17 +280,5 @@ public class Home extends AppCompatActivity {
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
-    }
-
-
-
-    private void logoutUser() {
-        session.setLogin(false);
-
-
-        db.deleteUsers();
-        startActivity(new Intent(Home.this, firstscreen.class));
-        finish();
-
     }
 }

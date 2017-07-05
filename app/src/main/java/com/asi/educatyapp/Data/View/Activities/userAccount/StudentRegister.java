@@ -3,6 +3,7 @@ package com.asi.educatyapp.Data.View.Activities.userAccount;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -54,12 +55,14 @@ public class StudentRegister extends AppCompatActivity {
     Uri downloadPhoto;
     Uri imageUri;
     boolean isRegistered;
+    FirebaseAuth.AuthStateListener fAuthStateListener;
+
 
     // Firebase Variables
     DatabaseReference studentDatabaseReference;
     FirebaseStorage firebaseStorage;
     StorageReference profilePhotoReference;
-
+    UserProfileChangeRequest profileChangeRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,146 +116,153 @@ public class StudentRegister extends AppCompatActivity {
                 } else {
                     createAccount(email, password);
 
-                    FirebaseUtil.SetStudentsMap(name,username);
-                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(name)
-                            .setPhotoUri(downloadPhoto).build();
-                    user = firebaseAuth.getCurrentUser();
-                    user.updateProfile(profileChangeRequest);
-                    user.sendEmailVerification();
+
+                    //// TODO: 30/06/2017 handle session
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            fAuthStateListener = new FirebaseAuth.AuthStateListener() {
+                                @Override
+                                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                                    //here logic if user is logined
+                                    if (user != null) {
+
+                                        user = firebaseAuth.getCurrentUser();
 
 
-                    if (createAccount(email,password)){
-                        //todo save Student info to database
-                        studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.hasChild(username)){
-                                    usernameEditText.setError("choose another username");
-                                    Toast.makeText(StudentRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-
-                                    key = user.getUid();
-                                    StudentModel model = new StudentModel(email,password,name,school,username,downloadPhoto.toString());
-                                    studentDatabaseReference.child(username).setValue(model)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        // TODO: 30/06/2017 upload image
+                                        if (imageUri != null) {
+                                            profilePhotoReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                 @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(StudentRegister.this, "saved Student", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(StudentRegister.this, Home.class));
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                    Toast.makeText(StudentRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                                                    downloadPhoto = taskSnapshot.getDownloadUrl();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(StudentRegister.this, "faild regist Student" + e, Toast.LENGTH_SHORT).show();
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+
+                                                }
+                                            });
                                         }
-                                    });
+
+
+                                        //// TODO: 01/07/2017 handle user account
+                                        FirebaseUtil.SetStudentsMap(name, username);
+                                        profileChangeRequest = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(name)
+                                                .setPhotoUri(downloadPhoto).build();
+                                        user.updateProfile(profileChangeRequest);
+                                        user.sendEmailVerification();
+
+
+                                        final FirebaseUser finalUser = user;
+                                        studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.hasChild(username)) {
+                                                    usernameEditText.setError("choose another username ");
+                                                    Toast.makeText(StudentRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
+                                                } else {
+
+                                                    if (isRegistered) {
+                                                        //todo save Student info to database
+                                                        studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                if (dataSnapshot.hasChild(username)) {
+                                                                    usernameEditText.setError("choose another username");
+                                                                    Toast.makeText(StudentRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
+                                                                } else {
+
+                                                                    key = finalUser.getUid();
+                                                                    StudentModel model = new StudentModel(email, password, name, school, username, downloadPhoto.toString());
+                                                                    studentDatabaseReference.child(username).setValue(model)
+                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                @Override
+                                                                                public void onSuccess(Void aVoid) {
+                                                                                    Toast.makeText(StudentRegister.this, "saved Student", Toast.LENGTH_SHORT).show();
+                                                                                    startActivity(new Intent(StudentRegister.this, Home.class));
+                                                                                }
+                                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            Toast.makeText(StudentRegister.this, "faild regist Student" + e, Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(DatabaseError databaseError) {
+                                                            }
+                                                        });
+                                                    } else {
+                                                        Toast.makeText(StudentRegister.this, "invalid info to Register", Toast.LENGTH_SHORT).show();
+                                                    }
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+
+
+                                    } else {
+                                        Toast.makeText(StudentRegister.this, "not logined", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(StudentRegister.this, LoginEdu.class));
+                                    }
                                 }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) { }
-                        });
-                    }
-                    else {
-                        Toast.makeText(StudentRegister.this, "invalid info to Register" , Toast.LENGTH_SHORT).show();
-                    }
-
+                            };
+                            firebaseAuth.addAuthStateListener(fAuthStateListener);
+                        }
+                    }, 10);
                 }
             }
         });
     }
 
-    private boolean createAccount(String email, String password) {
+    private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
-
-
-
         firebaseAuth.createUserWithEmailAndPassword(email, password)
-
                 .addOnCompleteListener(StudentRegister.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(StudentRegister.this,"check your email for verification ",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentRegister.this, "check your email for verification ", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-
-
-                          isRegistered = true;
-
+                            isRegistered = true;
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(StudentRegister.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                           isRegistered = false;
-
-
+                            isRegistered = false;
                         }
                     }
                 });
-
-      return isRegistered;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RC_PHOTO_PICKER ) {
-            final Uri uriImage = data.getData();
-            profilePhotoReference = profilePhotoReference.child(uriImage.getLastPathSegment());
+        if (requestCode == RC_PHOTO_PICKER) {
+            imageUri = data.getData();
+            profilePhotoReference = profilePhotoReference.child(imageUri.getLastPathSegment());
             Glide.with(StudentRegister.this)
-                    .load(uriImage)
+                    .load(imageUri)
                     .into(profilePic);
-
-            profilePhotoReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(StudentRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
-                    downloadPhoto = taskSnapshot.getDownloadUrl();
-
-
-
-                }
-            });
-        }
-        else {
+        } else {
             Toast.makeText(StudentRegister.this, "error photo picker", Toast.LENGTH_SHORT).show();
         }
 
-    }
-
-    private void sendEmailVerification(final FirebaseUser user) {
-        // Disable button
-        // Send verification email
-        // [START send_email_verification]
-
-        user.sendEmailVerification()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // [START_EXCLUDE]
-                        // Re-enable button
-
-
-                        if (task.isSuccessful()) {
-                            Toast.makeText(StudentRegister.this,
-                                    "Verification email sent to " + user.getEmail(),
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.e(TAG, "sendEmailVerification", task.getException());
-                            Toast.makeText(StudentRegister.this,
-                                    "Failed to send verification email.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        // [END_EXCLUDE]
-                    }
-                });
-        // [END send_email_verification]
     }
 
 }

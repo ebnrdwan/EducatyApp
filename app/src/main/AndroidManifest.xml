@@ -127,7 +127,6 @@
             android:theme="@style/FullscreenActionBarStyle"></activity>
         <activity android:name=".Data.View.Activities.userAccount.Student" />
         <activity android:name=".Data.View.Activities.userAccount.Teacher" />
-        <activity android:name=".Data.View.Activities.userAccount.sss"></activity>
     </application>
 
 </manifest>
