@@ -12,79 +12,83 @@
     card_view:cardCornerRadius="2dp"
     card_view:contentPadding="7dp"
     android:id="@+id/card_second">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="1.5"
             android:layout_height="0dp"
-            android:orientation="horizontal"
-            >
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight=".23">
+                android:layout_weight=".23"
+                android:orientation="vertical">
+
                 <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
+                    android:id="@+id/ivprofile"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:id="@+id/ivprofile"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/mypic"
-                    />
+                    android:src="@drawable/mypic" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight=".77"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:id="@+id/linerfirst"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
+                android:layout_weight=".77"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:weightSum="3">
 
                 <LinearLayout
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_width="0dp"
-                    android:layout_weight="3">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="vertical">
+
                     <TextView
+                        android:id="@+id/nameTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="text"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#000"
                         android:drawablePadding="5dp"
-                        android:id="@+id/nameTv" />
+                        android:text="text"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                     <!--<Views.AsiTextView-->
                     <TextView
+                        android:id="@+id/time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2 minute ago"
-                        android:textSize="13sp"
-                        android:textColor="#000"
                         android:drawablePadding="5dp"
-                        android:id="@+id/time" />
+                        android:text="2 minute ago"
+                        android:textColor="#000"
+                        android:textSize="13sp" />
+
                     <ImageView
+                        android:id="@+id/ivPostPic"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:src="@drawable/imagepost"
-                        android:id="@+id/ivPostPic"
-                        />
+                        android:src="@drawable/imagepost" />
+
                     <TextView
+                        android:id="@+id/tvContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley "
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:textColor="#000"
                         android:layout_marginTop="10dp"
                         android:drawablePadding="5dp"
-                        android:id="@+id/tvContent" />
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley "
+                        android:textColor="#000"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -93,44 +97,42 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/backRecycler"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            />
+            android:layout_marginTop="10dp"
+            android:background="@color/backRecycler" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight=".1"
             android:layout_height="0dp"
+            android:layout_weight=".1"
             android:orientation="horizontal"
-            android:weightSum="2"
-            >
+            android:weightSum="2">
+
             <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:tint="#3a7dbf"
-                android:layout_gravity="center"
                 android:id="@+id/viewComments"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_insert_comment_black_24dp"
-                />
-            <com.like.LikeButton
                 android:layout_gravity="center"
-                app:icon_type="heart"
+                android:layout_weight="1"
+                android:src="@drawable/ic_insert_comment_black_24dp"
+                android:tint="#3a7dbf" />
+
+            <com.like.LikeButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                app:anim_scale_factor="2"
+                app:circle_end_color="@color/colorAccent"
                 app:circle_start_color="@color/colorPrimary"
-                app:like_drawable="@drawable/thumb_on"
-                app:unlike_drawable="@drawable/thumb_off"
                 app:dots_primary_color="@color/colorAccent"
                 app:dots_secondary_color="@color/colorPrimary"
-                app:circle_end_color="@color/colorAccent"
                 app:icon_size="25dp"
-                app:liked="true"
-                app:anim_scale_factor="2"
+                app:icon_type="heart"
                 app:is_enabled="false"
-
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1"/>
+                app:like_drawable="@drawable/heart_on"
+                app:liked="true"
+                app:unlike_drawable="@drawable/heart_off" />
         </LinearLayout>
     </LinearLayout>
 

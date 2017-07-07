@@ -1,6 +1,9 @@
 package com.asi.educatyapp.Data.Utility;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,7 +15,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 
 public class ActivityUtil {
-    public static void addFragmentToActivity (@NonNull FragmentManager fragmentManager,
+    public static void addFragmentToActivity (@Nullable FragmentManager fragmentManager,
                                               @NonNull Fragment fragment, int frameId) {
         checkNotNull(fragmentManager);
         checkNotNull(fragment);
@@ -20,4 +23,13 @@ public class ActivityUtil {
         transaction.add(frameId, fragment);
         transaction.commit();
     }
+
+
+    public static void pickImage(Activity a, int RC_PHOTO_PICKER){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/jpeg");
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        a.startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+    }
+
 }

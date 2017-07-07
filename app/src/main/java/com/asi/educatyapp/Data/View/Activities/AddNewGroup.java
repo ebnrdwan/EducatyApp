@@ -101,7 +101,7 @@ public class AddNewGroup extends AppCompatActivity {
                             i++;
 
                             if (downloadPhoto == null) {
-                                downloadPhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/profile_photo%2F31610-NYB3MB.jpg?alt=media&token=92d86e46-d9de-4eec-8f22-9d73f3f297db");
+                                downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
                             }
 
                             FirebaseUtil.SetGroupsMap(groupname,theName);

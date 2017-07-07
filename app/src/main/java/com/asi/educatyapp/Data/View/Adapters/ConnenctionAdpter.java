@@ -13,7 +13,7 @@ import com.asi.educatyapp.R;
 
 import java.util.ArrayList;
 
-import com.asi.educatyapp.Data.Data.Models.HomeModel;
+import com.asi.educatyapp.Data.Data.Models.PostModel;
 
 
 /**
@@ -21,10 +21,10 @@ import com.asi.educatyapp.Data.Data.Models.HomeModel;
  */
 public class ConnenctionAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ArrayList<HomeModel> arrayList;
+    ArrayList<PostModel> arrayList;
     Context context;
 
-    public ConnenctionAdpter(Context context, ArrayList<HomeModel> arrayList) {
+    public ConnenctionAdpter(Context context, ArrayList<PostModel> arrayList) {
         this.arrayList = arrayList;
         this.context = context;
     }

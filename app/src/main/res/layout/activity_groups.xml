@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:frisson="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
         android:id="@+id/groupsImage"
         android:layout_width="120dp"
@@ -21,18 +21,20 @@
         app:targetWidth="40dp"
         app:targetX="16dp"
         app:targetY="8dp" />
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
-        app:elevation="0dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary">
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -41,46 +43,33 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
 
-
             </android.support.v7.widget.Toolbar>
+
             <RelativeLayout
                 android:id="@+id/activity_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.example.android.prolib.FrissonView
+                <com.intrusoft.library.FrissonView
                     android:id="@+id/wave_head"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:scaleType="centerCrop"
-                    frisson:tideCount="3"
+                    frisson:alphaValue="30"
+                    frisson:autoTint="true"
                     frisson:src="@drawable/back"
-                    frisson:tideHeight="40dp"
-                    frisson:alphaValue="40"
-                    frisson:autoTint="true"/>
+                    frisson:tideCount="4"
+                    frisson:tideHeight="30dp" />
 
 
-                <View
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="18dp"
-                    android:layout_marginTop="48dp"
-                    android:background="@drawable/ic_edit" />
-
-
-
-                    <ImageView
-                        android:id="@+id/imagegroup"
-                        app:layout_behavior="com.zoonref.SimpleViewBehavior"
-                        app:layout_collapseMode="pin"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_centerInParent="true"
-                        android:scaleType="centerCrop"
-                       />
-
-
+                <ImageView
+                    android:id="@+id/imagegroup"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    app:layout_behavior="com.zoonref.SimpleViewBehavior"
+                    app:layout_collapseMode="pin" />
 
 
                 <TextView
@@ -88,12 +77,12 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="28dp"
-                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/imagegroup"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="28dp"
                     android:fontFamily="sans-serif-smallcaps"
-                    android:text="Abdulrhman"
                     android:gravity="center"
+                    android:text="Abdulrhman"
                     android:textColor="#ccffffff"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -103,14 +92,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/name"
-                    android:layout_marginLeft="28dp"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="28dp"
                     android:layout_marginTop="4dp"
                     android:text="UI/UX Designer | Android Developer"
                     android:textColor="#aaffffff" />
-
-
-
 
 
             </RelativeLayout>
@@ -128,23 +114,24 @@
                 android:id="@+id/toolbargroup"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin" >
+                app:layout_collapseMode="pin">
 
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-      <FrameLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/groufrag"></FrameLayout>
+        <FrameLayout
+            android:id="@+id/groufrag"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
@@ -154,10 +141,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        app:elevation="6dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:pressedTranslationZ="12dp"
         android:src="@drawable/add_vector"
+        app:backgroundTint="@color/colorPrimary"
+        app:elevation="6dp"
         app:layout_anchor="@id/app_bar_layout"
-        app:layout_anchorGravity="bottom|right|end"/>
+        app:layout_anchorGravity="bottom|right|end"
+        app:pressedTranslationZ="12dp" />
 </android.support.design.widget.CoordinatorLayout>

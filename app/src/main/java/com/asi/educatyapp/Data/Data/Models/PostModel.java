@@ -4,15 +4,15 @@ package com.asi.educatyapp.Data.Data.Models;
  * Created by ASI on 2/14/2017.
  */
 
-public class HomeModel {
+public class PostModel {
+    static int i = 0;
+    String name, time, content, id, profile, contentpic;
 
-    String name,time,content,id,profile,contentpic;
-
-    public HomeModel(String name) {
+    public PostModel(String name) {
         this.name = name;
     }
 
-    public HomeModel(String id, String name, String content, String time, String profile, String contentpic) {
+    public PostModel(String id, String name, String content, String time, String profile, String contentpic) {
         this.id = id;
         this.name = name;
         this.content = content;
@@ -43,6 +43,15 @@ public class HomeModel {
 
     public String getContentpic() {
         return contentpic;
+    }
+
+    public static String useIdPost() {
+        i++;
+        String postId = "post" + i;
+
+        return postId;
+
+
     }
 
 

@@ -1,175 +1,138 @@
 package com.asi.educatyapp.Data.View.Activities;
 
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.Data.Data.Models.PostModel;
+import com.asi.educatyapp.Data.Utility.ActivityUtil;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.R;
-import com.vansuita.pickimage.EPickTypes;
-import com.vansuita.pickimage.PickImageDialog;
-import com.vansuita.pickimage.PickSetup;
-import com.vansuita.pickimage.bean.PickResult;
-import com.vansuita.pickimage.listeners.IPickResult;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
 
 
-
-public class AddHomePosts extends AppCompatActivity  implements IPickResult {
+public class AddHomePosts extends AppCompatActivity implements View.OnClickListener {
 
     EditText content;
     private String base64_encoded;
-   ImageView pic;
+    ImageView pic;
+    private final int RC_PHOTO = 2;
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+    FirebaseStorage firebaseStorage;
+    StorageReference photoReference;
+    FirebaseUser user;
+    ChildEventListener childEventListener;
+    FirebaseAuth auth;
+    Uri localImageUri;
+    Uri downloadPhoto;
+    PostModel model;
+    String date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_home_posts);
-        content= (EditText) findViewById(R.id.etPostContent);
-        pic= (ImageView) findViewById(R.id.ivPost);
-    }
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        photoReference = firebaseStorage.getReference(FirebaseUtil.postsPhoto);
+        databaseReference = firebaseDatabase.getReference(FirebaseUtil.postsObject);
 
-    public void AddPost(View view) {
-        AddPost();
-    }
+        DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
+        date = df.format(Calendar.getInstance().getTime());
 
-
-    public void AddPost()
-    {
-
-
-        final ProgressDialog progressDialog;
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait");
-        progressDialog.show();
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                Constants.BASEURL+"AddHomePost.php", new Response.Listener<String>() {
+        content = (EditText) findViewById(R.id.etPostContent);
+        pic = (ImageView) findViewById(R.id.ivPost);
+        pic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-                //here is the response of server
-
-
-                progressDialog.dismiss();
-                try {
-                    JSONObject ob =new JSONObject(response);
-
-                    String isLogin= ob.getString("status");
-
-
-                    if(isLogin.equals("1"))
-                    {
-
-
-                     Toast.makeText(AddHomePosts.this,"New post added",Toast.LENGTH_LONG).show();
-                        finish();
-
-
-                    }else if(isLogin.equals("0"))
-                    {
-                        Toast.makeText(AddHomePosts.this,"There is an error",Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        //  Constant.showAlertDialog("Oops!",message,R.drawable.info,Login.this);
-                        Toast.makeText(AddHomePosts.this,"There are an error try again later",Toast.LENGTH_LONG).show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onClick(View v) {
+                ActivityUtil.pickImage(AddHomePosts.this, RC_PHOTO);
             }
+        });
+        Button add = (Button) findViewById(R.id.addPostHome);
 
 
-        }, new Response.ErrorListener() {
 
+//        pic.setOnClickListener(this);
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-                progressDialog.dismiss();
-
+            public void onClick(View v) {
+                addPost();
             }
-        }) {
+        });
 
-            @Override
-            protected Map<String, String> getParams() {
-                Calendar c = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String formattedDate = df.format(c.getTime());
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("content",content.getText().toString());
-                params.put("tid",new SQLiteHandler(getApplicationContext()).getUserDetails().get("uid"));
-                params.put("base",base64_encoded);
-                params.put("date",formattedDate);
-                return params;
-            }
-
-        };
-        // Adding request to request queue
-        int socketTimeout = 30000;//30 seconds - change to what you want
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        strReq.setRetryPolicy(policy);
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, "tag");
-    }
-
-
-    public void AddHomePost(View view) {
-        PickSetup setup = new PickSetup();
-
-        //setup.setBackgroundColor(yourColor);
-        //setup.setTitle(yourTitle);
-        //setup.setDimAmount(yourFloat);
-        //setup.setTitleColor(yourColor);
-        //setup.setFlip(true);
-        //setup.setCancelText("Test");
-        //setup.setImageSize(500);
-        setup.setPickTypes(EPickTypes.GALERY);
-        //setup.setProgressText("Loading...");
-        //setup.setProgressTextColor(Color.BLUE);
-
-
-        PickImageDialog.on(AddHomePosts.this, setup);
 
     }
-
 
     @Override
-    public void onPickResult(PickResult r) {
-        if (r.getError() == null) {
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.etPostContent:
+                ActivityUtil.pickImage(AddHomePosts.this, RC_PHOTO);
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            r.getBitmap().compress(Bitmap.CompressFormat.PNG, 70, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream .toByteArray();
-            base64_encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            pic.setImageBitmap(r.getBitmap());
+            case R.id.addPostHome:
+                addPost();
 
-
-
-        } else {
-            //Handle possible errors
-            //TODO: do what you have to do with r.getError();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_PHOTO) {
+            localImageUri = data.getData();
+            databaseReference = databaseReference.child(localImageUri.getLastPathSegment());
+            Glide.with(AddHomePosts.this)
+                    .load(localImageUri)
+                    .into(pic);
+
+
+        }
+    }
+
+    private void addPost() {
+
+        photoReference.putFile(localImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(AddHomePosts.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                downloadPhoto = taskSnapshot.getDownloadUrl();
+                if (downloadPhoto == null) {
+                    downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
+                }
+                model = new PostModel(PostModel.useIdPost(), user.getDisplayName(), content.getText().toString(), date, user.getPhotoUrl().toString(), downloadPhoto.toString());
+                FirebaseUtil.addingObjectFirebase(AddHomePosts.this, databaseReference, model, childEventListener, PostModel.useIdPost().toString(), localImageUri);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddHomePosts.this, "failed to upload", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

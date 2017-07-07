@@ -19,9 +19,9 @@ import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
 import com.asi.educatyapp.Data.Utility.itemclickforRecycler;
 import com.asi.educatyapp.Data.View.Activities.AppController;
-import com.asi.educatyapp.Data.View.Activities.theGroup;
+import com.asi.educatyapp.Data.View.Activities.TheGroup;
 import com.asi.educatyapp.Data.View.Adapters.GroupsAdpter;
-import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.Data.Utility.Constants;
 import com.asi.educatyapp.R;
 
 import org.json.JSONArray;
@@ -57,7 +57,7 @@ public class AdminGroups extends Fragment {
         itemclickforRecycler.addTo(rvGroups).setOnItemClickListener(new itemclickforRecycler.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                startActivity(new Intent(getActivity(), theGroup.class));
+                startActivity(new Intent(getActivity(), TheGroup.class));
             }
         });
         if(GroupModels.isEmpty())

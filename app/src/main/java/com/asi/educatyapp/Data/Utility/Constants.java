@@ -1,4 +1,4 @@
-package com.asi.educatyapp.Data.View.Utils;
+package com.asi.educatyapp.Data.Utility;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

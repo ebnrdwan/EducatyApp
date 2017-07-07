@@ -45,7 +45,7 @@ import com.asi.educatyapp.Data.Data.helper.SessionManager;
 import com.asi.educatyapp.Data.View.Activities.AppController;
 import com.asi.educatyapp.Data.View.Activities.Home;
 import com.asi.educatyapp.Data.View.Activities.MainActivity;
-import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.Data.Utility.Constants;
 
 public class ParentAndStudentLogin extends AppCompatActivity implements
         View.OnClickListener,

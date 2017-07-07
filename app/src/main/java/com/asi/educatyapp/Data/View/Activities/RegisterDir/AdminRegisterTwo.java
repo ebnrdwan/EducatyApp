@@ -22,7 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.asi.educatyapp.Data.View.Activities.AppController;
 import com.asi.educatyapp.Data.View.Activities.CodeOfAdmin;
 import com.asi.educatyapp.Data.View.CustomViews.CircleImageView;
-import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.Data.Utility.Constants;
 import com.asi.educatyapp.R;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.vansuita.pickimage.EPickTypes;

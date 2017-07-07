@@ -17,12 +17,15 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.asi.educatyapp.Data.Data.Models.HomeModel;
+import com.asi.educatyapp.Data.Data.Models.PostModel;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.View.Activities.AddHomePosts;
 import com.asi.educatyapp.Data.View.Activities.AppController;
 import com.asi.educatyapp.Data.View.Adapters.HomeAdpter;
-import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.Data.Utility.Constants;
 import com.asi.educatyapp.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,8 +40,11 @@ public class HomeF extends Fragment {
     private FloatingActionButton floatingActionButton;
 
     private View view;
-    ArrayList<HomeModel> TeacherModels = new ArrayList<>();
+    ArrayList<PostModel> TeacherModels = new ArrayList<>();
     RecyclerView rvHome;
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+
 
     public HomeF() {
         // Required empty public constructor
@@ -48,6 +54,11 @@ public class HomeF extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference(FirebaseUtil.postsObject);
+
+
         view = inflater.inflate(R.layout.fragment_home, container, false);
         rvHome = (RecyclerView) view.findViewById(R.id.rvHome);
         rvHome.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -97,7 +108,7 @@ public class HomeF extends Fragment {
                         String date = object.getString("date");
 
 
-                        TeacherModels.add(new HomeModel(id, name, content, date, Constants.BASEURL + profile, Constants.BASEURL + contentpic));
+                        TeacherModels.add(new PostModel(id, name, content, date, Constants.BASEURL + profile, Constants.BASEURL + contentpic));
                         count++;
                     }
 

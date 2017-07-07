@@ -1,5 +1,7 @@
 package com.asi.educatyapp.Data.View.Activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -14,15 +16,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asi.educatyapp.Data.Data.Models.StudentModel;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
+import com.asi.educatyapp.Data.View.Adapters.AttendanceAdapter;
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
 import com.asi.educatyapp.Data.View.Fragments.ClassRoomStudents;
+import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
 import com.asi.educatyapp.Data.View.Fragments.ProgressF;
 import com.asi.educatyapp.Data.View.Fragments.Skills;
-import com.asi.educatyapp.Data.View.Adapters.AttendanceAdapter;
 import com.asi.educatyapp.R;
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.Holder;
 import com.orhanobut.dialogplus.ListHolder;
@@ -32,22 +43,30 @@ import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 
-public class theGroup extends AppCompatActivity {
+public class TheGroup extends AppCompatActivity {
 
     ViewPager viewPager;
     Toolbar toolbar;
     TabLayout tabLayout;
     MyPagerAdapter pagerAdapter;
-    int attendColum=4;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference StudentDatabaseReference;
+    DatabaseReference GroupDatabaseReference;
 
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_the_group);
         toolbar = (Toolbar) findViewById(R.id.mytoolbar);
         setSupportActionBar(toolbar);
+        firebaseDatabase = firebaseDatabase.getInstance();
+        StudentDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.studentObject);
+        Intent intent = getIntent();
+      String groupName=  intent.getStringExtra(GroupsF.GroupTag);
+        GroupDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.groupsObject).child(groupName);
 
 
         //// TODO: [in the previous line] --->  i can't set method of DisplayAsUpEnabled()  to make my activity navigate back to the main, please tell me the reason
@@ -76,14 +95,22 @@ public class theGroup extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.add_attendace_menu:
 
-                AttendanceAdapter attendanceAdapter = new AttendanceAdapter(theGroup.this);
+                AttendanceAdapter attendanceAdapter = new AttendanceAdapter(TheGroup.this);
+                FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, StudentDatabaseReference) {
+                    @Override
+                    protected void populateView(View view, StudentModel studentModel, int position) {
+                        ((TextView) view.findViewById(R.id.text_view)).setText(studentModel.getName());
+                        ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
+                        Glide.with(TheGroup.this).load(Uri.parse(studentModel.getImage())).error(R.drawable.student).into(imageView);
+                    }
+                };
 
                 Holder holder = new ListHolder();
-                showCompleteDialog(holder, Gravity.BOTTOM,attendanceAdapter);
+                showCompleteDialog(holder, Gravity.BOTTOM, mAdapter);
                 break;
 
             case R.id.add_student_menu:
-                Toast.makeText(theGroup.this,"clicked add student menu",Toast.LENGTH_SHORT).show();
+                Toast.makeText(TheGroup.this, "clicked add student menu", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -102,14 +129,19 @@ public class theGroup extends AppCompatActivity {
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(DialogPlus dialog, View view) {
-
                     }
                 })
                 .setOnItemClickListener(new OnItemClickListener() {
-                    @Override public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                    @Override
+                    public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                         Log.d("DialogPlus", "onItemClick() called with: " + "item = [" +
                                 item + "], position = [" + position + "]");
-                        view.setBackgroundColor(getResources().getColor(R.color.backmen));
+
+                        StudentModel model = (StudentModel) item;
+
+                        ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
+                        imageView.setBackgroundColor(getResources().getColor(R.color.backmen));
+//                        view.setBackgroundColor(getResources().getColor(R.color.backmen));
 
                     }
                 })
@@ -129,8 +161,6 @@ public class theGroup extends AppCompatActivity {
                     }
                 })
                 .setOverlayBackgroundResource(android.R.color.transparent)
-//        .setContentBackgroundResource(R.drawable.corner_background)
-                //                .setOutMostMargin(0, 100, 0, 0)
                 .create();
         dialog.show();
     }

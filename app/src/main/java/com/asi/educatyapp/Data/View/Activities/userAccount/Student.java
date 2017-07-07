@@ -91,6 +91,8 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
 
                     signIn(emailS, passwS);
                     Toast.makeText(Student.this, "signed in ", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Student.this, Home.class));
+
                 } else {
                     Toast.makeText(Student.this, "fill your email and password", Toast.LENGTH_SHORT).show();
                 }

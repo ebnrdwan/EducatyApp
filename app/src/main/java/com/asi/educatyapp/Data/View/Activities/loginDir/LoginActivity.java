@@ -27,7 +27,7 @@ import com.asi.educatyapp.Data.View.Activities.Admin_Activity;
 import com.asi.educatyapp.Data.View.Activities.AppController;
 import com.asi.educatyapp.Data.View.Activities.Home;
 import com.asi.educatyapp.Data.View.Activities.MainActivity;
-import com.asi.educatyapp.Data.View.Utils.Constants;
+import com.asi.educatyapp.Data.Utility.Constants;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

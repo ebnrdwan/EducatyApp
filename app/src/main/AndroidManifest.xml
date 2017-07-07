@@ -93,7 +93,7 @@
         </service>
 
         <activity
-            android:name=".Data.View.Activities.theGroup"
+            android:name=".Data.View.Activities.TheGroup"
             android:label="Group"
             android:parentActivityName=".Data.View.Activities.Home"></activity>
         <activity android:name=".Data.View.Activities.loginDir.ParentAndStudentLogin" />

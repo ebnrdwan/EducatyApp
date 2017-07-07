@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
 import com.asi.educatyapp.Data.Utility.itemclickforRecycler;
-import com.asi.educatyapp.Data.View.Activities.theGroup;
+import com.asi.educatyapp.Data.View.Activities.TheGroup;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -50,6 +50,7 @@ public class GroupsF extends Fragment {
     ValueEventListener valueEventListener;
     FirebaseAuth.AuthStateListener authStateListener;
     FirebaseRecyclerAdapter groupadapterfirebase;
+    public static String GroupTag ="GTAG";
 
     public GroupsF() {
         // Required empty public constructor
@@ -67,16 +68,18 @@ public class GroupsF extends Fragment {
         rvGroups = (RecyclerView) view.findViewById(R.id.rvGroups);
         rvGroups.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
+
         itemclickforRecycler.addTo(rvGroups).setOnItemClickListener(new itemclickforRecycler.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                startActivity(new Intent(getActivity(), theGroup.class));
+             GroupsModel model= (GroupsModel) groupadapterfirebase.getItem(position);
+                Intent startGroup = new Intent(getActivity(),TheGroup.class);
+                startGroup.putExtra(GroupTag,model.getName());
+                getContext().startActivity(startGroup);
             }
         });
 
-
-
-      groupadapterfirebase = new FirebaseRecyclerAdapter<GroupsModel, GroupsHolder>(GroupsModel.class,R.layout.groupsitem,GroupsHolder.class,databaseReference) {
+        groupadapterfirebase = new FirebaseRecyclerAdapter<GroupsModel, GroupsHolder>(GroupsModel.class,R.layout.groupsitem,GroupsHolder.class,databaseReference) {
           @Override
           protected void populateViewHolder(GroupsHolder viewHolder, GroupsModel model, int position) {
               viewHolder.setName(model.getName());
@@ -85,17 +88,12 @@ public class GroupsF extends Fragment {
       };
 
         rvGroups.setAdapter(groupadapterfirebase);
-
-
-
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-
     }
 
     public ArrayList<GroupsModel> getGroups() {
@@ -109,17 +107,12 @@ public class GroupsF extends Fragment {
                         grouplist.add(model);
                     }
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             };
             databaseReference.addValueEventListener(valueEventListener);
-//            databaseReference.addChildEventListener(eventListener);
-
         }
-
         return grouplist;
     }
     public static class GroupsHolder extends RecyclerView.ViewHolder {
