@@ -127,6 +127,7 @@ public class AddHomePosts extends AppCompatActivity implements View.OnClickListe
                 model = new PostModel(PostModel.useIdPost(), user.getDisplayName(), content.getText().toString(), date, user.getPhotoUrl().toString(), downloadPhoto.toString());
                 FirebaseUtil.addingObjectFirebase(AddHomePosts.this, databaseReference, model, childEventListener, PostModel.useIdPost().toString(), localImageUri);
 
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
