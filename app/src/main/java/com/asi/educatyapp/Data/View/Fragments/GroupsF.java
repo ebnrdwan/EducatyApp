@@ -23,8 +23,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -50,12 +48,11 @@ public class GroupsF extends Fragment {
     ValueEventListener valueEventListener;
     FirebaseAuth.AuthStateListener authStateListener;
     FirebaseRecyclerAdapter groupadapterfirebase;
-    public static String GroupTag ="GTAG";
+    public static String GroupTag = "GTAG";
 
     public GroupsF() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,20 +69,20 @@ public class GroupsF extends Fragment {
         itemclickforRecycler.addTo(rvGroups).setOnItemClickListener(new itemclickforRecycler.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-             GroupsModel model= (GroupsModel) groupadapterfirebase.getItem(position);
-                Intent startGroup = new Intent(getActivity(),TheGroup.class);
-                startGroup.putExtra(GroupTag,model.getName());
+                GroupsModel model = (GroupsModel) groupadapterfirebase.getItem(position);
+                Intent startGroup = new Intent(getActivity(), TheGroup.class);
+                startGroup.putExtra(GroupTag, model.getName());
                 getContext().startActivity(startGroup);
             }
         });
 
-        groupadapterfirebase = new FirebaseRecyclerAdapter<GroupsModel, GroupsHolder>(GroupsModel.class,R.layout.groupsitem,GroupsHolder.class,databaseReference) {
-          @Override
-          protected void populateViewHolder(GroupsHolder viewHolder, GroupsModel model, int position) {
-              viewHolder.setName(model.getName());
-              viewHolder.setImage(getActivity(),model.getPath());
-          }
-      };
+        groupadapterfirebase = new FirebaseRecyclerAdapter<GroupsModel, GroupsHolder>(GroupsModel.class, R.layout.groupsitem, GroupsHolder.class, databaseReference) {
+            @Override
+            protected void populateViewHolder(GroupsHolder viewHolder, GroupsModel model, int position) {
+                viewHolder.setName(model.getName());
+                viewHolder.setImage(getActivity(), model.getPath());
+            }
+        };
 
         rvGroups.setAdapter(groupadapterfirebase);
         return view;
@@ -96,33 +93,14 @@ public class GroupsF extends Fragment {
         super.onStart();
     }
 
-    public ArrayList<GroupsModel> getGroups() {
-
-        if (valueEventListener == null) {
-            valueEventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        GroupsModel model = postSnapshot.getValue(GroupsModel.class);
-                        grouplist.add(model);
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            };
-            databaseReference.addValueEventListener(valueEventListener);
-        }
-        return grouplist;
-    }
     public static class GroupsHolder extends RecyclerView.ViewHolder {
         TextView info1;
         ImageView Gpic;
 
         public GroupsHolder(View itemView) {
             super(itemView);
-            info1=(TextView)itemView.findViewById(R.id.tvGname);
-            Gpic= (ImageView) itemView.findViewById(R.id.ivGroup);
+            info1 = (TextView) itemView.findViewById(R.id.tvGname);
+            Gpic = (ImageView) itemView.findViewById(R.id.ivGroup);
         }
 
         public void setName(String name) {

@@ -12,7 +12,11 @@ public class CommentModel {
     String time;
     String id,pid;
 
-    public CommentModel(String id,String pid,String name, String image, String comment, String time) {
+    public CommentModel() {
+        //required for firebase database
+    }
+
+    public CommentModel(String id, String pid, String name, String image, String comment, String time) {
         this.name = name;
         this.image = image;
         this.comment = comment;

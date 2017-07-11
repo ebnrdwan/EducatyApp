@@ -15,7 +15,11 @@ public class TeacherModel {
     private String idusername;
     private String email;
 
-    public TeacherModel(String email,String password, String name, String title,String feild,  String idusername ,String image) {
+    public TeacherModel() {
+        //required for firebase database
+    }
+
+    public TeacherModel(String email, String password, String name, String title, String feild, String idusername , String image) {
         this.password = password;
         this.name = name;
         this.feild = feild;

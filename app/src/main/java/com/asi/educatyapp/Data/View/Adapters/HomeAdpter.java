@@ -73,11 +73,11 @@ public class HomeAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView profile,postPic,viewComments;
         public GenericViewHolder (View itemView) {
             super (itemView);
-            info1=(TextView)itemView.findViewById(R.id.nameTv);
-            profile= (ImageView) itemView.findViewById(R.id.ivprofile);
-            postPic= (ImageView) itemView.findViewById(R.id.ivPostPic);
-            time= (TextView) itemView.findViewById(R.id.time);
-            content= (TextView) itemView.findViewById(R.id.tvContent);
+            info1=(TextView)itemView.findViewById(R.id.homeName);
+            profile= (ImageView) itemView.findViewById(R.id.homeProfile);
+            postPic= (ImageView) itemView.findViewById(R.id.homePostPic);
+            time= (TextView) itemView.findViewById(R.id.posttime);
+            content= (TextView) itemView.findViewById(R.id.homePostContent);
             viewComments= (ImageView) itemView.findViewById(R.id.viewComments);
         }
     }

@@ -12,6 +12,10 @@ public class PostModel {
         this.name = name;
     }
 
+    public PostModel() {
+        //required for firebase
+    }
+
     public PostModel(String id, String name, String content, String time, String profile, String contentpic) {
         this.id = id;
         this.name = name;

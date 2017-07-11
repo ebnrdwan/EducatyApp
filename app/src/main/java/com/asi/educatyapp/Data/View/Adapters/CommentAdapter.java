@@ -5,17 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.asi.educatyapp.Data.Data.Models.CommentModel;
 import com.asi.educatyapp.R;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-
-import com.asi.educatyapp.Data.Data.Models.CommentModel;
 
 
 /**
@@ -49,7 +46,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             genericViewHolder.name.setText(arrayList.get(position).getName());
             genericViewHolder.comment.setText(arrayList.get(position).getComment());
             genericViewHolder.time.setText(arrayList.get(position).getTime());
-            Glide.with(context).load(arrayList.get(position).getImage()).into(genericViewHolder.picture);
+//            Glide.with(context).load(arrayList.get(position).getImage()).into(genericViewHolder.picture);
 
 
         }
@@ -71,7 +68,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView name;
         TextClock time;
         TextView comment;
-        ImageButton post;
         ImageView picture;
 
 
@@ -80,7 +76,6 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             name = (TextView) itemView.findViewById(R.id.nameComment);
             time = (TextClock) itemView.findViewById(R.id.timeComment);
             picture = (ImageView) itemView.findViewById(R.id.imagecomment);
-            post = (ImageButton) itemView.findViewById(R.id.postComment);
             comment= (TextView) itemView.findViewById(R.id.comment);
 
         }

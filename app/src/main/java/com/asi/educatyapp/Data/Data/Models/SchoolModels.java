@@ -8,6 +8,10 @@ public class SchoolModels {
     String id ;
     String name;
 
+    public SchoolModels() {
+        //required for firebase database
+    }
+
     public SchoolModels(String id, String name) {
         this.id = id;
         this.name = name;

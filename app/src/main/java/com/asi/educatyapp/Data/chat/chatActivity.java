@@ -167,7 +167,6 @@ public class chatActivity extends AppCompatActivity {
                 // TODO: Send messages on click
                 FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(),mUsername,null);
                 databaseReference.push().setValue(friendlyMessage);
-
                 // Clear input box
                 mMessageEditText.setText("");
             }

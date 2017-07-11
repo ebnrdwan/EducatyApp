@@ -31,7 +31,7 @@
                 android:orientation="vertical">
 
                 <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
-                    android:id="@+id/ivprofile"
+                    android:id="@+id/homeProfile"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:scaleType="centerCrop"
@@ -55,7 +55,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/nameTv"
+                        android:id="@+id/homeName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="5dp"
@@ -65,7 +65,7 @@
                         android:textStyle="bold" />
                     <!--<Views.AsiTextView-->
                     <TextView
-                        android:id="@+id/time"
+                        android:id="@+id/posttime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="5dp"
@@ -74,13 +74,13 @@
                         android:textSize="13sp" />
 
                     <ImageView
-                        android:id="@+id/ivPostPic"
+                        android:id="@+id/homePostPic"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:src="@drawable/imagepost" />
 
                     <TextView
-                        android:id="@+id/tvContent"
+                        android:id="@+id/homePostContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

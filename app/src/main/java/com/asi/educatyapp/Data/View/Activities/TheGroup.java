@@ -43,6 +43,8 @@ import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 
+import java.util.HashMap;
+
 public class TheGroup extends AppCompatActivity {
 
     ViewPager viewPager;
@@ -66,7 +68,7 @@ public class TheGroup extends AppCompatActivity {
         StudentDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.studentObject);
         Intent intent = getIntent();
       String groupName=  intent.getStringExtra(GroupsF.GroupTag);
-        GroupDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.groupsObject).child(groupName);
+        GroupDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.groupsObject).child(groupName).child(FirebaseUtil.studentObject);
 
 
         //// TODO: [in the previous line] --->  i can't set method of DisplayAsUpEnabled()  to make my activity navigate back to the main, please tell me the reason
@@ -96,7 +98,7 @@ public class TheGroup extends AppCompatActivity {
             case R.id.add_attendace_menu:
 
                 AttendanceAdapter attendanceAdapter = new AttendanceAdapter(TheGroup.this);
-                FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, StudentDatabaseReference) {
+                FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, GroupDatabaseReference) {
                     @Override
                     protected void populateView(View view, StudentModel studentModel, int position) {
                         ((TextView) view.findViewById(R.id.text_view)).setText(studentModel.getName());
@@ -138,7 +140,13 @@ public class TheGroup extends AppCompatActivity {
                                 item + "], position = [" + position + "]");
 
                         StudentModel model = (StudentModel) item;
+                        HashMap<String,Boolean> map = new HashMap<String, Boolean>() ;
+                        map.put(model.getIdusername(),true);
+                        GroupDatabaseReference.child(model.getIdusername()).setValue(true);
 
+
+
+                        Toast.makeText(TheGroup.this, "clicked "+model.getIdusername(), Toast.LENGTH_SHORT).show();
                         ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
                         imageView.setBackgroundColor(getResources().getColor(R.color.backmen));
 //                        view.setBackgroundColor(getResources().getColor(R.color.backmen));

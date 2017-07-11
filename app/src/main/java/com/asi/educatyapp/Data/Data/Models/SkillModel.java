@@ -12,6 +12,10 @@ public class SkillModel implements Parcelable {
     private String name;
     private int Icon;
 
+    public SkillModel() {
+        //required for firebase database
+    }
+
     public SkillModel(String name, int icon, int endorse) {
         this.name = name;
         Icon = icon;

@@ -3,7 +3,6 @@ package com.asi.educatyapp.Data.View.Activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +15,6 @@ import com.asi.educatyapp.Data.Utility.ActivityUtil;
 import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,6 +47,7 @@ public class AddHomePosts extends AppCompatActivity implements View.OnClickListe
     Uri downloadPhoto;
     PostModel model;
     String date;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +73,6 @@ public class AddHomePosts extends AppCompatActivity implements View.OnClickListe
         });
         Button add = (Button) findViewById(R.id.addPostHome);
 
-
-
-//        pic.setOnClickListener(this);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +101,7 @@ public class AddHomePosts extends AppCompatActivity implements View.OnClickListe
 
         if (requestCode == RC_PHOTO) {
             localImageUri = data.getData();
-            databaseReference = databaseReference.child(localImageUri.getLastPathSegment());
+            photoReference = photoReference.child(localImageUri.getLastPathSegment());
             Glide.with(AddHomePosts.this)
                     .load(localImageUri)
                     .into(pic);
@@ -116,24 +112,26 @@ public class AddHomePosts extends AppCompatActivity implements View.OnClickListe
 
     private void addPost() {
 
-        photoReference.putFile(localImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(AddHomePosts.this, "sucess uploading", Toast.LENGTH_SHORT).show();
-                downloadPhoto = taskSnapshot.getDownloadUrl();
-                if (downloadPhoto == null) {
-                    downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
+        if (localImageUri != null) {
+            photoReference.putFile(localImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(AddHomePosts.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                    downloadPhoto = taskSnapshot.getDownloadUrl();
+                    if (downloadPhoto == null) {
+                        downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
+                    }
+
+
+                    String PushKey = databaseReference.push().getKey();
+                    model = new PostModel(PushKey, user.getDisplayName(), content.getText().toString(), date, user.getPhotoUrl().toString(), downloadPhoto.toString());
+                    FirebaseUtil.addingObjectFirebase(user, AddHomePosts.this, databaseReference, model, true, null, PushKey);
+                    startActivity(new Intent(AddHomePosts.this, Home.class));
                 }
-                model = new PostModel(PostModel.useIdPost(), user.getDisplayName(), content.getText().toString(), date, user.getPhotoUrl().toString(), downloadPhoto.toString());
-                FirebaseUtil.addingObjectFirebase(AddHomePosts.this, databaseReference, model, childEventListener, PostModel.useIdPost().toString(), localImageUri);
+            });
+        } else {
+            Toast.makeText(AddHomePosts.this, "choose a photo", Toast.LENGTH_SHORT).show();
+        }
 
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AddHomePosts.this, "failed to upload", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
