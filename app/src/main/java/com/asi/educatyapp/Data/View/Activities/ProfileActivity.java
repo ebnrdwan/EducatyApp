@@ -17,14 +17,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asi.educatyapp.Data.Data.Models.StudentModel;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.View.Fragments.ClassRoomStudents;
 import com.asi.educatyapp.Data.View.Fragments.Skills;
+import com.asi.educatyapp.Data.View.Fragments.TheGroupStudents;
 import com.asi.educatyapp.Data.chat.chatActivity;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth.AuthStateListener fAuthStateListener;
@@ -36,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     LinearLayout ConnectionLayout;
     LinearLayout Badges;
     LinearLayout Skills;
+    String myuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,45 +80,73 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        Intent intent = getIntent();
+        myuser = intent.getStringExtra(TheGroupStudents.sTag);
+        if (myuser==null)
+        {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
 
-                fAuthStateListener = new FirebaseAuth.AuthStateListener() {
-                    @Override
-                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                        user = firebaseAuth.getCurrentUser();
-                        if (user != null) {
+                    fAuthStateListener = new FirebaseAuth.AuthStateListener() {
+                        @Override
+                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                            user = firebaseAuth.getCurrentUser();
+                            if (user != null) {
 
 
-                            Uri uri = user.getPhotoUrl();
+                                Uri uri = user.getPhotoUrl();
 
-                            userName.setText(user.getDisplayName());
+                                userName.setText(user.getDisplayName());
 
-                            if (uri == null) {
-                                uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+                                if (uri == null) {
+                                    uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+                                }
+
+                                Glide
+                                        .with(ProfileActivity.this)
+                                        .load(uri)
+                                        .error(R.drawable.mypic22)
+                                        .centerCrop()
+                                        .crossFade()
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .into(teacherImage);
+
+                            } else {
+                                Toast.makeText(ProfileActivity.this, "you are not logined ", Toast.LENGTH_SHORT).show();
+
                             }
-
-                            Glide
-                                    .with(ProfileActivity.this)
-                                    .load(uri)
-                                    .error(R.drawable.mypic22)
-                                    .centerCrop()
-                                    .crossFade()
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .into(teacherImage);
-
-                        } else {
-                            Toast.makeText(ProfileActivity.this, "you are not logined ", Toast.LENGTH_SHORT).show();
-
                         }
-                    }
 
-                };
-                firebaseAuth.addAuthStateListener(fAuthStateListener);
+                    };
+                    firebaseAuth.addAuthStateListener(fAuthStateListener);
 
-            }
-        }, 10);
+                }
+            }, 10);
+        }
+        else {
+
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference= firebaseDatabase.getReference().child(FirebaseUtil.studentObject).child(myuser);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    StudentModel model = dataSnapshot.getValue(StudentModel.class);
+                    userName.setText(model.getName().toString());
+                    Desc.setText(model.getSchool().toString());
+                    Glide.with(ProfileActivity.this).load(Uri.parse(model.getImage())).error(R.drawable.student).into(teacherImage);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+
 
     }
 
@@ -131,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
                 ClassRoomStudents fragment = new ClassRoomStudents();
                 ClassRoomStudents fragments = new ClassRoomStudents();
-                trans.add(R.id.fragment_frame, fragment).commit();
+                trans.replace(R.id.fragment_frame, fragment).commit();
 
 
             }
