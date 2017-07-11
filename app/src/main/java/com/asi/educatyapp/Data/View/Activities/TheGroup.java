@@ -24,14 +24,16 @@ import com.asi.educatyapp.Data.Data.Models.StudentModel;
 import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.View.Adapters.AttendanceAdapter;
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
-import com.asi.educatyapp.Data.View.Fragments.ClassRoomStudents;
 import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
 import com.asi.educatyapp.Data.View.Fragments.ProgressF;
 import com.asi.educatyapp.Data.View.Fragments.Skills;
+import com.asi.educatyapp.Data.View.Fragments.TheGroupStudents;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -54,6 +56,8 @@ public class TheGroup extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference StudentDatabaseReference;
     DatabaseReference GroupDatabaseReference;
+    FirebaseUser user;
+  public static String groupName;
 
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
@@ -65,10 +69,12 @@ public class TheGroup extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.mytoolbar);
         setSupportActionBar(toolbar);
         firebaseDatabase = firebaseDatabase.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         StudentDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.studentObject);
         Intent intent = getIntent();
-      String groupName=  intent.getStringExtra(GroupsF.GroupTag);
+      groupName=  intent.getStringExtra(GroupsF.GroupTag);
         GroupDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.groupsObject).child(groupName).child(FirebaseUtil.studentObject);
+
 
 
         //// TODO: [in the previous line] --->  i can't set method of DisplayAsUpEnabled()  to make my activity navigate back to the main, please tell me the reason
@@ -76,7 +82,7 @@ public class TheGroup extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.myviewpager);
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new HomeF(), "Home ");
-        pagerAdapter.addFragments(new ClassRoomStudents(), "Students");
+        pagerAdapter.addFragments(new TheGroupStudents(), "Students");
         pagerAdapter.addFragments(new Skills(), "Quizzes");
         pagerAdapter.addFragments(new ProgressF(), "Progress");
 
@@ -98,7 +104,7 @@ public class TheGroup extends AppCompatActivity {
             case R.id.add_attendace_menu:
 
                 AttendanceAdapter attendanceAdapter = new AttendanceAdapter(TheGroup.this);
-                FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, GroupDatabaseReference) {
+                FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, StudentDatabaseReference) {
                     @Override
                     protected void populateView(View view, StudentModel studentModel, int position) {
                         ((TextView) view.findViewById(R.id.text_view)).setText(studentModel.getName());
@@ -142,7 +148,7 @@ public class TheGroup extends AppCompatActivity {
                         StudentModel model = (StudentModel) item;
                         HashMap<String,Boolean> map = new HashMap<String, Boolean>() ;
                         map.put(model.getIdusername(),true);
-                        GroupDatabaseReference.child(model.getIdusername()).setValue(true);
+                      FirebaseUtil.addingObjectFirebase(user,TheGroup.this,GroupDatabaseReference,model,false,model.getIdusername(),null);
 
 
 

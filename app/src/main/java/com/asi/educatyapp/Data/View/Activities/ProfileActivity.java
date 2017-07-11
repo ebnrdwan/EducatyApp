@@ -174,11 +174,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.connectionLyout:
                 ChangeBack();
-                 Animation myAnim = AnimationUtils.loadAnimation(ProfileActivity.this, R.anim.milkshake);
+                Animation myAnim = AnimationUtils.loadAnimation(ProfileActivity.this, R.anim.milkshake);
                 ConnectionLayout.setAnimation(myAnim);
             case R.id.Badges:
                 ChangeBack();
-               myAnim = AnimationUtils.loadAnimation(ProfileActivity.this, R.anim.milkshake);
+                myAnim = AnimationUtils.loadAnimation(ProfileActivity.this, R.anim.milkshake);
                 ConnectionLayout.setAnimation(myAnim);
             case R.id.Skills:
                 ChangeBack();
