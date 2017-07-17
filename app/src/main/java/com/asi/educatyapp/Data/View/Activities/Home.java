@@ -29,6 +29,8 @@ import android.widget.Toast;
 import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
 import com.asi.educatyapp.Data.Data.helper.SessionManager;
 import com.asi.educatyapp.Data.Utility.CustomTypefaceSpan;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Activities.userAccount.LoginEdu;
 import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
@@ -117,11 +119,11 @@ public class Home extends AppCompatActivity {
 
 
                             if (uri == null) {
-                                uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+                                uri = Uri.parse(FirebaseUtil.fakeImageProfile);
                             }
 
                             Glide
-                                    .with(Home.this)
+                                    .with(getApplicationContext())
                                     .load(uri)
                                     .error(R.drawable.mypic22)
                                     .centerCrop()
@@ -230,7 +232,12 @@ public class Home extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         public void onComplete(@NonNull Task<Void> task) {
                             // user is now signed out
+                            SharedPreferencesUtils.removeCurrentGroupKey(Home.this);
+                            SharedPreferencesUtils.removeCurrentStudent(Home.this);
+                            SharedPreferencesUtils.removeCurrentTeacher(Home.this);
+                            SharedPreferencesUtils.removeTypeOfCurrentUser(Home.this);
                             startActivity(new Intent(Home.this, LoginEdu.class));
+
                         }
                     });
 

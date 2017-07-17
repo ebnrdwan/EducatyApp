@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asi.educatyapp.Data.Utility.Constants;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Activities.Home;
 import com.asi.educatyapp.Data.customfonts.MyEditText;
 import com.asi.educatyapp.Data.customfonts.MyTextView;
@@ -88,6 +90,9 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
                 if (!TextUtils.isEmpty(emailS) && !TextUtils.isEmpty(passwS)) {
 
                     signIn(emailS, passwS);
+                    user = mAuth.getCurrentUser();
+                    SharedPreferencesUtils.setCurrentTeacher(Teacher.this,user.getUid());
+                    SharedPreferencesUtils.setTypeOfCurrentUser(Teacher.this, Constants.T_TEACHER);
                     Toast.makeText(Teacher.this, "signed in ", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(Teacher.this, "fill your email and password", Toast.LENGTH_SHORT).show();

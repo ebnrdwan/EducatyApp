@@ -15,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.StudentModel;
+import com.asi.educatyapp.Data.Utility.Constants;
 import com.asi.educatyapp.Data.Utility.FirebaseUtil;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Activities.Home;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
@@ -107,9 +109,7 @@ public class StudentRegister extends AppCompatActivity {
                 username = usernameEditText.getText().toString().trim();
 
                 school = schoo_name.getText().toString();
-                if (downloadPhoto == null) {
-                    downloadPhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
-                }
+
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
                         || TextUtils.isEmpty(username)) {
                     Toast.makeText(StudentRegister.this, "all filds must be filled ", Toast.LENGTH_SHORT).show();
@@ -151,6 +151,9 @@ public class StudentRegister extends AppCompatActivity {
 
 
                                         //// TODO: 01/07/2017 handle user account
+                                        if (downloadPhoto == null) {
+                                            downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
+                                        }
                                         FirebaseUtil.SetStudentsMap(name, username);
                                         profileChangeRequest = new UserProfileChangeRequest.Builder()
                                                 .setDisplayName(name)
@@ -160,12 +163,13 @@ public class StudentRegister extends AppCompatActivity {
 
 
                                         final FirebaseUser finalUser = user;
+                                        key = finalUser.getUid();
                                         studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot.hasChild(username)) {
-                                                    usernameEditText.setError("choose another username ");
-                                                    Toast.makeText(StudentRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
+                                                if (dataSnapshot.hasChild(key)) {
+//
+                                                    Toast.makeText(StudentRegister.this, "this accoount already exist", Toast.LENGTH_SHORT).show();
                                                 } else {
 
                                                     if (isRegistered) {
@@ -173,18 +177,20 @@ public class StudentRegister extends AppCompatActivity {
                                                         studentDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                             @Override
                                                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                if (dataSnapshot.hasChild(username)) {
-                                                                    usernameEditText.setError("choose another username");
-                                                                    Toast.makeText(StudentRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
+                                                                if (dataSnapshot.hasChild(key)) {
+
+                                                                    Toast.makeText(StudentRegister.this, "this account already existed", Toast.LENGTH_SHORT).show();
                                                                 } else {
 
-                                                                    key = finalUser.getUid();
+                                                                 
                                                                     StudentModel model = new StudentModel(email, password, name, school, username, downloadPhoto.toString());
-                                                                    studentDatabaseReference.child(username).setValue(model)
+                                                                    studentDatabaseReference.child(key).setValue(model)
                                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
                                                                                     Toast.makeText(StudentRegister.this, "saved Student", Toast.LENGTH_SHORT).show();
+                                                                                    SharedPreferencesUtils.setCurrentStudent(StudentRegister.this,key);
+                                                                                    SharedPreferencesUtils.setTypeOfCurrentUser(StudentRegister.this, Constants.T_STUDENT);
                                                                                     startActivity(new Intent(StudentRegister.this, Home.class));
                                                                                 }
                                                                             }).addOnFailureListener(new OnFailureListener() {
@@ -221,7 +227,7 @@ public class StudentRegister extends AppCompatActivity {
                             };
                             firebaseAuth.addAuthStateListener(fAuthStateListener);
                         }
-                    }, 10);
+                    }, 3);
                 }
             }
         });

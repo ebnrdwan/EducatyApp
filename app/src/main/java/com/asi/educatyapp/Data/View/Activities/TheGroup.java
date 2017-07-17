@@ -1,8 +1,11 @@
 package com.asi.educatyapp.Data.View.Activities;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -14,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -140,6 +144,7 @@ public class TheGroup extends AppCompatActivity {
                     }
                 })
                 .setOnItemClickListener(new OnItemClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                         Log.d("DialogPlus", "onItemClick() called with: " + "item = [" +
@@ -154,7 +159,12 @@ public class TheGroup extends AppCompatActivity {
 
                         Toast.makeText(TheGroup.this, "clicked "+model.getIdusername(), Toast.LENGTH_SHORT).show();
                         ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
+                        int radius = (int) Math.hypot(view.getWidth()/2,view.getHeight()/2);
+                        Animator animator = ViewAnimationUtils.createCircularReveal(view,view.getWidth()/2,view.getHeight(),0,radius);
+
+
                         imageView.setBackgroundColor(getResources().getColor(R.color.backmen));
+                        animator.start();
 //                        view.setBackgroundColor(getResources().getColor(R.color.backmen));
 
                     }

@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asi.educatyapp.Data.Utility.Constants;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Activities.Home;
 import com.asi.educatyapp.Data.customfonts.MyEditText;
 import com.asi.educatyapp.Data.customfonts.MyTextView;
@@ -31,7 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class Student extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class Student extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "STAG";
     Typeface fonts1;
@@ -39,7 +41,7 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
     MyEditText password, email;
     String emailS, passwS;
     MyTextView loginStudent;
-    GoogleApiClient   mGoogleApiClient;
+    GoogleApiClient mGoogleApiClient;
     ImageView googleSign;
     private static final int RC_SIGN_IN = 9001;
     FirebaseAuth mAuth;
@@ -89,7 +91,14 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
 
                 if (!TextUtils.isEmpty(emailS) && !TextUtils.isEmpty(passwS)) {
 
-                    signIn(emailS, passwS);
+                 FirebaseUser usernow=   signIn(emailS, passwS);
+                    String d = SharedPreferencesUtils.getCurrentStudent(Student.this);
+                    String t = SharedPreferencesUtils.getTypeOfCurrentUser(Student.this);
+                    SharedPreferencesUtils.setCurrentStudent(Student.this, usernow.getUid());
+                    SharedPreferencesUtils.setTypeOfCurrentUser(Student.this, Constants.T_STUDENT);
+
+
+
                     Toast.makeText(Student.this, "signed in ", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Student.this, Home.class));
 
@@ -118,16 +127,11 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        // [END build_client]
-
-        // [START customize_button]
-        // Set the dimensions of the sign-in button.
 
     }
 
-    private void signIn(String email, String password) {
+    private FirebaseUser signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
-
 //        animationView.playAnimation();
         mAuth.signInWithEmailAndPassword(email, password)
 
@@ -136,33 +140,30 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
                         } else {
 
                             if (!task.isSuccessful()) {
                                 Toast.makeText(Student.this, "check your email and password", Toast.LENGTH_SHORT).show();
                             }
-
-
                         }
                     }
                 });
+        user = mAuth.getCurrentUser();
+        return user;
     }
 
-    private void signOut() {
-        mAuth.signOut();
-    }
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
-
 
 
     @Override
@@ -182,6 +183,7 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         // [START_EXCLUDE silent]
@@ -196,7 +198,6 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
 
                         } else {
                             // If sign in fails, display a message to the user.

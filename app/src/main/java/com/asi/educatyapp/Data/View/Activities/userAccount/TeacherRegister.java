@@ -15,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.TeacherModel;
+import com.asi.educatyapp.Data.Utility.Constants;
 import com.asi.educatyapp.Data.Utility.FirebaseUtil;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Activities.Home;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
@@ -107,9 +109,7 @@ public class TeacherRegister extends AppCompatActivity {
                 title = tTitle.getText().toString();
                 field = tField.getText().toString();
 
-                if (downloadPhoto == null) {
-                    downloadPhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
-                }
+
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
                         || TextUtils.isEmpty(username)) {
                     Toast.makeText(TeacherRegister.this, "all filds must be filled ", Toast.LENGTH_SHORT).show();
@@ -121,12 +121,7 @@ public class TeacherRegister extends AppCompatActivity {
 
 
                     createAccount(email, password);
-
                     FirebaseUtil.SetTeachersMap(name, username);
-                    profileChangeRequest = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(name)
-                            .setPhotoUri(downloadPhoto).build();
-
 
                     //// TODO: 30/06/2017 handle session
                     new Handler().postDelayed(new Runnable() {
@@ -160,7 +155,9 @@ public class TeacherRegister extends AppCompatActivity {
                                             });
                                         }
 
-
+                                        if (downloadPhoto == null) {
+                                            downloadPhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+                                        }
                                         //// TODO: 01/07/2017 handle user account
                                         profileChangeRequest = new UserProfileChangeRequest.Builder()
                                                 .setDisplayName(name)
@@ -171,20 +168,24 @@ public class TeacherRegister extends AppCompatActivity {
                                         //todo save Teacher info to database
 
                                         final FirebaseUser finalUser = user;
+                                        key = finalUser.getUid();
+
                                         teachersDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot.hasChild(username)) {
-                                                    usernameEditText.setError("choose another username ");
-                                                    Toast.makeText(TeacherRegister.this, "choose another username", Toast.LENGTH_SHORT).show();
+                                                if (dataSnapshot.hasChild(key)) {
+                                                    usernameEditText.setError("this account already existed ");
+                                                    Toast.makeText(TeacherRegister.this, "this account already existed", Toast.LENGTH_SHORT).show();
                                                 } else {
 
-                                                    key = finalUser.getUid();
+
                                                     TeacherModel model = new TeacherModel(email, password, name, title, field, username, downloadPhoto.toString());
-                                                    teachersDatabaseReference.child(username).setValue(model)
+                                                    teachersDatabaseReference.child(key).setValue(model)
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
+                                                                    SharedPreferencesUtils.setTypeOfCurrentUser(TeacherRegister.this, Constants.T_TEACHER);
+                                                                    SharedPreferencesUtils.setCurrentTeacher(TeacherRegister.this, key);
                                                                     Toast.makeText(TeacherRegister.this, "saved Teacher", Toast.LENGTH_SHORT).show();
                                                                     startActivity(new Intent(TeacherRegister.this, Home.class));
                                                                 }

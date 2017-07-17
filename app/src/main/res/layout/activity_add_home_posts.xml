@@ -39,6 +39,7 @@
             android:padding="12dp" />
 
         <Button
+            android:foreground="?attr/selectableItemBackground"
             android:id="@+id/addPostHome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

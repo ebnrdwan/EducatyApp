@@ -13,17 +13,15 @@ import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
 import com.asi.educatyapp.Data.Utility.FirebaseUtil;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -81,52 +79,60 @@ public class AddNewGroup extends AppCompatActivity {
         addGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
                 groupname = Gname.getText().toString();
-                groupsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                key = groupsDatabaseReference.push().getKey();
+                String currentTeachherky = SharedPreferencesUtils.getCurrentTeacher(AddNewGroup.this);
+                GroupsModel model = new GroupsModel(key,currentTeachherky,groupname,downloadPhoto.toString());
+                FirebaseUtil.addingObjectFirebase(user1,AddNewGroup.this,groupsDatabaseReference,model,false,groupname,null);
 
+                startActivity(new Intent(AddNewGroup.this, Groups.class));
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(groupname)){
-                            Gname.setError("choose another groupname");
-                            Toast.makeText(AddNewGroup.this, "choose another groupname", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-
-                    key = user.getUid();
-                            String theName= user.getDisplayName();
-                            int i=1;
-
-//                            key=String.valueOf(i);
-                            i++;
-
-                            if (downloadPhoto == null) {
-                                downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
-                            }
-
-                            FirebaseUtil.SetGroupsMap(groupname,theName);
-
-                            GroupsModel model = new GroupsModel(key,groupname,downloadPhoto.toString());
-
-                            groupsDatabaseReference.child(groupname).setValue(model)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AddNewGroup.this, "saved group", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(AddNewGroup.this, Groups.class));
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(AddNewGroup.this, "faild create group" + e, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) { }
-                });
+//                groupsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.hasChild(groupname)){
+//                            Gname.setError("choose another groupname");
+//                            Toast.makeText(AddNewGroup.this, "choose another groupname", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else {
+//
+//                    key = user.getUid();
+//                            String theName= user.getDisplayName();
+//                            int i=1;
+//
+////                            key=String.valueOf(i);
+//                            i++;
+//
+//                            if (downloadPhoto == null) {
+//                                downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
+//                            }
+//
+//                            FirebaseUtil.SetGroupsMap(groupname,theName);
+//
+//                            GroupsModel model = new GroupsModel(key,groupname,downloadPhoto.toString());
+//
+//                            groupsDatabaseReference.child(groupname).setValue(model)
+//                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                        @Override
+//                                        public void onSuccess(Void aVoid) {
+//                                            Toast.makeText(AddNewGroup.this, "saved group", Toast.LENGTH_SHORT).show();
+//                                            startActivity(new Intent(AddNewGroup.this, Groups.class));
+//                                        }
+//                                    }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Toast.makeText(AddNewGroup.this, "faild create group" + e, Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) { }
+//                });
             }
         });
 

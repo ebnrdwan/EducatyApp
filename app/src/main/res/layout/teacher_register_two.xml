@@ -145,7 +145,7 @@
 
 
         <Button
-
+            android:foreground="?attr/selectableItemBackground"
             android:id="@+id/Reg_teacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

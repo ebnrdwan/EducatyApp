@@ -104,7 +104,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                 }
 
                                 Glide
-                                        .with(ProfileActivity.this)
+                                        .with(getApplicationContext())
                                         .load(uri)
                                         .error(R.drawable.mypic22)
                                         .centerCrop()

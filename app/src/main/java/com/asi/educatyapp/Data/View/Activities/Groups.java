@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
+import com.asi.educatyapp.Data.Utility.Constants;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
@@ -25,13 +27,13 @@ import java.util.ArrayList;
 
 public class Groups extends AppCompatActivity {
 
-    ArrayList<GroupsModel>grouplist;
+    ArrayList<GroupsModel> grouplist;
     FirebaseAuth.AuthStateListener fAuthStateListener;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     ImageView imageUser;
     TextView username;
-
+    FloatingActionButton fab;
 
 
     @Override
@@ -39,13 +41,20 @@ public class Groups extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
         firebaseAuth = FirebaseAuth.getInstance();
-        GroupsF groupsF = new GroupsF();
-        FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
-        manager.add(R.id.groufrag,groupsF);
-        manager.commit();
+
         imageUser = (ImageView) findViewById(R.id.groupsImage);
         username = (TextView) findViewById(R.id.name);
 
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        if (SharedPreferencesUtils.getTypeOfCurrentUser(Groups.this).equals(Constants.T_STUDENT)) {
+            fab.setVisibility(View.GONE);
+        }
+        GroupsF groupsF = new GroupsF();
+        FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
+        manager.add(R.id.groufrag, groupsF);
+        manager.commit();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -89,16 +98,16 @@ public class Groups extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Groups.this,ProfileActivity.class));
+                startActivity(new Intent(Groups.this, ProfileActivity.class));
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(Groups.this,AddNewGroup.class));
+                startActivity(new Intent(Groups.this, AddNewGroup.class));
             }
         });
 

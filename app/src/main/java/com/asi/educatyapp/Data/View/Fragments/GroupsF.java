@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.Utility.itemclickforRecycler;
 import com.asi.educatyapp.Data.View.Activities.TheGroup;
 import com.asi.educatyapp.R;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -70,20 +72,21 @@ public class GroupsF extends Fragment {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 GroupsModel model = (GroupsModel) groupadapterfirebase.getItem(position);
+                SharedPreferencesUtils.setCurrentGroupKey(getContext(),model.getName());
                 Intent startGroup = new Intent(getActivity(), TheGroup.class);
                 startGroup.putExtra(GroupTag, model.getName());
                 getContext().startActivity(startGroup);
             }
         });
 
-        groupadapterfirebase = new FirebaseRecyclerAdapter<GroupsModel, GroupsHolder>(GroupsModel.class, R.layout.groupsitem, GroupsHolder.class, databaseReference) {
+  Query query = databaseReference.orderByChild("tid").equalTo(SharedPreferencesUtils.getCurrentTeacher(getActivity()));
+        groupadapterfirebase = new FirebaseRecyclerAdapter<GroupsModel, GroupsHolder>(GroupsModel.class, R.layout.groupsitem, GroupsHolder.class, query) {
             @Override
             protected void populateViewHolder(GroupsHolder viewHolder, GroupsModel model, int position) {
                 viewHolder.setName(model.getName());
                 viewHolder.setImage(getActivity(), model.getPath());
             }
         };
-
         rvGroups.setAdapter(groupadapterfirebase);
         return view;
     }
@@ -102,7 +105,6 @@ public class GroupsF extends Fragment {
             info1 = (TextView) itemView.findViewById(R.id.tvGname);
             Gpic = (ImageView) itemView.findViewById(R.id.ivGroup);
         }
-
         public void setName(String name) {
             info1.setText(name);
         }
@@ -111,6 +113,4 @@ public class GroupsF extends Fragment {
             Glide.with(context).load(Uri.parse(imagePath)).error(R.drawable.back).into(Gpic);
         }
     }
-
-
 }

@@ -26,7 +26,7 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp">
+        app:elevation="4dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -83,6 +83,8 @@
                     android:fontFamily="sans-serif-smallcaps"
                     android:gravity="center"
                     android:text="Abdulrhman"
+                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+                    app:layout_collapseMode="pin"
                     android:textColor="#ccffffff"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -137,13 +139,16 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
+        app:fabSize="normal"
+        app:rippleColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:src="@drawable/add_vector"
+        android:foreground="?attr/selectableItemBackground"
+        android:elevation="6dp"
+        app:srcCompat="@drawable/add_vector"
         app:backgroundTint="@color/colorPrimary"
-        app:elevation="6dp"
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end"
         app:pressedTranslationZ="12dp" />

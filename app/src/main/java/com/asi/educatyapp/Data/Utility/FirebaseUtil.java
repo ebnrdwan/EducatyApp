@@ -129,11 +129,11 @@ public class FirebaseUtil {
         return groupmap.get(usedname);
     }
 
-    public static void SetStudentsMap(String UsedName, String username) {
+    public static void SetStudentsMap(String emailS, String username) {
         if (studentmap.containsValue(username)) {
             //do nothing for now
         } else {
-            studentmap.put(UsedName, username);
+            studentmap.put(emailS, username);
 
         }
     }
@@ -142,11 +142,11 @@ public class FirebaseUtil {
         return studentmap.get(usedname);
     }
 
-    public static void SetTeachersMap(String UsedName, String username) {
+    public static void SetTeachersMap(String emailT, String username) {
         if (teachermap.containsValue(username)) {
             //do nothing for now
         } else {
-            teachermap.put(UsedName, username);
+            teachermap.put(emailT, username);
 
         }
     }
@@ -163,13 +163,10 @@ public class FirebaseUtil {
 
             if (push) {
 
-
                 databaseReference.child(PushKey).setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(context, "you have added " + model.getClass().getName() + " successfully", Toast.LENGTH_SHORT).show();
-
-
                     }
                 });
             } else {
@@ -196,14 +193,13 @@ public class FirebaseUtil {
                             });
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
             }
         } else
             Toast.makeText(context, "you are not login ", Toast.LENGTH_SHORT).show();
     }
+
 }

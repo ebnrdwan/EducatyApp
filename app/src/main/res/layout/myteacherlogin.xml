@@ -8,20 +8,21 @@
 
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:background="@drawable/teacherbg"
-        android:scaleType="centerCrop"
-        android:id="@+id/frameLayout"></FrameLayout>
+        android:scaleType="centerCrop"></FrameLayout>
 
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/frameLayout"
-        android:layout_alignParentStart="true">
+        android:orientation="vertical">
 
         <com.asi.educatyapp.Data.customfonts.MyTextView
             android:id="@+id/head"
@@ -130,13 +131,13 @@
                 />
 
             <com.asi.educatyapp.Data.customfonts.MyTextView
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
                 android:id="@+id/forgotpass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2.3"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:text="Forgot password?"
                 android:textColor="@color/colorhint"
                 android:textSize="11dp"
@@ -155,10 +156,10 @@
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
             android:layout_marginTop="8dp"
-
             android:background="@drawable/rect1"
             android:clickable="true"
-            android:elevation="3dp"
+            android:elevation="4dp"
+            android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:padding="8dp"
             android:text="Sign in"
@@ -174,12 +175,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/acc"
-            android:gravity="center"
             android:layout_margin="8dp"
+            android:elevation="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
             android:lines="2"
-            android:textStyle="bold"
             android:text="Or Register?"
-            android:textColor="@color/colorhint" />
+            android:textColor="@color/colorhint"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -205,9 +208,10 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:padding="8dp"
                 android:src="@drawable/fb" />
 
 
@@ -224,13 +228,13 @@
 
             <ImageView
                 android:id="@+id/googleiconT"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:padding="8dp"
-                android:src="@drawable/google"
-                />
+                android:src="@drawable/google" />
 
         </LinearLayout>
 
