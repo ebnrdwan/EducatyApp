@@ -26,8 +26,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.asi.educatyapp.Data.Data.Local.SQLiteHandler;
-import com.asi.educatyapp.Data.Data.helper.SessionManager;
+
+import com.asi.educatyapp.Data.Utility.Constants;
 import com.asi.educatyapp.Data.Utility.CustomTypefaceSpan;
 import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
@@ -51,8 +51,7 @@ public class Home extends AppCompatActivity {
     NavigationView navigationView;
     String type = "";
     private Menu m;
-    private SessionManager session;
-    private SQLiteHandler db;
+
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     ImageView ImageProfile;
@@ -75,8 +74,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         firebaseAuth = FirebaseAuth.getInstance();
-        session = new SessionManager(Home.this);
-        db = new SQLiteHandler(Home.this);
+
         //TypefaceUtil.overrideFont(chatActivity.this, "SERIF", "fonts/Font-Bold.otf");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,9 +91,8 @@ public class Home extends AppCompatActivity {
         navigationView.addHeaderView(header);
         ImageProfile = (ImageView) header.findViewById(R.id.imageProfile);
         TextView name = (TextView) header.findViewById(R.id.nameProfile);
-        name.setText(new SQLiteHandler(getApplicationContext()).getUserDetails().get("name"));
         TextView email = (TextView) header.findViewById(R.id.emailtv);
-        email.setText(new SQLiteHandler(getApplicationContext()).getUserDetails().get("email"));
+
         ImageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +112,14 @@ public class Home extends AppCompatActivity {
                         if (user != null) {
 
 
+                            if (SharedPreferencesUtils.getTypeOfCurrentUser(Home.this).equals(Constants.T_STUDENT)){
+                                Toast.makeText(Home.this,"saved current student",Toast.LENGTH_SHORT).show();
+                                SharedPreferencesUtils.setCurrentStudent(Home.this,user.getUid());
+                            }
+                            else {
+                                SharedPreferencesUtils.setCurrentTeacher(Home.this,user.getUid());
+                                Toast.makeText(Home.this,"saved current teacher",Toast.LENGTH_SHORT).show();
+                            }
                             Uri uri = user.getPhotoUrl();
 
 
@@ -122,8 +127,7 @@ public class Home extends AppCompatActivity {
                                 uri = Uri.parse(FirebaseUtil.fakeImageProfile);
                             }
 
-                            Glide
-                                    .with(getApplicationContext())
+                            Glide.with(getApplicationContext())
                                     .load(uri)
                                     .error(R.drawable.mypic22)
                                     .centerCrop()

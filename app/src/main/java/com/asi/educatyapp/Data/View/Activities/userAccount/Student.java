@@ -91,14 +91,8 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
 
                 if (!TextUtils.isEmpty(emailS) && !TextUtils.isEmpty(passwS)) {
 
-                 FirebaseUser usernow=   signIn(emailS, passwS);
-                    String d = SharedPreferencesUtils.getCurrentStudent(Student.this);
-                    String t = SharedPreferencesUtils.getTypeOfCurrentUser(Student.this);
-                    SharedPreferencesUtils.setCurrentStudent(Student.this, usernow.getUid());
+                    signIn(emailS, passwS);
                     SharedPreferencesUtils.setTypeOfCurrentUser(Student.this, Constants.T_STUDENT);
-
-
-
                     Toast.makeText(Student.this, "signed in ", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Student.this, Home.class));
 
@@ -130,7 +124,7 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
 
     }
 
-    private FirebaseUser signIn(String email, String password) {
+    private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
 //        animationView.playAnimation();
         mAuth.signInWithEmailAndPassword(email, password)
@@ -150,8 +144,7 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
                         }
                     }
                 });
-        user = mAuth.getCurrentUser();
-        return user;
+
     }
 
 

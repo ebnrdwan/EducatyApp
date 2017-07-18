@@ -10,7 +10,6 @@ import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.R;
 
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
-import com.asi.educatyapp.Data.View.Fragments.Admin_inactive_2;
 
 public class theEvaluationCustomDialog extends AppCompatActivity {
 
@@ -30,7 +29,6 @@ public class theEvaluationCustomDialog extends AppCompatActivity {
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 
         pagerAdapter.addFragments(new GroupsF(), "Positive behavior ");
-        pagerAdapter.addFragments(new Admin_inactive_2(), "To work in");
         pagerAdapter.addFragments(new GroupsF(), "Grades");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

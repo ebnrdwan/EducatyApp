@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
+import com.asi.educatyapp.Data.Utility.Constants;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.Utility.itemclickforRecycler;
 import com.asi.educatyapp.Data.View.Activities.TheGroup;
@@ -43,7 +45,8 @@ public class GroupsF extends Fragment {
     RecyclerView rvGroups;
     ArrayList<GroupsModel> grouplist;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference TeacherdatabaseReference;
+    DatabaseReference StudentDatabaseReference;
     FirebaseUser user;
     FirebaseAuth auth;
     ChildEventListener eventListener;
@@ -51,6 +54,7 @@ public class GroupsF extends Fragment {
     FirebaseAuth.AuthStateListener authStateListener;
     FirebaseRecyclerAdapter groupadapterfirebase;
     public static String GroupTag = "GTAG";
+    Query query;
 
     public GroupsF() {
         // Required empty public constructor
@@ -63,23 +67,32 @@ public class GroupsF extends Fragment {
         view = inflater.inflate(R.layout.fragment_groups, container, false);
         firebaseDatabase = firebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("Groups");
+        TeacherdatabaseReference = firebaseDatabase.getReference().child("Groups");
+        StudentDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.studentObject).child(FirebaseUtil.groupsObject);
+
         rvGroups = (RecyclerView) view.findViewById(R.id.rvGroups);
         rvGroups.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        if (SharedPreferencesUtils.getTypeOfCurrentUser(getContext()).equals(Constants.T_STUDENT)) {
+            query = TeacherdatabaseReference.child(FirebaseUtil.groupsObject)
+                    .orderByChild(FirebaseUtil.studentObject).equalTo(SharedPreferencesUtils.getCurrentStudent(getActivity()));
+        } else {
+            query = TeacherdatabaseReference.orderByChild("tid").equalTo(SharedPreferencesUtils.getCurrentTeacher(getActivity()));
+
+        }
 
 
         itemclickforRecycler.addTo(rvGroups).setOnItemClickListener(new itemclickforRecycler.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 GroupsModel model = (GroupsModel) groupadapterfirebase.getItem(position);
-                SharedPreferencesUtils.setCurrentGroupKey(getContext(),model.getName());
+                SharedPreferencesUtils.setCurrentGroupKey(getContext(), model.getName());
                 Intent startGroup = new Intent(getActivity(), TheGroup.class);
                 startGroup.putExtra(GroupTag, model.getName());
                 getContext().startActivity(startGroup);
             }
         });
 
-  Query query = databaseReference.orderByChild("tid").equalTo(SharedPreferencesUtils.getCurrentTeacher(getActivity()));
+
         groupadapterfirebase = new FirebaseRecyclerAdapter<GroupsModel, GroupsHolder>(GroupsModel.class, R.layout.groupsitem, GroupsHolder.class, query) {
             @Override
             protected void populateViewHolder(GroupsHolder viewHolder, GroupsModel model, int position) {
@@ -105,6 +118,7 @@ public class GroupsF extends Fragment {
             info1 = (TextView) itemView.findViewById(R.id.tvGname);
             Gpic = (ImageView) itemView.findViewById(R.id.ivGroup);
         }
+
         public void setName(String name) {
             info1.setText(name);
         }

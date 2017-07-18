@@ -18,24 +18,14 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Skills extends Fragment{
-    ArrayList<SkillModel>skillList;
+public class Skills extends Fragment {
+    ArrayList<SkillModel> skillList;
     RecyclerView myrecylcer;
     public static String ParceTag = "PARCETAG";
 
     public Skills() {
         // Required empty public constructor
     }
-//
-//    public static Skills newSkillsInstance(SkillModel skillModel){
-//        Skills instance = new Skills();
-//        Bundle args = new Bundle();
-//        args.putParcelable(ParceTag,skillModel);
-//
-//
-//        return instance;
-//    }
-
 
 
 
@@ -43,8 +33,8 @@ public class Skills extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView= inflater.inflate(R.layout.fragment_skills, container, false);
-        skillList =new ArrayList<>();
+        View rootView = inflater.inflate(R.layout.fragment_skills, container, false);
+        skillList = new ArrayList<>();
         skillList.add(new SkillModel("ICDL Certificate", R.drawable.skills, R.drawable.addicon));
         skillList.add(new SkillModel("TOFEL Certificate", R.drawable.skills, R.drawable.addicon));
         skillList.add(new SkillModel("new Methodologies in Teaching", R.drawable.skills, R.drawable.addicon));
@@ -58,7 +48,7 @@ public class Skills extends Fragment{
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         myrecylcer.setLayoutManager(layoutManager);
 
-        SkillsAdapter adapter = new SkillsAdapter(getActivity(),skillList);
+        SkillsAdapter adapter = new SkillsAdapter(getActivity(), skillList);
         myrecylcer.setAdapter(adapter);
         myrecylcer.setHasFixedSize(true);
         return rootView;

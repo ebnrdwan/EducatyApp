@@ -202,4 +202,23 @@ public class FirebaseUtil {
             Toast.makeText(context, "you are not login ", Toast.LENGTH_SHORT).show();
     }
 
+
+    public static<T> void CourseValueEventListener(DatabaseReference reference, final T model ) {
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                T model1=model;
+                model1 = (T) dataSnapshot.getValue(model.getClass());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 }

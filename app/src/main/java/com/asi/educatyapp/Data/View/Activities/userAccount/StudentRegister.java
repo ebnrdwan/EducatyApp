@@ -183,7 +183,7 @@ public class StudentRegister extends AppCompatActivity {
                                                                 } else {
 
                                                                  
-                                                                    StudentModel model = new StudentModel(email, password, name, school, username, downloadPhoto.toString());
+                                                                    StudentModel model = new StudentModel(key,email, password, name, school, username, downloadPhoto.toString());
                                                                     studentDatabaseReference.child(key).setValue(model)
                                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override

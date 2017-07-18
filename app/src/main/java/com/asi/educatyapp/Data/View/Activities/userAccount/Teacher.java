@@ -91,7 +91,6 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
 
                     signIn(emailS, passwS);
                     user = mAuth.getCurrentUser();
-                    SharedPreferencesUtils.setCurrentTeacher(Teacher.this,user.getUid());
                     SharedPreferencesUtils.setTypeOfCurrentUser(Teacher.this, Constants.T_TEACHER);
                     Toast.makeText(Teacher.this, "signed in ", Toast.LENGTH_SHORT).show();
                 } else {
@@ -206,7 +205,6 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(Teacher.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
                         }
 
                         // [START_EXCLUDE]

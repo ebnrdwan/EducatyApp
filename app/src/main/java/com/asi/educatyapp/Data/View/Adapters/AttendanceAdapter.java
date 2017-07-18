@@ -108,28 +108,9 @@ public class AttendanceAdapter extends BaseAdapter {
         }
 
         Context context = parent.getContext();
-
         viewHolder.textView.setText(String.valueOf(studentModelArrayList.size()));
         Glide.with(context).load(Uri.parse(studentModelArrayList.get(position).getImage())).into(viewHolder.imageView);
         viewHolder.imageView.setImageResource(R.drawable.mypic22);
-
- /*   switch (position) {
-      case 0:
-        viewHolder.textView.setText(studentModelArrayList.get(position).getName());
-        Glide.with(context).load(Uri.parse(studentModelArrayList.get(position).getImage())).into(viewHolder.imageView);
-
-        break;
-      case 1:
-        viewHolder.textView.setText(studentModelArrayList.get(position).getName());
-        Glide.with(context).load(Uri.parse(studentModelArrayList.get(position).getImage())).into(viewHolder.imageView);
-        break;
-      default:
-        StudentModel model = studentModelArrayList.get(position);
-        viewHolder.textView.setText(model.getName());
-        Glide.with(context).load(Uri.parse(model.getImage())).into(viewHolder.imageView);
-        break;
-    }*/
-
         return view;
     }
 

@@ -25,7 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.StudentModel;
+import com.asi.educatyapp.Data.Utility.Constants;
 import com.asi.educatyapp.Data.Utility.FirebaseUtil;
+import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Adapters.AttendanceAdapter;
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
 import com.asi.educatyapp.Data.View.Fragments.GroupsF;
@@ -60,8 +62,9 @@ public class TheGroup extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference StudentDatabaseReference;
     DatabaseReference GroupDatabaseReference;
+
     FirebaseUser user;
-  public static String groupName;
+    public static String groupName;
 
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
@@ -76,9 +79,8 @@ public class TheGroup extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         StudentDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.studentObject);
         Intent intent = getIntent();
-      groupName=  intent.getStringExtra(GroupsF.GroupTag);
+        groupName = intent.getStringExtra(GroupsF.GroupTag);
         GroupDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.groupsObject).child(groupName).child(FirebaseUtil.studentObject);
-
 
 
         //// TODO: [in the previous line] --->  i can't set method of DisplayAsUpEnabled()  to make my activity navigate back to the main, please tell me the reason
@@ -107,18 +109,23 @@ public class TheGroup extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.add_attendace_menu:
 
-                AttendanceAdapter attendanceAdapter = new AttendanceAdapter(TheGroup.this);
-                FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, StudentDatabaseReference) {
-                    @Override
-                    protected void populateView(View view, StudentModel studentModel, int position) {
-                        ((TextView) view.findViewById(R.id.text_view)).setText(studentModel.getName());
-                        ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
-                        Glide.with(TheGroup.this).load(Uri.parse(studentModel.getImage())).error(R.drawable.student).into(imageView);
-                    }
-                };
+                if (SharedPreferencesUtils.getTypeOfCurrentUser(TheGroup.this).equals(Constants.T_TEACHER)) {
+                    AttendanceAdapter attendanceAdapter = new AttendanceAdapter(TheGroup.this);
+                    FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, StudentDatabaseReference) {
+                        @Override
+                        protected void populateView(View view, StudentModel studentModel, int position) {
+                            ((TextView) view.findViewById(R.id.text_view)).setText(studentModel.getName());
+                            ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
+                            Glide.with(TheGroup.this).load(Uri.parse(studentModel.getImage())).error(R.drawable.student).into(imageView);
+                        }
+                    };
 
-                Holder holder = new ListHolder();
-                showCompleteDialog(holder, Gravity.BOTTOM, mAdapter);
+                    Holder holder = new ListHolder();
+                    showCompleteDialog(holder, Gravity.BOTTOM, mAdapter);
+                } else {
+                    Toast.makeText(TheGroup.this, "not allowed for students ", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
             case R.id.add_student_menu:
@@ -128,7 +135,7 @@ public class TheGroup extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showCompleteDialog(Holder holder, int gravity, BaseAdapter adapter) {
+    private void showCompleteDialog(Holder holder, final int gravity, BaseAdapter adapter) {
         final DialogPlus dialog = DialogPlus.newDialog(this)
                 .setContentHolder(holder)
                 .setHeader(R.layout.header)
@@ -151,21 +158,20 @@ public class TheGroup extends AppCompatActivity {
                                 item + "], position = [" + position + "]");
 
                         StudentModel model = (StudentModel) item;
-                        HashMap<String,Boolean> map = new HashMap<String, Boolean>() ;
-                        map.put(model.getIdusername(),true);
-                      FirebaseUtil.addingObjectFirebase(user,TheGroup.this,GroupDatabaseReference,model,false,model.getIdusername(),null);
+                        HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+                        map.put(model.getIdusername(), true);
+                        FirebaseUtil.addingObjectFirebase(user, TheGroup.this, GroupDatabaseReference, model, false, model.getIdusername(), null);
+                        StudentDatabaseReference.child(model.getKey()).child(FirebaseUtil.groupsObject).child(groupName).setValue(true);
 
 
-
-                        Toast.makeText(TheGroup.this, "clicked "+model.getIdusername(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TheGroup.this, "clicked " + model.getIdusername(), Toast.LENGTH_SHORT).show();
                         ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
-                        int radius = (int) Math.hypot(view.getWidth()/2,view.getHeight()/2);
-                        Animator animator = ViewAnimationUtils.createCircularReveal(view,view.getWidth()/2,view.getHeight(),0,radius);
+                        int radius = (int) Math.hypot(view.getWidth() / 2, view.getHeight() / 2);
+                        Animator animator = ViewAnimationUtils.createCircularReveal(view, view.getWidth() / 2, view.getHeight(), 0, radius);
 
 
                         imageView.setBackgroundColor(getResources().getColor(R.color.backmen));
                         animator.start();
-//                        view.setBackgroundColor(getResources().getColor(R.color.backmen));
 
                     }
                 })
