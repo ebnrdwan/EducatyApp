@@ -51,7 +51,9 @@ import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TheGroup extends AppCompatActivity {
 
@@ -62,6 +64,7 @@ public class TheGroup extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference StudentDatabaseReference;
     DatabaseReference GroupDatabaseReference;
+    List<StudentModel> list = new ArrayList<>();
 
     FirebaseUser user;
     public static String groupName;
@@ -111,12 +114,15 @@ public class TheGroup extends AppCompatActivity {
 
                 if (SharedPreferencesUtils.getTypeOfCurrentUser(TheGroup.this).equals(Constants.T_TEACHER)) {
                     AttendanceAdapter attendanceAdapter = new AttendanceAdapter(TheGroup.this);
-                    FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, StudentDatabaseReference) {
+                    final FirebaseListAdapter mAdapter = new FirebaseListAdapter<StudentModel>(this, StudentModel.class, R.layout.simple_grid_item, StudentDatabaseReference) {
                         @Override
                         protected void populateView(View view, StudentModel studentModel, int position) {
                             ((TextView) view.findViewById(R.id.text_view)).setText(studentModel.getName());
                             ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
+                            list.add(studentModel);
+                            Toast.makeText(TheGroup.this,"list is"+String.valueOf(list.size()),Toast.LENGTH_SHORT).show();
                             Glide.with(TheGroup.this).load(Uri.parse(studentModel.getImage())).error(R.drawable.student).into(imageView);
+
                         }
                     };
 

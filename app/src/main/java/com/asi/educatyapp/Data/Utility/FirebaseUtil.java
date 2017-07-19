@@ -100,10 +100,7 @@ public class FirebaseUtil {
 
                 id = dataSnapshot.getValue(Integer.class);
                 id++;
-
                 databaseReference.setValue(id);
-
-
             }
 
             @Override
@@ -117,11 +114,9 @@ public class FirebaseUtil {
 
     public static void SetGroupsMap(String UsedName, String username) {
         if (groupmap.containsValue(username)) {
-
             //do nothing for now
         } else {
             groupmap.put(UsedName, username);
-
         }
     }
 
@@ -134,7 +129,6 @@ public class FirebaseUtil {
             //do nothing for now
         } else {
             studentmap.put(emailS, username);
-
         }
     }
 
@@ -154,8 +148,6 @@ public class FirebaseUtil {
     public static String getTeachermap(String usedname) {
         return teachermap.get(usedname);
     }
-
-
     public static <T> void addingObjectFirebase(FirebaseUser user, final Context context, final DatabaseReference databaseReference,
                                                 final T model, final boolean push, @Nullable final String username, @Nullable String PushKey) {
 
@@ -210,15 +202,10 @@ public class FirebaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 T model1=model;
                 model1 = (T) dataSnapshot.getValue(model.getClass());
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
     }
-
 }

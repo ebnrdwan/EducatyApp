@@ -204,6 +204,7 @@ public class StudentRegister extends AppCompatActivity {
 
                                                             @Override
                                                             public void onCancelled(DatabaseError databaseError) {
+
                                                             }
                                                         });
                                                     } else {

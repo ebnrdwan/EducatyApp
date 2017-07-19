@@ -38,5 +38,8 @@
     <string name="teacher_name">Mr.Ali</string>
     <string name="footer_button_close">Close</string>
     <string name="footer_button_confirm">Confirm</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="WidgetTitle">EDUCATY</string>
 
 </resources>

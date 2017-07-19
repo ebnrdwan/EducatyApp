@@ -25,7 +25,6 @@
             android:name=".Data.chat.chatActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".Data.View.Activities.userAccount.TeacherRegister"
             android:label="Teacher Register"
@@ -37,7 +36,6 @@
             android:label="Student Register"
             android:parentActivityName=".Data.View.Activities.userAccount.Student"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
             android:name=".Data.View.Activities.Home"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -52,10 +50,9 @@
             <!-- </intent-filter> -->
 
         </activity>
-        <activity android:name=".Data.View.Activities.userAccount.GetStart"
-            android:theme="@style/FullscreenActionBarStyle"></activity>
-
-
+        <activity
+            android:name=".Data.View.Activities.userAccount.GetStart"
+            android:theme="@style/FullscreenActionBarStyle" />
 
         <service android:name=".Data.View.Services.MyFirebaseMessagingService">
             <intent-filter>
@@ -71,8 +68,7 @@
         <activity
             android:name=".Data.View.Activities.TheGroup"
             android:label="Group"
-            android:parentActivityName=".Data.View.Activities.Home"></activity>
-
+            android:parentActivityName=".Data.View.Activities.Home" />
         <activity
             android:name=".Data.View.Activities.AddHomePosts"
             android:label="Add Post"
@@ -99,9 +95,21 @@
         </activity>
         <activity
             android:name=".Data.View.Activities.userAccount.LoginEdu"
-            android:theme="@style/FullscreenActionBarStyle"></activity>
+            android:theme="@style/FullscreenActionBarStyle" />
         <activity android:name=".Data.View.Activities.userAccount.Student" />
         <activity android:name=".Data.View.Activities.userAccount.Teacher" />
+
+        <receiver android:name=".Data.View.Widget.GroupsWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/groups_widget_info" />
+        </receiver>
+        <service android:name=".Data.View.Widget.GroupsService"></service>
+        <service android:name=".Data.View.Widget.RemoteWidgetServiceAdapter" />
     </application>
 
 </manifest>
