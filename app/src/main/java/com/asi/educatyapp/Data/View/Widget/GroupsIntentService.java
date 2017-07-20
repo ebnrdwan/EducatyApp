@@ -35,8 +35,10 @@ Context context;
     protected void onHandleIntent(@Nullable Intent intent) {
         if (intent != null) {
             String action = intent.getAction();
-if (ACTION_GROUPS.equals(action))
-               handleUpdateWidget(getApplicationContext());
+if (ACTION_GROUPS.equals(action)){
+    handleUpdateWidget(getApplicationContext());
+}
+//
 
 
 

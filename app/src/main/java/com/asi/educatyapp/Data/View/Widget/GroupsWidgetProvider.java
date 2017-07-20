@@ -22,7 +22,7 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
     public static void updatewholeAppWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
-            GroupsWidgetProvider.updatewholeAppWidget(context, appWidgetManager, appWidgetIds);
+
         }
     }
 
