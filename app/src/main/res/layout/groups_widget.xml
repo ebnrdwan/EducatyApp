@@ -18,23 +18,12 @@
             android:id="@+id/image_viewwidget"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="7"
+            android:scaleType="centerInside"
             android:src="@drawable/logo"
             android:tint="@color/white" />
 
-        <TextView
-
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:text="@string/WidgetTitle"
-            android:textColor="@android:color/white"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
         <ImageView
-
             android:id="@+id/sync_widget"
             android:layout_width="0dp"
             android:layout_height="match_parent"
