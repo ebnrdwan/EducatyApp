@@ -47,7 +47,7 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.groupsitem);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.group_item_widget);
 
         GroupsModel model = groupsModels.get(position);
         remoteViews.setTextViewText(R.id.tvGname,model.getName());
