@@ -54,7 +54,7 @@ public class AddNewGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_group);
         Gname = (EditText) findViewById(R.id.etGroupName);
-        Gpic = (ImageView) findViewById(R.id.ivGroup);
+        Gpic = (ImageView) findViewById(R.id.ivGroupitem);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase =FirebaseDatabase.getInstance();

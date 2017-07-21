@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/ivGroup"
+                android:id="@+id/ivGroupitem"
                 android:src="@drawable/imagepost"
                 android:onClick="AddGroupPost"
                 />

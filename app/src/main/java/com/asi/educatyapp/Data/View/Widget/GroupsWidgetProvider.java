@@ -29,7 +29,7 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(final Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         // Construct the RemoteViews object
 
-        RemoteViews remoteViews = getGridItemsRemoteView(context);
+        RemoteViews remoteViews = getGridItemsRemoteView(context,appWidgetId);
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
 
 
@@ -53,7 +53,7 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    private static RemoteViews getGridItemsRemoteView(Context context) {
+    private static RemoteViews getGridItemsRemoteView(Context context, int appWidgetId) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.groups_widget);
         Intent groupIntent = new Intent(context, Groups.class);
         PendingIntent groupPendingIntent = PendingIntent.getActivity(context, 0, groupIntent, 0);
@@ -64,8 +64,10 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.sync_widget, syncPendingIntent);
         // Set the GridWidgetService intent to act as the adapter for the GridView
         Intent intent = new Intent(context, RemoteWidgetServiceAdapter.class);
+        intent.putExtra("id",appWidgetId);
         views.setRemoteAdapter(R.id.widgetGrid, intent);
         // Set the PlantDetailActivity intent to launch when clicked
+     
         Intent appIntent = new Intent(context, Groups.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widgetGrid, appPendingIntent);

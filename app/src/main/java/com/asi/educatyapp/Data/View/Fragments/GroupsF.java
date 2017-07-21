@@ -116,7 +116,7 @@ public class GroupsF extends Fragment {
         public GroupsHolder(View itemView) {
             super(itemView);
             info1 = (TextView) itemView.findViewById(R.id.tvGname);
-            Gpic = (ImageView) itemView.findViewById(R.id.ivGroup);
+            Gpic = (ImageView) itemView.findViewById(R.id.ivGroupitem);
         }
 
         public void setName(String name) {

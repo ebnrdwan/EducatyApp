@@ -1,19 +1,12 @@
 package com.asi.educatyapp.Data.View.Widget;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
-import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.R;
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.AppWidgetTarget;
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -57,16 +50,20 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.groupsitem);
 
         GroupsModel model = groupsModels.get(position);
-        remoteViews.setTextViewText(R.id.tvGname,model.getPath());
-        AppWidgetTarget  appWidgetTarget = new AppWidgetTarget( context, remoteViews, R.id.ivGroup, appwidgetId );
+        remoteViews.setTextViewText(R.id.tvGname,model.getName());
+        AppWidgetTarget  appWidgetTarget = new AppWidgetTarget( context, remoteViews, R.id.ivGroupitem, appwidgetId );
 
-        Glide
-                .with( context.getApplicationContext() ) // safer!
-                .load( model.getPath() )
-                .asBitmap()
-                .error(R.drawable.back)
-                .into( appWidgetTarget );
-
+//        Glide
+//                .with( context.getApplicationContext() ) // safer!
+//                .load( model.getPath() )
+//                .asBitmap()
+//                .error(R.drawable.back)
+//                .into( appWidgetTarget );
+//        Picasso picasso = Picasso.with(context);
+//        picasso.load(model.getPath()) //
+//                .error(R.drawable.back) //
+//                .into(remoteViews, R.id.image, new int[]{appwidgetId});
+        remoteViews.setImageViewResource(R.id.ivGroupitem,R.drawable.back);
         return remoteViews;
 
     }
@@ -92,17 +89,19 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
     }
 
     public ArrayList<GroupsModel> getmodels() {
-        groupsModels.clear();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(FirebaseUtil.groupsObject);
-        FirebaseListAdapter adapter = new FirebaseListAdapter<GroupsModel>((Activity) context, GroupsModel.class, R.layout.groupsitem, databaseReference) {
-
-            @Override
-            protected void populateView(View v, GroupsModel model, int position) {
-               while (groupsModels.size()<=20){
-                   groupsModels.add(model);
-               }
-            }
-        };
+//        groupsModels.clear();
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(FirebaseUtil.groupsObject);
+//        FirebaseListAdapter adapter = new FirebaseListAdapter<GroupsModel>((Activity) context, GroupsModel.class, R.layout.groupsitem, databaseReference) {
+//
+//            @Override
+//            protected void populateView(View v, GroupsModel model, int position) {
+//               while (groupsModels.size()<=20){
+//                   groupsModels.add(model);
+//               }
+//            }
+//        };
+        GroupsModel model = new GroupsModel("id","tid","name","https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+        groupsModels.add(model);
         return groupsModels;
     }
 }

@@ -14,7 +14,6 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:foreground="?attr/selectableItemBackground"
-        android:elevation="12dp"
         android:innerRadius="0dp"
         android:orientation="vertical"
         android:shape="rectangle"
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/ivGroup"
+                android:id="@+id/ivGroupitem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"

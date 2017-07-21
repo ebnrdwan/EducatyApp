@@ -55,7 +55,7 @@ public class ActivityUtil {
 
             @Override
             protected void populateView(View v, GroupsModel model, int position) {
-                ImageView imageView= (ImageView) v.findViewById(R.id.ivGroup);
+                ImageView imageView= (ImageView) v.findViewById(R.id.ivGroupitem);
                 Glide.with(context).load(model.getPath()).error(R.drawable.back).into(imageView);
                 TextView textView = (TextView) v.findViewById(R.id.tvGname);
                 textView.setText(model.getName());
