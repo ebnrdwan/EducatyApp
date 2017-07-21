@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.asi.educatyapp.Data.View.Activities.Groups;
+import com.asi.educatyapp.Data.View.Activities.TheGroup;
 import com.asi.educatyapp.R;
 
 /**
@@ -62,6 +63,14 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
         Intent syncIntent = new Intent(context, GroupsIntentService.class);
         PendingIntent syncPendingIntent = PendingIntent.getActivity(context, 0, syncIntent, 0);
         views.setOnClickPendingIntent(R.id.sync_widget, syncPendingIntent);
+
+        Intent theGroupIntent = new Intent(context, TheGroup.class);
+        PendingIntent theGroupPendingIntent = PendingIntent.getActivity(context,0,theGroupIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+//        views.setOnClickPendingIntent(R.id.widgetList,theGroupPendingIntent);
+        views.setPendingIntentTemplate(R.id.widgetList,theGroupPendingIntent);
+        views.setOnClickFillInIntent(R.id.widgetList,theGroupIntent);
+
 
         // Set the GridWidgetService intent to act as the adapter for the GridView
         Intent intent = new Intent(context, RemoteWidgetServiceAdapter.class);
