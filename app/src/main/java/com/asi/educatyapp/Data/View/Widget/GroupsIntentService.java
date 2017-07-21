@@ -18,13 +18,14 @@ import java.util.ArrayList;
 
 public class GroupsIntentService extends IntentService {
     public static final String ACTION_GROUPS = " com.asi.educatyapp.Data.View.Widget.GroupsIntentService.groups_action";
-public ArrayList<GroupsModel> groupList =new ArrayList<>();
-Context context;
+    public ArrayList<GroupsModel> groupList = new ArrayList<>();
+    Context context;
 
     public GroupsIntentService() {
         //empty constructor required by the AndroidManifest
         super(GroupsIntentService.class.getName());
     }
+
     public static void startActionGroupsService(Context context) {
         Intent intent = new Intent(context, GroupsIntentService.class);
         intent.setAction(ACTION_GROUPS);
@@ -35,43 +36,19 @@ Context context;
     protected void onHandleIntent(@Nullable Intent intent) {
         if (intent != null) {
             String action = intent.getAction();
-if (ACTION_GROUPS.equals(action)){
-    handleUpdateWidget(getApplicationContext());
-}
-//
-
-
-
+            if (ACTION_GROUPS.equals(action)) {
+                handleUpdateWidget();
+            }
         }
     }
 
-    private ArrayList<GroupsModel> handleUpdateWidget(final Context context){
-
-
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(FirebaseUtil.groupsObject);
-//        FirebaseListAdapter adapter = new FirebaseListAdapter<GroupsModel>(GroupsIntentService.this,GroupsModel.class, R.layout.groupsitem,databaseReference) {
-//
-//
-//            @Override
-//            protected void populateView(View v, GroupsModel model, int position) {
-//             if (groupList.size()<20){
-//                 groupList.add(model);
-//             }
-//            }
-//        };
-
-        GroupsModel model = new GroupsModel("id","tid","name","https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
-        groupList.add(model);
+    private void handleUpdateWidget() {
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, GroupsWidgetProvider.class));
         //Trigger data update to handle the GridView widgets and force a data refresh
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetGrid);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetList);
         //Now update all widgets
-
-
-            GroupsWidgetProvider.updatewholeAppWidget(this,appWidgetManager,appWidgetIds);
-
-        return groupList;
+        GroupsWidgetProvider.updatewholeAppWidget(this, appWidgetManager, appWidgetIds);
     }
 }

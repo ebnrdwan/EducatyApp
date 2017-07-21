@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -61,8 +60,6 @@ public class ActivityUtil {
                 textView.setText(model.getName());
             }
         };
-        GridView gridView = (GridView) inflatedLayout.findViewById(R.id.widgetGrid);
-        gridView.setAdapter(adapter);
     }
 
 }

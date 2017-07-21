@@ -1,10 +1,13 @@
 package com.asi.educatyapp.Data.View.Widget;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.asi.educatyapp.Data.View.Activities.Groups;
@@ -37,9 +40,6 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-//        Intent serIntent = new Intent(context, RemoteWidgetServiceAdapter.class);
-//        context.startService(serIntent);
         GroupsIntentService.startActionGroupsService(context);
     }
 
@@ -62,18 +62,45 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
         Intent syncIntent = new Intent(context, GroupsIntentService.class);
         PendingIntent syncPendingIntent = PendingIntent.getActivity(context, 0, syncIntent, 0);
         views.setOnClickPendingIntent(R.id.sync_widget, syncPendingIntent);
+
         // Set the GridWidgetService intent to act as the adapter for the GridView
         Intent intent = new Intent(context, RemoteWidgetServiceAdapter.class);
+
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+
         intent.putExtra("id",appWidgetId);
-        views.setRemoteAdapter(R.id.widgetGrid, intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            views.setRemoteAdapter(R.id.widgetList,
+                    new Intent(context, RemoteWidgetServiceAdapter.class).putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId));
+        } else {
+            views.setRemoteAdapter(0, R.id.widgetList,
+                    new Intent(context, RemoteWidgetServiceAdapter.class).putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId));
+        }
+
         // Set the PlantDetailActivity intent to launch when clicked
      
         Intent appIntent = new Intent(context, Groups.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setPendingIntentTemplate(R.id.widgetGrid, appPendingIntent);
+        views.setPendingIntentTemplate(R.id.widgetList, appPendingIntent);
         // Handle empty gardens
 //        views.setEmptyView(R.id.widgetGrid, R.id.empty_view);
         return views;
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
+
+    }
+
+    /**
+     * Sets the remote adapter used to fill in the list items
+     *
+     * @param views RemoteViews to set the RemoteAdapter
+     */
+    @SuppressWarnings("deprecation")
+    private static void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views) {
+        views.setRemoteAdapter(0, R.id.widgetList,
+                new Intent(context, RemoteWidgetServiceAdapter.class));
     }
 
 

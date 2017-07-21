@@ -5,14 +5,16 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.R;
-import com.bumptech.glide.request.target.AppWidgetTarget;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-/**
- * Created by Abdulrhman on 18/07/2017.
- */
 
 public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory {
     ArrayList<GroupsModel> groupsModels = new ArrayList<>();
@@ -20,9 +22,9 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
     int appwidgetId;
 
 
-    public WidgetRemoteViewFactory(Context context, int appwodgetid) {
+    public WidgetRemoteViewFactory(Context context, int appwidgetId ) {
         this.context = context;
-        this.appwidgetId=appwodgetid;
+        this.appwidgetId = appwidgetId;
     }
 
     @Override
@@ -32,12 +34,13 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onDataSetChanged() {
-        getmodels();
+
+        groupsModels = getmodels();
     }
 
     @Override
     public void onDestroy() {
-
+        groupsModels.clear();
     }
 
     @Override
@@ -47,12 +50,14 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.group_item_widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.group_item_widget);
 
         GroupsModel model = groupsModels.get(position);
-        remoteViews.setTextViewText(R.id.tvGname,model.getName());
-        AppWidgetTarget  appWidgetTarget = new AppWidgetTarget( context, remoteViews, R.id.ivGroupitem, appwidgetId );
+        remoteViews.setTextViewText(R.id.tvGname, model.getName());
+//        remoteViews.setImageViewResource(R.id.ivGroupitem,R.drawable.borderblack);
 
+//        AppWidgetTarget appWidgetTarget = new AppWidgetTarget(context, remoteViews, R.id.ivGroupitem, appwidgetId);
+//
 //        Glide
 //                .with( context.getApplicationContext() ) // safer!
 //                .load( model.getPath() )
@@ -63,7 +68,6 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 //        picasso.load(model.getPath()) //
 //                .error(R.drawable.back) //
 //                .into(remoteViews, R.id.image, new int[]{appwidgetId});
-        remoteViews.setImageViewResource(R.id.ivGroupitem,R.drawable.back);
         return remoteViews;
 
     }
@@ -75,12 +79,13 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public int getViewTypeCount() {
-        return 0;
+
+        return 1;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -90,18 +95,40 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
     public ArrayList<GroupsModel> getmodels() {
 //        groupsModels.clear();
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(FirebaseUtil.groupsObject);
-//        FirebaseListAdapter adapter = new FirebaseListAdapter<GroupsModel>((Activity) context, GroupsModel.class, R.layout.groupsitem, databaseReference) {
-//
-//            @Override
-//            protected void populateView(View v, GroupsModel model, int position) {
-//               while (groupsModels.size()<=20){
-//                   groupsModels.add(model);
-//               }
-//            }
-//        };
-        GroupsModel model = new GroupsModel("id","tid","name","https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
-        groupsModels.add(model);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(FirebaseUtil.groupsObject);
+
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                GroupsModel model = dataSnapshot.getValue(GroupsModel.class);
+                groupsModels.add(model);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+//        GroupsModel model = new GroupsModel("id", "tid", "name", "https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+//        groupsModels.add(model);
+//        groupsModels.add(model);
+//        groupsModels.add(model);
+
         return groupsModels;
     }
 }

@@ -1,6 +1,7 @@
 package com.asi.educatyapp.Data.View.Widget;
 
 
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.widget.RemoteViewsService;
 
@@ -12,7 +13,7 @@ public class RemoteWidgetServiceAdapter extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        int id = intent.getIntExtra("id",0);
+        int id = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,0);
         return new WidgetRemoteViewFactory(this,id);
     }
 }
