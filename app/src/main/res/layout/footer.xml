@@ -18,6 +18,7 @@
             android:textSize="@dimen/sample_text_size"/>
 
     <Button
+        android:contentDescription="@string/add_to_close_dialog"
             android:id="@+id/footer_close_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
             android:background="@drawable/selector_bg_button"/>
 
     <Button
+        android:contentDescription="@string/click_to_confirm"
             android:id="@+id/footer_confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

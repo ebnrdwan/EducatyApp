@@ -206,7 +206,7 @@ public class TeacherRegister extends AppCompatActivity {
 
                                     } else {
                                         Toast.makeText(TeacherRegister.this, "not logined", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(TeacherRegister.this, LoginEdu.class));
+
                                     }
 
 

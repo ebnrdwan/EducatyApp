@@ -59,7 +59,7 @@ public class Comment_Home extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         CommentReference = firebaseDatabase.getReference().child(FirebaseUtil.postsObject).child(postKey).child(FirebaseUtil.CommentsPostObject);
-        DateFormat df = new SimpleDateFormat("EEE,HH:mm");
+        DateFormat df = new SimpleDateFormat(getString(R.string.commentDate));
         time = df.format(Calendar.getInstance().getTime());
         commentKey = CommentReference.push().getKey();
 

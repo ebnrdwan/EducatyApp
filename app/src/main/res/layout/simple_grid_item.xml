@@ -17,6 +17,7 @@
 
         <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
             android:id="@+id/image_view"
+            android:contentDescription="@string/all_student_image_profile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/margin"
@@ -26,7 +27,7 @@
 
         <TextView
 
-            tools:text="Abdulrahman"
+            tools:text="@string/grid_item_name"
             android:id="@+id/text_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"

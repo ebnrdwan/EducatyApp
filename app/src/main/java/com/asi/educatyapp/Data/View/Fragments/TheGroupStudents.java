@@ -60,7 +60,7 @@ public class TheGroupStudents extends Fragment {
 
         myrecylcer = (RecyclerView) rootView.findViewById(R.id.recyclerStudentClassroom);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
-        Log.d("Recycler Teacher", myrecylcer.toString());
+        Log.d(getString(R.string.recycler_teacher_log), myrecylcer.toString());
         myrecylcer.setLayoutManager(layoutManager);
 
 
@@ -72,7 +72,7 @@ public class TheGroupStudents extends Fragment {
                 viewHolder.StudentCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getActivity(), ProfileActivity.class).putExtra(sTag,model.getIdusername()));
+                        startActivity(new Intent(getActivity(), ProfileActivity.class).putExtra(sTag,model.getKey()));
                     }
                 });
             }

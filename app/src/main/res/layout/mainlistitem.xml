@@ -32,6 +32,7 @@
 
                 <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
                     android:id="@+id/homeProfile"
+                    android:contentDescription="@string/user_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:scaleType="centerCrop"
@@ -59,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="5dp"
-                        android:text="text"
+                        android:text="@string/posterName"
                         android:textColor="#000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -69,11 +70,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="5dp"
-                        android:text="2 minute ago"
+                        android:text="@string/post_time"
                         android:textColor="#000"
                         android:textSize="13sp" />
 
                     <ImageView
+                        android:contentDescription="@string/post_image"
                         android:id="@+id/homePostPic"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
@@ -85,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:drawablePadding="5dp"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley "
+                        android:text="@string/postContent"
                         android:textColor="#000"
                         android:textSize="15sp"
                         android:textStyle="bold" />

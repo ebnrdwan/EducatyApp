@@ -4,6 +4,8 @@
     package="com.asi.educatyapp">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -108,9 +110,13 @@
                 android:resource="@xml/groups_widget_info" />
         </receiver>
 
-        <service android:name=".Data.View.Widget.GroupsIntentService"></service>
+        <service android:name=".Data.View.Widget.GroupsIntentService" />
         <service
             android:name=".Data.View.Widget.RemoteWidgetServiceAdapter"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity android:name=".Data.View.Ads.MainAds" />
+        <activity android:name=".Data.View.Ads.BannerAds"></activity>
     </application>
+
 </manifest>

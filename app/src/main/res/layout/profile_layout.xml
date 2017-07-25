@@ -59,7 +59,7 @@
         android:layout_marginLeft="28dp"
         android:layout_toRightOf="@id/ProfilePic"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Abdulrahman"
+        android:text="@string/profile_name"
         android:textColor="#ffff"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -72,7 +72,7 @@
         android:layout_marginLeft="28dp"
         android:layout_marginTop="4dp"
         android:layout_toRightOf="@id/ProfilePic"
-        android:text="UI/UX Designer | Android Developer"
+        android:text="@string/profile_title"
         android:textColor="#ffff" />
 
     <TextView
@@ -88,7 +88,7 @@
         android:gravity="center"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="Message"
+        android:text="@string/message_button"
         android:textColor="#fff" />
 
     <LinearLayout
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="9096"
+                    android:text="@string/_9096"
                     android:textColor="@color/Cbackground"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="CONNECTIONS"
+                    android:text="@string/connections"
                     android:textColor="#cc424242" />
 
                 <View
@@ -157,7 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="2"
+                    android:text="@string/_2"
                     android:textColor="@color/Cbackground"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="BADGES"
+                    android:text="@string/badges"
                     android:textColor="#cc424242" />
 
                 <View
@@ -197,7 +197,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="1782"
+                    android:text="@string/_1782"
                     android:textColor="@color/Cbackground"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="Skills"
+                    android:text="@string/skills"
                     android:textColor="#cc424242" />
 
                 <View

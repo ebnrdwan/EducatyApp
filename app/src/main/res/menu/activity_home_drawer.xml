@@ -11,12 +11,12 @@
         <item
             android:id="@+id/nav_friends"
             android:icon="@drawable/friendsicon"
-            android:title="Friends" />
+            android:title="@string/profile" />
 
         <item
             android:id="@+id/nav_groups"
             android:icon="@drawable/group"
-            android:title="Groups" />
+            android:title="@string/groups" />
 
         <item
             android:id="@+id/nav_progress"

@@ -16,7 +16,7 @@
 
             <ImageView
 
-
+android:contentDescription="@string/group_image"
                 android:id="@+id/ivGroupitem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_vertical"
-                android:text="Group Name"
+                android:text="@string/group_name"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textColor="#fff"

@@ -113,12 +113,12 @@ public class Home extends AppCompatActivity {
 
 
                             if (SharedPreferencesUtils.getTypeOfCurrentUser(Home.this).equals(Constants.T_STUDENT)){
-                                Toast.makeText(Home.this,"saved current student",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Home.this, R.string.printSavedStudent,Toast.LENGTH_SHORT).show();
                                 SharedPreferencesUtils.setCurrentStudent(Home.this,user.getUid());
                             }
                             else {
                                 SharedPreferencesUtils.setCurrentTeacher(Home.this,user.getUid());
-                                Toast.makeText(Home.this,"saved current teacher",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Home.this, R.string.printSavedTeacher,Toast.LENGTH_SHORT).show();
                             }
                             Uri uri = user.getPhotoUrl();
 
@@ -136,7 +136,7 @@ public class Home extends AppCompatActivity {
                                     .into(ImageProfile);
 
                         } else {
-                            Toast.makeText(Home.this, "you are not logined ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Home.this,R.string.printNotLogined, Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -287,7 +287,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Font-Bold.otf");
+        Typeface font = Typeface.createFromAsset(getAssets(), getString(R.string.boldfont));
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);

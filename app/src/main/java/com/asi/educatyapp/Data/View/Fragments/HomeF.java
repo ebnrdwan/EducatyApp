@@ -20,6 +20,8 @@ import com.asi.educatyapp.Data.View.Activities.Comment_Home;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,7 +32,7 @@ public class HomeF extends Fragment {
     private FloatingActionButton floatingActionButton;
 
     private View view;
-
+    AdView adView ;
     RecyclerView rvHome;
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
@@ -72,6 +74,9 @@ public class HomeF extends Fragment {
 
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        adView = (AdView) view.findViewById(R.id.addview);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
         rvHome = (RecyclerView) view.findViewById(R.id.rvHome);
         rvHome.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvHome.setAdapter(adapter);

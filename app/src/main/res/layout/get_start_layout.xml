@@ -14,15 +14,17 @@
         android:tint="#fff"/>
 
     <Button
+        android:contentDescription="@string/click_to_go_to_login_screen"
         android:foreground="?attr/selectableItemBackground"
         android:id="@+id/gogo"
+
         android:layout_width="160dp"
         android:layout_height="35dp"
         android:layout_gravity="center"
         android:elevation="8dp"
         android:background="@drawable/getstartbackbtn"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="Get Started"
+        android:fontFamily="@string/sans_serif_font"
+        android:text="@string/get_started"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageget"/>

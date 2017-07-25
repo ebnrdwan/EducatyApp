@@ -28,16 +28,17 @@
             android:padding="10dp"
             android:layout_margin="3dp"
             android:layout_marginTop="50dp"
-            android:hint="Add Your Comment"
+            android:hint="@string/add_your_comment"
             android:layout_marginBottom="100dp"
 
             />
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="@string/AddButton"
             android:id="@+id/addComment"
             android:textStyle="bold"
+            android:contentDescription="@string/click_to_add_new_comment"
             android:backgroundTint="@color/colorPrimary"
             android:textColor="@color/black"
             android:backgroundTintMode="src_over"

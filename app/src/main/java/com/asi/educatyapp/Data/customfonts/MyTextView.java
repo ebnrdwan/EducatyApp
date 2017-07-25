@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
+import com.asi.educatyapp.R;
+
 /**
  * Created by Ahmad AbuKashef on 3/4/2017.
  */
@@ -26,7 +28,7 @@ public class MyTextView extends android.support.v7.widget.AppCompatTextView {
 
     private void init() {
         if (!isInEditMode()) {
-            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato-Light.ttf");
+            Typeface tf = Typeface.createFromAsset(getContext().getAssets(), getResources().getString(R.string.lottoFont));
             setTypeface(tf);
         }
     }

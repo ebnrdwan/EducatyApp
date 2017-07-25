@@ -135,11 +135,6 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
             }
         });
-//        GroupsModel model = new GroupsModel("id", "tid", "name", "https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
-//        groupsModels.add(model);
-//        groupsModels.add(model);
-//        groupsModels.add(model);
-
         return groupsModels;
     }
 }

@@ -25,7 +25,7 @@
         android:layout_weight="0"
         android:background="@drawable/cornermessag"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Message" />
+        tools:text="@string/message" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -33,6 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="Name" />
+        tools:text="@string/messangerName" />
 
 </LinearLayout>

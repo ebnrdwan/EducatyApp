@@ -8,10 +8,5 @@
         android:title="Add Student"
         android:icon="@drawable/back"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/add_student_menu"
-        android:orderInCategory="100"
-        android:title="Add Attendance"
-        android:icon="@drawable/addstudent"
-        app:showAsAction="never" />
+
 </menu>

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.asi.educatyapp.Data.Data.Models.GroupsModel;
 import com.asi.educatyapp.Data.Utility.Constants;
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.R;
@@ -71,11 +72,11 @@ public class Groups extends AppCompatActivity {
                             username.setText(user.getDisplayName());
 
                             if (uri == null) {
-                                uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+                                uri = Uri.parse(FirebaseUtil.fakeImageProfile);
                             }
 
                             Glide
-                                    .with(Groups.this)
+                                    .with(getApplicationContext())
                                     .load(uri)
                                     .error(R.drawable.mypic22)
                                     .centerCrop()
@@ -84,7 +85,7 @@ public class Groups extends AppCompatActivity {
                                     .into(imageUser);
 
                         } else {
-                            Toast.makeText(Groups.this, "you are not logined ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Groups.this, R.string.printNotLogined, Toast.LENGTH_SHORT).show();
 
                         }
                     }

@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Teacher Login"
+            android:text="@string/teacher_login1"
             android:textColor="#4c565f"
             android:textSize="29dp"
 
@@ -53,7 +53,7 @@
                 android:drawableLeft="@drawable/user"
                 android:drawablePadding="12dp"
                 android:gravity="left"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:maxLength="25"
                 android:padding="12dp"
                 android:textColor="@color/colortext"
@@ -88,7 +88,7 @@
                 android:background="#0000"
                 android:drawableLeft="@drawable/pass"
                 android:drawablePadding="12dp"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="12dp"
                 android:textColor="@color/colortext"
@@ -123,7 +123,7 @@
                 android:layout_weight="2"
                 android:buttonTint="@color/colorhint"
                 android:checked="false"
-                android:text="Remember me"
+                android:text="@string/remember_me"
                 android:textColor="@color/colorhint"
                 android:textSize="11dp"
 
@@ -138,7 +138,7 @@
                 android:layout_weight="2.3"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:text="Forgot password?"
+                android:text="@string/forgot_password"
                 android:textColor="@color/colorhint"
                 android:textSize="11dp"
 
@@ -150,6 +150,7 @@
 
         <com.asi.educatyapp.Data.customfonts.MyTextView
             android:id="@+id/signin1"
+            android:contentDescription="@string/sign_teacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
@@ -162,7 +163,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:padding="8dp"
-            android:text="Sign in"
+            android:text="@string/sign_in"
             android:textColor="#fff"
             android:textSize="16dp"
 
@@ -180,7 +181,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:lines="2"
-            android:text="Or Register?"
+            android:text="@string/or_register"
             android:textColor="@color/colorhint"
             android:textStyle="bold" />
 

@@ -16,6 +16,7 @@
                 android:orientation="vertical"
                 android:layout_weight=".23">
                 <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
+                    android:contentDescription="@string/connection_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:id="@+id/logoHealthy"
@@ -42,7 +43,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Name"
+                        android:text="@string/connection_name"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="#000"
@@ -52,7 +53,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Teacher"
+                        android:text="@string/connection_disc"
                         android:textSize="13sp"
                         android:textColor="#000"
                         android:drawablePadding="5dp"

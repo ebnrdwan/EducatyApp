@@ -34,6 +34,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -53,9 +54,9 @@ import java.util.List;
 
 public class chatActivity extends AppCompatActivity {
 
-    private static final String TAG = "chatActivity";
 
-    public static final String ANONYMOUS = "anonymous";
+
+    public final String ANONYMOUS ="anonymous"; ;
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
     private static final int RC_PHOTO_PICKER = 2;
 
@@ -88,10 +89,10 @@ public class chatActivity extends AppCompatActivity {
 
         firebaseStorage = FirebaseStorage.getInstance();
     firebaseDatabase = firebaseDatabase.getInstance();
-    databaseReference = firebaseDatabase.getReference().child("messages");
+    databaseReference = firebaseDatabase.getReference().child(FirebaseUtil.messageObject);
 
 
-        storageReference = firebaseStorage.getReference().child("educaty_chat");
+        storageReference = firebaseStorage.getReference().child(FirebaseUtil.messagePhotoStorage);
         firebaseAuth = FirebaseAuth.getInstance();
 
 

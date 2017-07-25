@@ -21,6 +21,7 @@
 
             <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
                 android:id="@+id/imagecomment"
+                android:contentDescription="@string/comment_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/mypic22" />
@@ -40,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Anwar Samir"
+                android:text="@string/comment_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -55,7 +56,7 @@
                 android:id="@+id/comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="this the comment"
+                android:text="@string/the_comment"
                 android:textSize="18sp" />
         </LinearLayout>
 

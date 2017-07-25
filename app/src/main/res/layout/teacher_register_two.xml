@@ -38,7 +38,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:hint="email"
+                android:hint="@string/email"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -54,7 +54,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:hint="password"
+                android:hint="@string/password"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
@@ -71,7 +71,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:hint="First Name"
+                android:hint="@string/first_name"
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:layout_marginTop="10dp"
-                    android:hint="Title"
+                    android:hint="@string/title"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:layout_marginTop="10dp"
-                    android:hint="Feild"
+                    android:hint="@string/feild"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:layout_marginTop="10dp"
-                android:hint="username"
+                android:hint="@string/username"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -145,13 +145,14 @@
 
 
         <Button
+            android:contentDescription="@string/register"
             android:foreground="?attr/selectableItemBackground"
             android:id="@+id/Reg_teacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@drawable/roundedbtn"
-            android:text="Register"
+            android:text="@string/register"
             android:textColor="#fff"
             android:textStyle="bold"
             android:layout_marginLeft="40dp"

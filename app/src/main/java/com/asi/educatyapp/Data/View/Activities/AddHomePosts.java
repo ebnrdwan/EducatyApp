@@ -60,7 +60,7 @@ public class AddHomePosts extends AppCompatActivity implements View.OnClickListe
         photoReference = firebaseStorage.getReference(FirebaseUtil.postsPhoto);
         databaseReference = firebaseDatabase.getReference(FirebaseUtil.postsObject);
 
-        DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
+        DateFormat df = new SimpleDateFormat(getString(R.string.homePostDate));
         date = df.format(Calendar.getInstance().getTime());
 
         content = (EditText) findViewById(R.id.etPostContent);
@@ -116,7 +116,7 @@ public class AddHomePosts extends AppCompatActivity implements View.OnClickListe
             photoReference.putFile(localImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(AddHomePosts.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddHomePosts.this, R.string.successuploaing, Toast.LENGTH_SHORT).show();
                     downloadPhoto = taskSnapshot.getDownloadUrl();
                     if (downloadPhoto == null) {
                         downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
@@ -130,7 +130,7 @@ public class AddHomePosts extends AppCompatActivity implements View.OnClickListe
                 }
             });
         } else {
-            Toast.makeText(AddHomePosts.this, "choose a photo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddHomePosts.this, R.string.printChoosePhoto, Toast.LENGTH_SHORT).show();
         }
 
     }

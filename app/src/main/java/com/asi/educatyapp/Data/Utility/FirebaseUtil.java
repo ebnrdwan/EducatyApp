@@ -35,8 +35,10 @@ public class FirebaseUtil {
     //database constances
     public static String studentObject = "students";
     public static String groupsObject = "Groups";
+    public static String groupsPhotoStorage =  "group_photo";
     public static String teacherObject = "teachers";
     public static String messageObject = "messages";
+    public static String messagePhotoStorage = "educaty_chat";
     public static String postsObject = "posts";
     public static String CommentsPostObject = "CommentsPost";
     public static String usersGroupObject = "usersGroup";

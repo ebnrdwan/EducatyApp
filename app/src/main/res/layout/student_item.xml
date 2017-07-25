@@ -27,7 +27,7 @@
                 android:layout_below="@+id/imageBehavior"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="3"
-                android:text="anwar" />
+                android:text="@string/studnet_name" />
 
             <ImageView
                 android:background="?attr/selectableItemBackgroundBorderless"

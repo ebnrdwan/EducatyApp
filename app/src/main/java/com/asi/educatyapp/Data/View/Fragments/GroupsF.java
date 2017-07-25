@@ -67,7 +67,7 @@ public class GroupsF extends Fragment {
         view = inflater.inflate(R.layout.fragment_groups, container, false);
         firebaseDatabase = firebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        TeacherdatabaseReference = firebaseDatabase.getReference().child("Groups");
+        TeacherdatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.groupsObject);
         StudentDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.studentObject).child(FirebaseUtil.groupsObject);
 
         rvGroups = (RecyclerView) view.findViewById(R.id.rvGroups);
@@ -75,8 +75,11 @@ public class GroupsF extends Fragment {
         if (SharedPreferencesUtils.getTypeOfCurrentUser(getContext()).equals(Constants.T_STUDENT)) {
             query = TeacherdatabaseReference.child(FirebaseUtil.groupsObject)
                     .orderByChild(FirebaseUtil.studentObject).equalTo(SharedPreferencesUtils.getCurrentStudent(getActivity()));
+            query=TeacherdatabaseReference;
         } else {
             query = TeacherdatabaseReference.orderByChild("tid").equalTo(SharedPreferencesUtils.getCurrentTeacher(getActivity()));
+
+
 
         }
 

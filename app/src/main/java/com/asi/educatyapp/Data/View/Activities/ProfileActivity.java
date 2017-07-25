@@ -47,6 +47,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     String myuser;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+        ClassRoomStudents fragment = new ClassRoomStudents();
+        trans.replace(R.id.fragment_frame, fragment).commit();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_layout);
@@ -63,9 +71,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         ConnectionLayout.setOnClickListener(this);
         Badges.setOnClickListener(this);
         Skills.setOnClickListener(this);
-        FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
-        ClassRoomStudents fragment = new ClassRoomStudents();
-        trans.add(R.id.fragment_frame, fragment).commit();
+
 
         userName = (TextView) findViewById(R.id.name);
 
@@ -100,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                 userName.setText(user.getDisplayName());
 
                                 if (uri == null) {
-                                    uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+                                    uri = Uri.parse(FirebaseUtil.fakeImageProfile);
                                 }
 
                                 Glide
@@ -113,7 +119,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                                         .into(teacherImage);
 
                             } else {
-                                Toast.makeText(ProfileActivity.this, "you are not logined ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, R.string.printNotLogined, Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -167,7 +173,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 ConnectionLayout.setAnimation(myAnim);
                 FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
                 ClassRoomStudents fragment = new ClassRoomStudents();
-                ClassRoomStudents fragments = new ClassRoomStudents();
                 trans.replace(R.id.fragment_frame, fragment).commit();
 
 
@@ -184,6 +189,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
                 com.asi.educatyapp.Data.View.Fragments.Skills skills = new Skills();
                 trans.replace(R.id.fragment_frame, skills).commit();
+                Toast.makeText(ProfileActivity.this,"not implemented yet",Toast.LENGTH_SHORT);
 
             }
         });

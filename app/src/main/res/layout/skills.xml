@@ -36,11 +36,12 @@
                 android:layout_centerVertical="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/black"
-                tools:text="ICDL Technology specialist"
+                tools:text="@string/skills_name"
                  />
 
 
             <ImageButton
+                android:contentDescription="add to upVote for this skill"
                 android:layout_margin="8dp"
                 android:id="@+id/skillsButton"
                 android:layout_width="wrap_content"

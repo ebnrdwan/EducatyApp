@@ -12,6 +12,7 @@
         android:layout_gravity="center|top"
         android:layout_marginTop="50dp"
         android:elevation="10dp"
+        android:contentDescription="@string/this_is_the_profile_image"
         android:src="@drawable/mypic"
         app:dependTargetY="-176dp"
         app:dependType="y"
@@ -82,7 +83,7 @@
                     android:layout_marginLeft="28dp"
                     android:fontFamily="sans-serif-smallcaps"
                     android:gravity="center"
-                    android:text="Abdulrhman"
+                    android:text="@string/abdulrhman"
                     app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                     app:layout_collapseMode="pin"
                     android:textColor="#ccffffff"
@@ -97,7 +98,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="28dp"
                     android:layout_marginTop="4dp"
-                    android:text="UI/UX Designer | Android Developer"
+                    android:text="@string/ui_ux_designer_android_developer"
                     android:textColor="#aaffffff" />
 
 
@@ -145,6 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
+        android:contentDescription="@string/click_to_add_new_group"
         android:foreground="?attr/selectableItemBackground"
         android:elevation="6dp"
         app:srcCompat="@drawable/add_vector"

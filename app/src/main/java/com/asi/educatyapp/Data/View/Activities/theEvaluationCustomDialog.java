@@ -28,8 +28,8 @@ public class theEvaluationCustomDialog extends AppCompatActivity {
 
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 
-        pagerAdapter.addFragments(new GroupsF(), "Positive behavior ");
-        pagerAdapter.addFragments(new GroupsF(), "Grades");
+        pagerAdapter.addFragments(new GroupsF(), getString(R.string.positiveBehav));
+        pagerAdapter.addFragments(new GroupsF(), getString(R.string.grades));
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

@@ -9,6 +9,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <com.asi.educatyapp.Data.View.CustomViews.CircleImageView
+        android:contentDescription="@string/navimage"
         android:id="@+id/imageProfile"
         android:layout_width="60dp"
         android:layout_height="60dp"

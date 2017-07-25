@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,10 +89,10 @@ public class TheGroup extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.mytablayout);
         viewPager = (ViewPager) findViewById(R.id.myviewpager);
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragments(new HomeF(), "Home ");
-        pagerAdapter.addFragments(new TheGroupStudents(), "Students");
-        pagerAdapter.addFragments(new Skills(), "Quizzes");
-        pagerAdapter.addFragments(new ProgressF(), "Progress");
+        pagerAdapter.addFragments(new HomeF(), getString(R.string.HomeF));
+        pagerAdapter.addFragments(new TheGroupStudents(), getString(R.string.groupStudentsF));
+        pagerAdapter.addFragments(new Skills(), getString(R.string.QuizzesF));
+        pagerAdapter.addFragments(new ProgressF(), getString(R.string.ProgressF));
 
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -129,14 +128,11 @@ public class TheGroup extends AppCompatActivity {
                     Holder holder = new ListHolder();
                     showCompleteDialog(holder, Gravity.BOTTOM, mAdapter);
                 } else {
-                    Toast.makeText(TheGroup.this, "not allowed for students ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TheGroup.this, R.string.notAllowedForStudents, Toast.LENGTH_SHORT).show();
                 }
 
                 break;
 
-            case R.id.add_student_menu:
-                Toast.makeText(TheGroup.this, "clicked add student menu", Toast.LENGTH_SHORT).show();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -160,13 +156,11 @@ public class TheGroup extends AppCompatActivity {
                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-                        Log.d("DialogPlus", "onItemClick() called with: " + "item = [" +
-                                item + "], position = [" + position + "]");
 
                         StudentModel model = (StudentModel) item;
                         HashMap<String, Boolean> map = new HashMap<String, Boolean>();
                         map.put(model.getIdusername(), true);
-                        FirebaseUtil.addingObjectFirebase(user, TheGroup.this, GroupDatabaseReference, model, false, model.getIdusername(), null);
+                        FirebaseUtil.addingObjectFirebase(user, TheGroup.this, GroupDatabaseReference, model, false, model.getKey(), null);
                         StudentDatabaseReference.child(model.getKey()).child(FirebaseUtil.groupsObject).child(groupName).setValue(true);
 
 
