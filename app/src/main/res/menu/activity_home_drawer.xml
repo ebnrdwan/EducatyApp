@@ -6,7 +6,7 @@
         <item
             android:id="@+id/nav_main"
             android:icon="@drawable/home"
-            android:title="Home" />
+            android:title="@string/home" />
 
         <item
             android:id="@+id/nav_friends"
@@ -21,26 +21,26 @@
         <item
             android:id="@+id/nav_progress"
             android:icon="@drawable/progress"
-            android:title="Progress" />
+            android:title="@string/progress" />
         <item
             android:id="@+id/nav_library"
             android:icon="@drawable/library"
-            android:title="Library" />
+            android:title="@string/library" />
 
         <item
             android:id="@+id/nav_timeline"
             android:icon="@drawable/timeline"
-            android:title="Timeline" />
+            android:title="@string/timeline" />
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/settings"
-            android:title="Settings " />
+            android:title="@string/settings" />
 
 
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/logout"
-            android:title="Log Out" />
+            android:title="@string/log_out" />
 
 
     </group>

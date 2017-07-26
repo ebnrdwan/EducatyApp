@@ -34,7 +34,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
     private static final String TAG = "STAG";
@@ -135,7 +135,7 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             Toast.makeText(Teacher.this, "Logined success", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Teacher.this,Home.class));
+                            startActivity(new Intent(Teacher.this, Home.class));
 
                         } else {
                             // [START_EXCLUDE]
@@ -148,7 +148,6 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
                         }
                     }
                 });
-
 
 
     }
@@ -184,6 +183,7 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         // [START_EXCLUDE silent]

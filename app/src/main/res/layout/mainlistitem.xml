@@ -111,6 +111,7 @@
             android:weightSum="2">
 
             <ImageView
+                android:contentDescription="@string/click_to_view_and_add_comments"
                 android:foreground="?attr/selectableItemBackground"
                 android:id="@+id/viewComments"
                 android:layout_width="0dp"

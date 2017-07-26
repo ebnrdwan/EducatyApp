@@ -112,13 +112,12 @@ public class Home extends AppCompatActivity {
                         if (user != null) {
 
 
-                            if (SharedPreferencesUtils.getTypeOfCurrentUser(Home.this).equals(Constants.T_STUDENT)){
-                                Toast.makeText(Home.this, R.string.printSavedStudent,Toast.LENGTH_SHORT).show();
-                                SharedPreferencesUtils.setCurrentStudent(Home.this,user.getUid());
-                            }
-                            else {
-                                SharedPreferencesUtils.setCurrentTeacher(Home.this,user.getUid());
-                                Toast.makeText(Home.this, R.string.printSavedTeacher,Toast.LENGTH_SHORT).show();
+                            if (SharedPreferencesUtils.getTypeOfCurrentUser(Home.this).equals(Constants.T_STUDENT)) {
+                                Toast.makeText(Home.this, R.string.printSavedStudent, Toast.LENGTH_SHORT).show();
+                                SharedPreferencesUtils.setCurrentStudent(Home.this, user.getUid());
+                            } else {
+                                SharedPreferencesUtils.setCurrentTeacher(Home.this, user.getUid());
+                                Toast.makeText(Home.this, R.string.printSavedTeacher, Toast.LENGTH_SHORT).show();
                             }
                             Uri uri = user.getPhotoUrl();
 
@@ -136,7 +135,7 @@ public class Home extends AppCompatActivity {
                                     .into(ImageProfile);
 
                         } else {
-                            Toast.makeText(Home.this,R.string.printNotLogined, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Home.this, R.string.printNotLogined, Toast.LENGTH_SHORT).show();
 
                         }
                     }

@@ -11,7 +11,7 @@ import com.asi.educatyapp.R;
 
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
 
-public class theEvaluationCustomDialog extends AppCompatActivity {
+public class TheEvaluationCustomDialog extends AppCompatActivity {
 
     ViewPager viewPager;
     Toolbar toolbar;

@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.asi.educatyapp.Data.Data.Models.StudentModel;
 import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.Utility.itemclickforRecycler;
-import com.asi.educatyapp.Data.View.Activities.theEvaluationCustomDialog;
+import com.asi.educatyapp.Data.View.Activities.TheEvaluationCustomDialog;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -59,12 +59,12 @@ public class ClassRoomStudents extends Fragment {
 
         myrecylcer = (RecyclerView) rootView.findViewById(R.id.recyclerStudentClassroom);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
-        Log.d("Recycler Teacher", myrecylcer.toString());
+        Log.d(getString(R.string.recycler_teacher_log_class), myrecylcer.toString());
         myrecylcer.setLayoutManager(layoutManager);
         itemclickforRecycler.addTo(myrecylcer).setOnItemClickListener(new itemclickforRecycler.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                startActivity(new Intent(getActivity(), theEvaluationCustomDialog.class));
+                startActivity(new Intent(getActivity(), TheEvaluationCustomDialog.class));
             }
         });
 
@@ -76,7 +76,6 @@ public class ClassRoomStudents extends Fragment {
                 viewHolder.setImage(getActivity(), model.getImage());
             }
         };
-
 
 
         myrecylcer.setAdapter(claasStudentAdapterFirebase);

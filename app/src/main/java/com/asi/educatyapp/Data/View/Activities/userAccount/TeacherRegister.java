@@ -119,7 +119,6 @@ public class TeacherRegister extends AppCompatActivity {
                 } else {
 
 
-
                     createAccount(email, password);
                     FirebaseUtil.SetTeachersMap(name, username);
 
@@ -296,10 +295,10 @@ public class TeacherRegister extends AppCompatActivity {
 
     public final static boolean isValidEmail(CharSequence target) {
         boolean isvaild = false;
-       String email= target.toString().trim();
+        String email = target.toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        if (TextUtils.isEmpty(email)&& email.matches(emailPattern))
-            isvaild=true;
+        if (TextUtils.isEmpty(email) && email.matches(emailPattern))
+            isvaild = true;
 
         return isvaild;
 //        return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();

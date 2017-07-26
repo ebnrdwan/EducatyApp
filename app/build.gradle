@@ -5,10 +5,11 @@ android {
         educaty_signing {
             keyAlias 'educaty'
             keyPassword 'fuckyeah001123'
-            storeFile file('D:/MyProjects/theEducaty/EducatyApp/educaty.jks')
+            storeFile file("$rootDir/educaty.jks")
             storePassword 'fuckyeah001123'
         }
     }
+
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
 
     android:layout_height="wrap_content"
     android:minHeight="@dimen/list_item_height">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,11 +16,12 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:contentDescription="@string/skills_icon"
             android:layout_margin="8dp"
             android:id="@+id/imageskills"
             android:layout_width="@dimen/skill_image"
             android:layout_height="@dimen/list_item_height"
-            android:src="@drawable/skills"/>
+            android:src="@drawable/skills" />
 
         <RelativeLayout
             android:id="@+id/text_container_skills"
@@ -36,22 +37,21 @@
                 android:layout_centerVertical="true"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="@android:color/black"
-                tools:text="@string/skills_name"
-                 />
+                tools:text="@string/skills_name" />
 
 
             <ImageButton
-                android:contentDescription="add to upVote for this skill"
+                android:contentDescription="@string/add_to_upvote_for_this_skill"
                 android:layout_margin="8dp"
                 android:id="@+id/skillsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="endorse"
+                android:text="@string/endorse"
                 android:textColor="#fff"
                 android:src="@drawable/addicon"
 
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
     </LinearLayout>
 

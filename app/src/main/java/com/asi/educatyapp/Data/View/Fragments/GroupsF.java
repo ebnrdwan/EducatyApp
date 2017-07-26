@@ -53,7 +53,7 @@ public class GroupsF extends Fragment {
     ValueEventListener valueEventListener;
     FirebaseAuth.AuthStateListener authStateListener;
     FirebaseRecyclerAdapter groupadapterfirebase;
-    public static String GroupTag = "GTAG";
+    public String GroupTag;
     Query query;
 
     public GroupsF() {
@@ -65,6 +65,7 @@ public class GroupsF extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_groups, container, false);
+        GroupTag = getActivity().getResources().getString(R.string.gtag);
         firebaseDatabase = firebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         TeacherdatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.groupsObject);
@@ -75,10 +76,9 @@ public class GroupsF extends Fragment {
         if (SharedPreferencesUtils.getTypeOfCurrentUser(getContext()).equals(Constants.T_STUDENT)) {
             query = TeacherdatabaseReference.child(FirebaseUtil.groupsObject)
                     .orderByChild(FirebaseUtil.studentObject).equalTo(SharedPreferencesUtils.getCurrentStudent(getActivity()));
-            query=TeacherdatabaseReference;
+            query = TeacherdatabaseReference;
         } else {
-            query = TeacherdatabaseReference.orderByChild("tid").equalTo(SharedPreferencesUtils.getCurrentTeacher(getActivity()));
-
+            query = TeacherdatabaseReference.orderByChild(getString(R.string.tid)).equalTo(SharedPreferencesUtils.getCurrentTeacher(getActivity()));
 
 
         }

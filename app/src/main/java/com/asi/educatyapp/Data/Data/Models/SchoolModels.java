@@ -5,7 +5,7 @@ package com.asi.educatyapp.Data.Data.Models;
  */
 
 public class SchoolModels {
-    String id ;
+    String id;
     String name;
 
     public SchoolModels() {

@@ -35,7 +35,7 @@ public class FirebaseUtil {
     //database constances
     public static String studentObject = "students";
     public static String groupsObject = "Groups";
-    public static String groupsPhotoStorage =  "group_photo";
+    public static String groupsPhotoStorage = "group_photo";
     public static String teacherObject = "teachers";
     public static String messageObject = "messages";
     public static String messagePhotoStorage = "educaty_chat";
@@ -150,6 +150,7 @@ public class FirebaseUtil {
     public static String getTeachermap(String usedname) {
         return teachermap.get(usedname);
     }
+
     public static <T> void addingObjectFirebase(FirebaseUser user, final Context context, final DatabaseReference databaseReference,
                                                 final T model, final boolean push, @Nullable final String username, @Nullable String PushKey) {
 
@@ -187,6 +188,7 @@ public class FirebaseUtil {
                             });
                         }
                     }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
@@ -197,14 +199,15 @@ public class FirebaseUtil {
     }
 
 
-    public static<T> void CourseValueEventListener(DatabaseReference reference, final T model ) {
+    public static <T> void CourseValueEventListener(DatabaseReference reference, final T model) {
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                T model1=model;
+                T model1 = model;
                 model1 = (T) dataSnapshot.getValue(model.getClass());
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }

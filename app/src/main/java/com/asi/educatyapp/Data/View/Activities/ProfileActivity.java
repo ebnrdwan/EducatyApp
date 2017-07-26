@@ -88,8 +88,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         Intent intent = getIntent();
         myuser = intent.getStringExtra(TheGroupStudents.sTag);
-        if (myuser==null)
-        {
+        if (myuser == null) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -129,11 +128,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 }
             }, 10);
-        }
-        else {
+        } else {
 
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference= firebaseDatabase.getReference().child(FirebaseUtil.studentObject).child(myuser);
+            DatabaseReference databaseReference = firebaseDatabase.getReference().child(FirebaseUtil.studentObject).child(myuser);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -151,7 +149,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             });
 
         }
-
 
 
     }
@@ -189,7 +186,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
                 com.asi.educatyapp.Data.View.Fragments.Skills skills = new Skills();
                 trans.replace(R.id.fragment_frame, skills).commit();
-                Toast.makeText(ProfileActivity.this,"not implemented yet",Toast.LENGTH_SHORT);
+                Toast.makeText(ProfileActivity.this, "not implemented yet", Toast.LENGTH_SHORT);
 
             }
         });

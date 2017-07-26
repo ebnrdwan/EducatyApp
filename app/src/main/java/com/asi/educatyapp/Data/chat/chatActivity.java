@@ -55,8 +55,8 @@ import java.util.List;
 public class chatActivity extends AppCompatActivity {
 
 
-
-    public final String ANONYMOUS ="anonymous"; ;
+    public final String ANONYMOUS = "anonymous";
+    ;
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
     private static final int RC_PHOTO_PICKER = 2;
 
@@ -71,7 +71,7 @@ public class chatActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    ChildEventListener childEventListener ;
+    ChildEventListener childEventListener;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
     //// TODO: 16/06/2017 add to login activity 1 (with it's following code )
@@ -88,8 +88,8 @@ public class chatActivity extends AppCompatActivity {
 
 
         firebaseStorage = FirebaseStorage.getInstance();
-    firebaseDatabase = firebaseDatabase.getInstance();
-    databaseReference = firebaseDatabase.getReference().child(FirebaseUtil.messageObject);
+        firebaseDatabase = firebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child(FirebaseUtil.messageObject);
 
 
         storageReference = firebaseStorage.getReference().child(FirebaseUtil.messagePhotoStorage);
@@ -101,13 +101,12 @@ public class chatActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user!=null){
+                if (user != null) {
 
                     user.getIdToken(true);
                     user.getDisplayName();
                     onSigned(user.getDisplayName());
-                }
-                else {
+                } else {
 
                 }
             }
@@ -166,7 +165,7 @@ public class chatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: Send messages on click
-                FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(),mUsername,null);
+                FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername, null);
                 databaseReference.push().setValue(friendlyMessage);
                 // Clear input box
                 mMessageEditText.setText("");
@@ -202,9 +201,9 @@ public class chatActivity extends AppCompatActivity {
 
     }
 
-    public void onSigned(String username){
+    public void onSigned(String username) {
         mUsername = username;
-        if (childEventListener==null){
+        if (childEventListener == null) {
             childEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -241,32 +240,27 @@ public class chatActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==RESULT_OK){
-            Toast.makeText(this,"sign in success",Toast.LENGTH_SHORT).show();
+        if (requestCode == RESULT_OK) {
+            Toast.makeText(this, "sign in success", Toast.LENGTH_SHORT).show();
 
-        }else if (requestCode==RESULT_CANCELED){
-            Toast.makeText(this,"sign in failed",Toast.LENGTH_SHORT).show();
+        } else if (requestCode == RESULT_CANCELED) {
+            Toast.makeText(this, "sign in failed", Toast.LENGTH_SHORT).show();
             finish();
-        }
-        else if (requestCode==RC_PHOTO_PICKER && resultCode==RESULT_OK){
-            Uri uriImage =data.getData();
+        } else if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
+            Uri uriImage = data.getData();
             storageReference = storageReference.child(uriImage.getLastPathSegment());
 //            uploadPhoto(uriImage,storageReference);
             storageReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(chatActivity.this,"sucess uploading",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(chatActivity.this, "sucess uploading", Toast.LENGTH_SHORT).show();
                     Uri downloadPhoto = taskSnapshot.getDownloadUrl();
-                    FriendlyMessage f = new FriendlyMessage(null,mUsername,downloadPhoto.toString());
+                    FriendlyMessage f = new FriendlyMessage(null, mUsername, downloadPhoto.toString());
                     databaseReference.push().setValue(f);
                 }
             });
         }
     }
-
-
-
-
 
 
 }

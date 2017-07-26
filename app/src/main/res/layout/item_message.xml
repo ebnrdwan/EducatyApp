@@ -10,6 +10,7 @@
     android:orientation="vertical">
 
     <ImageView
+        android:contentDescription="@string/message_image"
         android:id="@+id/photoImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -63,7 +63,7 @@ public class SkillModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
 
-parcel.writeString(name);
+        parcel.writeString(name);
         parcel.writeInt(Icon);
         parcel.writeInt(Icon);
     }

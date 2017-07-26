@@ -22,7 +22,6 @@ public class LoginEdu extends AppCompatActivity {
         teacher = (MyTextView) findViewById(R.id.teacherLogin);
 
 
-
         teacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

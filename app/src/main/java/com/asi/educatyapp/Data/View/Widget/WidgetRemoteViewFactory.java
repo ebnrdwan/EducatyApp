@@ -28,7 +28,7 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
     int appwidgetId;
 
 
-    public WidgetRemoteViewFactory(Context context, int appwidgetId ) {
+    public WidgetRemoteViewFactory(Context context, int appwidgetId) {
         this.context = context;
         this.appwidgetId = appwidgetId;
     }
@@ -63,7 +63,7 @@ public class WidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
 
         Intent theGroupIntent = new Intent(context, TheGroup.class);
-        PendingIntent theGroupPendingIntent = PendingIntent.getActivity(context,0,theGroupIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent theGroupPendingIntent = PendingIntent.getActivity(context, 0, theGroupIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 //        remoteViews.setOnClickPendingIntent(R.id.wholeItemWidget,theGroupPendingIntent);
 
 

@@ -16,8 +16,7 @@
         android:src="@drawable/mypic22"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        />
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:id="@+id/nameProfile"
@@ -28,8 +27,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
     <TextView
@@ -42,8 +40,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:text="@string/pdiscription" />
-
-
 
 
 </LinearLayout>

@@ -23,7 +23,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:theme="@style/Theme.Design.NoActionBar"
-        app:menu="@menu/activity_home_drawer"
-        />
+        app:menu="@menu/activity_home_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

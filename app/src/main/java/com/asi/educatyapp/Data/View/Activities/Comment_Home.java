@@ -26,8 +26,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static com.asi.educatyapp.Data.View.Fragments.HomeF.keyTag;
-
 public class Comment_Home extends AppCompatActivity {
 
 
@@ -54,7 +52,7 @@ public class Comment_Home extends AppCompatActivity {
         commentTv = (EditText) findViewById(R.id.commenttv);
 
         Intent intent = getIntent();
-        postKey = intent.getStringExtra(keyTag);
+        postKey = intent.getStringExtra(getResources().getString(R.string.homeTag));
         firebaseDatabase = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -75,7 +73,7 @@ public class Comment_Home extends AppCompatActivity {
         });
 
 
-       adapter = new FirebaseRecyclerAdapter<CommentModel,CommentHolder>(CommentModel.class,R.layout.comment_layout,CommentHolder.class,CommentReference) {
+        adapter = new FirebaseRecyclerAdapter<CommentModel, CommentHolder>(CommentModel.class, R.layout.comment_layout, CommentHolder.class, CommentReference) {
 
             @Override
             protected void populateViewHolder(CommentHolder viewHolder, CommentModel model, int position) {

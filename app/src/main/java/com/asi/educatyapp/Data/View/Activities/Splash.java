@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import com.asi.educatyapp.Data.View.Activities.userAccount.GetStart;
 import com.asi.educatyapp.R;
 
-public class Splash extends AppCompatActivity{
+public class Splash extends AppCompatActivity {
 
     public void onAttachedToWindow() {
 
@@ -25,7 +25,9 @@ public class Splash extends AppCompatActivity{
 
     }
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
 
     Thread splashTread;
 
@@ -47,12 +49,11 @@ public class Splash extends AppCompatActivity{
 
         anim.reset();
 
-        RelativeLayout l= (RelativeLayout) findViewById(R.id.lin_lay);
+        RelativeLayout l = (RelativeLayout) findViewById(R.id.lin_lay);
 
         l.clearAnimation();
 
         l.startAnimation(anim);
-
 
 
         anim = AnimationUtils.loadAnimation(this, R.anim.translate);
@@ -64,7 +65,6 @@ public class Splash extends AppCompatActivity{
         iv.clearAnimation();
 
         iv.startAnimation(anim);
-
 
 
         splashTread = new Thread() {
@@ -89,7 +89,7 @@ public class Splash extends AppCompatActivity{
 
                     Intent intent = new Intent(Splash.this,
 
-                       GetStart.class);
+                            GetStart.class);
 
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
@@ -108,13 +108,11 @@ public class Splash extends AppCompatActivity{
                 }
 
 
-
             }
 
         };
 
         splashTread.start();
-
 
 
     }

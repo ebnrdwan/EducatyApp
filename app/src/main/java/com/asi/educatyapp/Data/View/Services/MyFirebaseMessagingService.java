@@ -25,27 +25,26 @@ import com.asi.educatyapp.Data.View.Activities.Home;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM Service";
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO: Handle FCM messages here.
         // If the application is in the foreground handle both data and notification messages here.
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated.
-      //  Toast.makeText(getApplicationContext(),remoteMessage.getNotification().getBody(),Toast.LENGTH_LONG).show();
+        //  Toast.makeText(getApplicationContext(),remoteMessage.getNotification().getBody(),Toast.LENGTH_LONG).show();
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-        Intent intent = new Intent(this,Home.class);
-       // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(this, Home.class);
+        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         String title;
-        if (remoteMessage.getNotification().getTitle()==null)
-        {
-            title="SuezApp";
+        if (remoteMessage.getNotification().getTitle() == null) {
+            title = "SuezApp";
+        } else {
+            title = remoteMessage.getNotification().getTitle();
         }
-        else {
-            title=remoteMessage.getNotification().getTitle();
-        }
-        intent.putExtra("title",title);
-        intent.putExtra("message",remoteMessage.getNotification().getBody());
+        intent.putExtra("title", title);
+        intent.putExtra("message", remoteMessage.getNotification().getBody());
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -67,17 +66,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Calendar c = Calendar.getInstance();
 
 
-
-
-
-
     }
 
     private int getNotificationIcon() {
         boolean useWhiteIcon = (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP);
         return useWhiteIcon ? R.mipmap.ic_launcher : R.mipmap.ic_launcher;
     }
-
 
 
 }

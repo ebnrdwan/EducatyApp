@@ -7,7 +7,6 @@
     android:background="#fff">
 
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -207,6 +206,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:contentDescription="@string/sign_facebook"
                 android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -228,6 +228,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:contentDescription="@string/sign_google"
                 android:foreground="?attr/selectableItemBackground"
                 android:id="@+id/googleicon"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -235,8 +236,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:src="@drawable/google"
-                />
+                android:src="@drawable/google" />
 
         </LinearLayout>
 

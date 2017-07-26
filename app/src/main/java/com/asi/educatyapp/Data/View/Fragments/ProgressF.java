@@ -28,12 +28,12 @@ import java.util.ArrayList;
  */
 public class ProgressF extends Fragment {
 
-    private static String TAG = "chatActivity";
 
     private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f};
     private String[] xData = {"Mitch", "Jessica", "Mohammad", "Kelsey", "Sam", "Robert", "Ashley"};
     PieChart pieChart;
-    PieChart BehaviorChart ;
+    PieChart BehaviorChart;
+    private String TAG;
 
     public ProgressF() {
         // Required empty public constructor
@@ -44,7 +44,8 @@ public class ProgressF extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View rootView =  inflater.inflate(R.layout.fragment_progress, container, false);
+        TAG = getResources().getString(R.string.chatTag);
+        View rootView = inflater.inflate(R.layout.fragment_progress, container, false);
 
         Log.d(TAG, "onCreate: starting to create chart");
 
@@ -158,7 +159,7 @@ public class ProgressF extends Fragment {
 
         //add legend to chart
         Legend legend = pieChart.getLegend();
-        Legend legend1= BehaviorChart.getLegend();
+        Legend legend1 = BehaviorChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
         legend1.setForm(Legend.LegendForm.CIRCLE);

@@ -32,12 +32,12 @@ public class HomeF extends Fragment {
     private FloatingActionButton floatingActionButton;
 
     private View view;
-    AdView adView ;
+    AdView adView;
     RecyclerView rvHome;
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
     FirebaseRecyclerAdapter adapter;
-   public static String keyTag="key";
+    public String keyTag;
 
     public HomeF() {
         // Required empty public constructor
@@ -47,12 +47,12 @@ public class HomeF extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        keyTag = getActivity().getString(R.string.homeTag);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child(FirebaseUtil.postsObject);
 
 
-         adapter = new FirebaseRecyclerAdapter<PostModel, PostHolder>(PostModel.class, R.layout.mainlistitem, PostHolder.class, databaseReference) {
+        adapter = new FirebaseRecyclerAdapter<PostModel, PostHolder>(PostModel.class, R.layout.mainlistitem, PostHolder.class, databaseReference) {
             @Override
             protected void populateViewHolder(PostHolder viewHolder, final PostModel model, int position) {
 
@@ -66,7 +66,7 @@ public class HomeF extends Fragment {
                     public void onClick(View v) {
 
 
-                        getContext().startActivity(new Intent(getActivity(), Comment_Home.class).putExtra(keyTag,model.getId()));
+                        getContext().startActivity(new Intent(getActivity(), Comment_Home.class).putExtra(keyTag, model.getId()));
                     }
                 });
             }
@@ -90,6 +90,7 @@ public class HomeF extends Fragment {
         });
         return view;
     }
+
     public static class PostHolder extends RecyclerView.ViewHolder {
         ImageView profile;
         TextView name;
@@ -97,6 +98,7 @@ public class HomeF extends Fragment {
         ImageView postImage;
         TextView postContent;
         ImageView viewComments;
+
         public PostHolder(View itemView) {
             super(itemView);
             profile = (ImageView) itemView.findViewById(R.id.homeProfile);
@@ -104,7 +106,7 @@ public class HomeF extends Fragment {
             time = (TextView) itemView.findViewById(R.id.posttime);
             postImage = (ImageView) itemView.findViewById(R.id.homePostPic);
             postContent = (TextView) itemView.findViewById(R.id.homePostContent);
-            viewComments= (ImageView) itemView.findViewById(R.id.viewComments);
+            viewComments = (ImageView) itemView.findViewById(R.id.viewComments);
         }
     }
 }

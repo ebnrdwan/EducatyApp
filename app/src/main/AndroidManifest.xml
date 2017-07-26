@@ -85,7 +85,7 @@
             android:parentActivityName=".Data.View.Activities.Home"
             android:theme="@style/AppThemee" />
         <activity
-            android:name=".Data.View.Activities.theEvaluationCustomDialog"
+            android:name=".Data.View.Activities.TheEvaluationCustomDialog"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".Data.View.Activities.Splash">
             <intent-filter>
@@ -115,8 +115,6 @@
             android:name=".Data.View.Widget.RemoteWidgetServiceAdapter"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity android:name=".Data.View.Ads.MainAds" />
-        <activity android:name=".Data.View.Ads.BannerAds"></activity>
     </application>
 
 </manifest>

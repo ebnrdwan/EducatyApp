@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class AttendanceAdapter extends BaseAdapter {
-//// TODO: 05/07/2017 not used for now 
+    //// TODO: 05/07/2017 not used for now
     private static LayoutInflater layoutInflater;
     static FirebaseDatabase firebaseDatabase;
     static DatabaseReference databaseReference;

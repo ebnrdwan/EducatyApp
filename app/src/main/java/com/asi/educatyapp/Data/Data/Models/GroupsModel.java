@@ -6,13 +6,12 @@ package com.asi.educatyapp.Data.Data.Models;
 
 public class GroupsModel {
 
-    String name,id,tid,path;
+    String name, id, tid, path;
 
 
     public GroupsModel() {
         // required for firebase databse
     }
-
 
 
     public GroupsModel(String id, String tid, String name, String path) {
@@ -21,7 +20,8 @@ public class GroupsModel {
         this.name = name;
         this.path = path;
     }
-    public GroupsModel( String tid, String name, String path) {
+
+    public GroupsModel(String tid, String name, String path) {
         this.id = id;
         this.tid = tid;
         this.name = name;

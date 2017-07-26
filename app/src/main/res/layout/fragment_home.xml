@@ -24,6 +24,7 @@
         app:pressedTranslationZ="12dp"
         app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/createpost" />
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/addview"
         android:layout_gravity="bottom"

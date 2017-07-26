@@ -5,7 +5,7 @@ package com.asi.educatyapp.Data.Data.Models;
  */
 
 public class StudentModel {
-private String key;
+    private String key;
 
     public String getKey() {
         return key;
@@ -27,9 +27,9 @@ private String key;
     }
 
     //constructors
-    public StudentModel(String key,String email,String password, String name, String school,  String idusername ,String image) {
+    public StudentModel(String key, String email, String password, String name, String school, String idusername, String image) {
         this.password = password;
-        this.key=key;
+        this.key = key;
         this.name = name;
         this.school = school;
         this.email = email;
@@ -37,7 +37,7 @@ private String key;
         this.idusername = idusername;
     }
 
-    public StudentModel( String idusername,String name, String school, String email, String image) {
+    public StudentModel(String idusername, String name, String school, String email, String image) {
         this.name = name;
         this.school = school;
         this.email = email;

@@ -3,16 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_timeline_test2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <ListView
         android:id="@+id/timelineListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:dividerHeight="0dp"
-        >
-    </ListView>
+        android:dividerHeight="0dp"></ListView>
 
 </RelativeLayout>

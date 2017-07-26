@@ -182,14 +182,14 @@ public class StudentRegister extends AppCompatActivity {
                                                                     Toast.makeText(StudentRegister.this, "this account already existed", Toast.LENGTH_SHORT).show();
                                                                 } else {
 
-                                                                 
-                                                                    StudentModel model = new StudentModel(key,email, password, name, school, username, downloadPhoto.toString());
+
+                                                                    StudentModel model = new StudentModel(key, email, password, name, school, username, downloadPhoto.toString());
                                                                     studentDatabaseReference.child(key).setValue(model)
                                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
                                                                                     Toast.makeText(StudentRegister.this, "saved Student", Toast.LENGTH_SHORT).show();
-                                                                                    SharedPreferencesUtils.setCurrentStudent(StudentRegister.this,key);
+                                                                                    SharedPreferencesUtils.setCurrentStudent(StudentRegister.this, key);
                                                                                     SharedPreferencesUtils.setTypeOfCurrentUser(StudentRegister.this, Constants.T_STUDENT);
                                                                                     startActivity(new Intent(StudentRegister.this, Home.class));
                                                                                 }

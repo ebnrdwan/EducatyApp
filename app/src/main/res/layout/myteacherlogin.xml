@@ -207,6 +207,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:contentDescription="@string/sign_facebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -228,6 +229,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:contentDescription="@string/sign_google"
                 android:id="@+id/googleiconT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

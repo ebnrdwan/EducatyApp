@@ -64,6 +64,7 @@
 
 
                 <ImageView
+                    android:contentDescription="@string/image_groups"
                     android:id="@+id/imagegroup"
                     android:layout_width="100dp"
                     android:layout_height="100dp"

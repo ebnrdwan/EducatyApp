@@ -33,7 +33,7 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(final Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         // Construct the RemoteViews object
 
-        RemoteViews remoteViews = getGridItemsRemoteView(context,appWidgetId);
+        RemoteViews remoteViews = getGridItemsRemoteView(context, appWidgetId);
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
 
 
@@ -65,11 +65,11 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.sync_widget, syncPendingIntent);
 
         Intent theGroupIntent = new Intent(context, TheGroup.class);
-        PendingIntent theGroupPendingIntent = PendingIntent.getActivity(context,0,theGroupIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent theGroupPendingIntent = PendingIntent.getActivity(context, 0, theGroupIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 //        views.setOnClickPendingIntent(R.id.widgetList,theGroupPendingIntent);
-        views.setPendingIntentTemplate(R.id.widgetList,theGroupPendingIntent);
-        views.setOnClickFillInIntent(R.id.widgetList,theGroupIntent);
+        views.setPendingIntentTemplate(R.id.widgetList, theGroupPendingIntent);
+        views.setOnClickFillInIntent(R.id.widgetList, theGroupIntent);
 
 
         // Set the GridWidgetService intent to act as the adapter for the GridView
@@ -77,7 +77,7 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
 
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
-        intent.putExtra("id",appWidgetId);
+        intent.putExtra("id", appWidgetId);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             views.setRemoteAdapter(R.id.widgetList,
                     new Intent(context, RemoteWidgetServiceAdapter.class).putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId));
@@ -87,7 +87,7 @@ public class GroupsWidgetProvider extends AppWidgetProvider {
         }
 
         // Set the PlantDetailActivity intent to launch when clicked
-     
+
         Intent appIntent = new Intent(context, Groups.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widgetList, appPendingIntent);

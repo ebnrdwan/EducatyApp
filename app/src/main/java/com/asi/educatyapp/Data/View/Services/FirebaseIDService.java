@@ -26,10 +26,9 @@ public class FirebaseIDService extends FirebaseInstanceIdService {
     }
 
 
-
     /**
      * Persist token to third-party servers.
-     *
+     * <p>
      * Modify this method to associate the user's FCM InstanceID token with any server-side account
      * maintained by your application.
      *
@@ -37,7 +36,7 @@ public class FirebaseIDService extends FirebaseInstanceIdService {
      */
     private void sendRegistrationToServer(String token) {
         SharedPreferences.Editor editor = getSharedPreferences("TOKEN", MODE_PRIVATE).edit();
-        editor.putString("token",token);
+        editor.putString("token", token);
         editor.apply();
     }
 }

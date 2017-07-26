@@ -21,12 +21,10 @@ import java.util.ArrayList;
 public class Skills extends Fragment {
     ArrayList<SkillModel> skillList;
     RecyclerView myrecylcer;
-    public static String ParceTag = "PARCETAG";
 
     public Skills() {
         // Required empty public constructor
     }
-
 
 
     @Override

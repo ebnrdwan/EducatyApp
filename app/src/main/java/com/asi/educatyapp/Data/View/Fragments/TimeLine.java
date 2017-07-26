@@ -29,6 +29,7 @@ public class TimeLine extends Fragment {
     //Create Timeline Rows List
     private ArrayList<TimelineRow> TimelineRowsList = new ArrayList<>();
     ArrayAdapter<TimelineRow> myAdapter;
+
     public TimeLine() {
         // Required empty public constructor
     }
@@ -51,29 +52,29 @@ public class TimeLine extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Add Random Rows to the List
-        for (int i=0; i<15; i++) {
+        for (int i = 0; i < 15; i++) {
             TimelineRowsList.add(
                     new TimelineRow(
                             //Row Id
                             i
                             //Row Date
-                            ,new Date()
+                            , new Date()
                             //Row Title or null
-                            ,"Title "+i
+                            , "Title " + i
                             //Row Description or null
-                            ,"Description " +i
+                            , "Description " + i
                             //Row bitmap Image or null
-                            , BitmapFactory.decodeResource(getResources(), R.drawable.clock + getRandomNumber(0,10))
+                            , BitmapFactory.decodeResource(getResources(), R.drawable.clock + getRandomNumber(0, 10))
                             //Row Bellow Line Color
                             , getRandomColor()
                             //Row Bellow Line Size in dp
-                            , getRandomNumber(2,2)
+                            , getRandomNumber(2, 2)
                             //Row Image Size in dp
-                            , getRandomNumber(15,17)
+                            , getRandomNumber(15, 17)
                             //Row image Background color or -1
                             , -1
                             //Row Background Size in dp or -1
-                            , getRandomNumber(25,30)
+                            , getRandomNumber(25, 30)
                     )
             );
         }
@@ -84,11 +85,9 @@ public class TimeLine extends Fragment {
                 true);
 
 
-
         //Get the ListView and Bind it with the Timeline Adapter
         ListView myListView = (ListView) getActivity().findViewById(R.id.timelineListView);
         myListView.setAdapter(myAdapter);
-
 
 
         myListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -193,12 +192,12 @@ public class TimeLine extends Fragment {
     }
 
 
-    public int getRandomColor(){
+    public int getRandomColor() {
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 
-    public int getRandomNumber(int min, int max){
-        return  min + (int)(Math.random() * max);
+    public int getRandomNumber(int min, int max) {
+        return min + (int) (Math.random() * max);
     }
 }

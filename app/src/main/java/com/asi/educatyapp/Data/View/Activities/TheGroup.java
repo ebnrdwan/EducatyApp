@@ -29,7 +29,6 @@ import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.Utility.SharedPreferencesUtils;
 import com.asi.educatyapp.Data.View.Adapters.AttendanceAdapter;
 import com.asi.educatyapp.Data.View.Adapters.MyPagerAdapter;
-import com.asi.educatyapp.Data.View.Fragments.GroupsF;
 import com.asi.educatyapp.Data.View.Fragments.HomeF;
 import com.asi.educatyapp.Data.View.Fragments.ProgressF;
 import com.asi.educatyapp.Data.View.Fragments.Skills;
@@ -81,7 +80,7 @@ public class TheGroup extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         StudentDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.studentObject);
         Intent intent = getIntent();
-        groupName = intent.getStringExtra(GroupsF.GroupTag);
+        groupName = intent.getStringExtra(getResources().getString(R.string.gtag));
         GroupDatabaseReference = firebaseDatabase.getReference().child(FirebaseUtil.groupsObject).child(groupName).child(FirebaseUtil.studentObject);
 
 
@@ -119,7 +118,7 @@ public class TheGroup extends AppCompatActivity {
                             ((TextView) view.findViewById(R.id.text_view)).setText(studentModel.getName());
                             ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
                             list.add(studentModel);
-                            Toast.makeText(TheGroup.this,"list is"+String.valueOf(list.size()),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TheGroup.this, "list is" + String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
                             Glide.with(TheGroup.this).load(Uri.parse(studentModel.getImage())).error(R.drawable.student).into(imageView);
 
                         }

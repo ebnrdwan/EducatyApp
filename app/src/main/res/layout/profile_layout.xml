@@ -44,6 +44,7 @@
         frisson:cardCornerRadius="50dp">
 
         <ImageView
+            android:contentDescription="@string/image_profile_disc"
             android:id="@+id/teacherimage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -222,12 +223,12 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/fragment_frame"></FrameLayout>
         </android.support.v4.widget.NestedScrollView>
-
 
 
     </LinearLayout>

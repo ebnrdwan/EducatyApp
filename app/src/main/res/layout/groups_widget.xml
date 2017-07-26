@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <ImageView
-
+            android:contentDescription="@string/image_widget"
             android:id="@+id/image_viewwidget"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -24,11 +24,12 @@
             android:tint="@color/white" />
 
         <ImageView
+            android:contentDescription="@string/sync_widget"
             android:id="@+id/sync_widget"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-           android:src="@drawable/sync"
+            android:src="@drawable/sync"
             android:tint="@color/white" />
 
     </LinearLayout>

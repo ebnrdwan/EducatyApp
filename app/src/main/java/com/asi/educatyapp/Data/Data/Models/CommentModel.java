@@ -10,7 +10,7 @@ public class CommentModel {
     String image;
     String comment;
     String time;
-    String id,pid;
+    String id, pid;
 
     public CommentModel() {
         //required for firebase database
@@ -21,8 +21,8 @@ public class CommentModel {
         this.image = image;
         this.comment = comment;
         this.time = time;
-        this.id=id;
-        this.pid=pid;
+        this.id = id;
+        this.pid = pid;
     }
 
     public String getName() {

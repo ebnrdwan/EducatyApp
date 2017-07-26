@@ -11,8 +11,6 @@
     android:orientation="vertical">
 
 
-
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
@@ -23,11 +21,11 @@
 
 
     <ImageView
+        android:contentDescription="@string/logo_splash_disc"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/splash"
         android:tint="#f9f9f9"
-        android:src="@drawable/logo"
-        />
+        android:src="@drawable/logo" />
 </RelativeLayout>

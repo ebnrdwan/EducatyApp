@@ -58,6 +58,7 @@
 
             android:textAllCaps="false" />
     </LinearLayout>
+
     <com.airbnb.lottie.LottieAnimationView
         android:layout_above="@+id/mainlayout"
         android:layout_marginTop="@dimen/margin_small"

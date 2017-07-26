@@ -58,11 +58,11 @@ public class AddNewGroup extends AppCompatActivity {
         Gpic = (ImageView) findViewById(R.id.ivGroupitem);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase =FirebaseDatabase.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         user = firebaseAuth.getCurrentUser();
 
-        
+
         groupsDatabaseReference = firebaseDatabase.getReference(FirebaseUtil.groupsObject);
         groupPhotoReference = firebaseStorage.getReference().child(FirebaseUtil.groupsPhotoStorage);
 
@@ -81,7 +81,7 @@ public class AddNewGroup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
-                if (uriImage!=null){
+                if (uriImage != null) {
                     LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);
                     animationView.setAnimation("anims/glowloading.json");
                     animationView.loop(true);
@@ -99,8 +99,8 @@ public class AddNewGroup extends AppCompatActivity {
                             downloadPhoto = taskSnapshot.getDownloadUrl();
                             key = groupsDatabaseReference.push().getKey();
                             String currentTeachherky = SharedPreferencesUtils.getCurrentTeacher(AddNewGroup.this);
-                            GroupsModel model = new GroupsModel(key,currentTeachherky,groupname,downloadPhoto.toString());
-                            FirebaseUtil.addingObjectFirebase(user1,AddNewGroup.this,groupsDatabaseReference,model,false,groupname,null);
+                            GroupsModel model = new GroupsModel(key, currentTeachherky, groupname, downloadPhoto.toString());
+                            FirebaseUtil.addingObjectFirebase(user1, AddNewGroup.this, groupsDatabaseReference, model, false, groupname, null);
 
                             startActivity(new Intent(AddNewGroup.this, Groups.class));
 
@@ -111,9 +111,8 @@ public class AddNewGroup extends AppCompatActivity {
                             Toast.makeText(AddNewGroup.this, R.string.faileduplaod, Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-                else {
-                  Gname.setError("write your content please and load an image");
+                } else {
+                    Gname.setError("write your content please and load an image");
                     Gpic.setImageResource(R.drawable.error);
                 }
 
@@ -129,7 +128,7 @@ public class AddNewGroup extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_PHOTO_PICKER) {
-             uriImage = data.getData();
+            uriImage = data.getData();
 
         } else {
             Toast.makeText(AddNewGroup.this, R.string.errorphotopicker, Toast.LENGTH_SHORT).show();

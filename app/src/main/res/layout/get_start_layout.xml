@@ -7,11 +7,12 @@
     android:orientation="vertical">'
 
     <ImageView
+        android:contentDescription="@string/logo_splash_disc"
         android:id="@+id/imageget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/logo"
-        android:tint="#fff"/>
+        android:tint="#fff" />
 
     <Button
         android:contentDescription="@string/click_to_go_to_login_screen"
@@ -27,6 +28,6 @@
         android:text="@string/get_started"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/imageget"/>
+        android:layout_below="@+id/imageget" />
 
 </RelativeLayout>

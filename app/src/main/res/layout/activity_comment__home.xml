@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/Recycler_activity_comment__home"
         android:layout_width="match_parent"
@@ -11,14 +12,15 @@
         tools:context="com.asi.educatyapp.View.Activities.Comment_Home">
 
     </android.support.v7.widget.RecyclerView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f3f3f3"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
-        android:layout_alignBottom="@id/Recycler_activity_comment__home"
-        >
+        android:layout_alignBottom="@id/Recycler_activity_comment__home">
+
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -32,6 +34,7 @@
             android:layout_marginBottom="100dp"
 
             />
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -45,8 +48,7 @@
             android:textAllCaps="true"
             android:padding="10dp"
             android:layout_weight=".3"
-            android:textAlignment="center"
-            />
+            android:textAlignment="center" />
     </LinearLayout>
 </RelativeLayout>
 

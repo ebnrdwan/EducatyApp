@@ -13,7 +13,7 @@ public class RemoteWidgetServiceAdapter extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        int id = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,0);
-        return new WidgetRemoteViewFactory(this,id);
+        int id = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+        return new WidgetRemoteViewFactory(this, id);
     }
 }

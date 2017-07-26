@@ -27,8 +27,7 @@
         android:gravity="center"
         android:layout_weight="1"
         android:src="@drawable/my"
-        android:text="@string/teacher_name"
-      />
+        android:text="@string/teacher_name" />
 
 </LinearLayout>
 

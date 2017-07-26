@@ -4,10 +4,10 @@
     <!-- Single menu item
          Set id, icon and Title for each menu item
     -->
-    <item android:id="@+id/menu_logout"
+    <item
+        android:id="@+id/menu_logout"
         android:icon="@drawable/ic_action_logout"
-        android:title="Logout"
-        app:showAsAction="always"
-        />
+        android:title="@string/logout"
+        app:showAsAction="always" />
 
 </menu>

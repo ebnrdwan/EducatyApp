@@ -19,6 +19,7 @@
     <style name="FullscreenActionBarStyle" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>
+
     <style name="AppThemee" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -26,6 +27,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:typeface">serif</item>
     </style>
+
     <style name="AppThemeeRegister" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -33,6 +35,7 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:typeface">serif</item>
     </style>
+
     <style name="AppThemeNoActonBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -104,15 +107,14 @@
     </style>
 
 
-    <style
-        name="FriendlyButtonStyle" parent="Widget.AppCompat.Button">
+    <style name="FriendlyButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorTitle</item>
         <item name="android:actionMenuTextColor">@color/black</item>
-        <item name="background"> @color/white</item>
+        <item name="background">@color/white</item>
 
     </style>
 
-    <style name="welcom" parent="AppThemeNoActonBar" >
+    <style name="welcom" parent="AppThemeNoActonBar">
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="windowActionBar">false</item>

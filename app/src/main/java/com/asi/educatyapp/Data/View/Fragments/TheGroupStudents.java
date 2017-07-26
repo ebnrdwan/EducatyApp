@@ -40,7 +40,7 @@ public class TheGroupStudents extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseAuth auth;
-    public static String sTag="STAG";
+    public static String sTag;
 
     public TheGroupStudents() {
         // Required empty public constructor
@@ -52,7 +52,7 @@ public class TheGroupStudents extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_class_room_students, container, false);
-
+        sTag = getActivity().getString(R.string.sTag);
         //inistialize database reference
         firebaseDatabase = firebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -72,12 +72,11 @@ public class TheGroupStudents extends Fragment {
                 viewHolder.StudentCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getActivity(), ProfileActivity.class).putExtra(sTag,model.getKey()));
+                        startActivity(new Intent(getActivity(), ProfileActivity.class).putExtra(sTag, model.getKey()));
                     }
                 });
             }
         };
-
 
 
         myrecylcer.setAdapter(claasStudentAdapterFirebase);
