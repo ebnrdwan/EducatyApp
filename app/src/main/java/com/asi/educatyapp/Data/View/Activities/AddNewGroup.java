@@ -112,7 +112,7 @@ public class AddNewGroup extends AppCompatActivity {
                         }
                     });
                 } else {
-                    Gname.setError("write your content please and load an image");
+                    Gname.setError(getString(R.string.error_group_photo));
                     Gpic.setImageResource(R.drawable.error);
                 }
 

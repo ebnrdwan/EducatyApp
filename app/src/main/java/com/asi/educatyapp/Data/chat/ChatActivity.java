@@ -52,7 +52,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
-public class chatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity {
 
 
     public final String ANONYMOUS = "anonymous";
@@ -78,7 +78,7 @@ public class chatActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseAuth.AuthStateListener fAuthStateListener;
 
-    public chatActivity() {
+    public ChatActivity() {
     }
 
     @Override
@@ -134,9 +134,9 @@ public class chatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpeg");
+                intent.setType(getString(R.string.image_pick_type));
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.image_action)), RC_PHOTO_PICKER);
             }
         });
         // Enable Send button when there's text to send
@@ -241,10 +241,10 @@ public class chatActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_OK) {
-            Toast.makeText(this, "sign in success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.sign_in_succes, Toast.LENGTH_SHORT).show();
 
         } else if (requestCode == RESULT_CANCELED) {
-            Toast.makeText(this, "sign in failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.sign_fail, Toast.LENGTH_SHORT).show();
             finish();
         } else if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
             Uri uriImage = data.getData();
@@ -253,7 +253,7 @@ public class chatActivity extends AppCompatActivity {
             storageReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(chatActivity.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatActivity.this, R.string.success_uploading, Toast.LENGTH_SHORT).show();
                     Uri downloadPhoto = taskSnapshot.getDownloadUrl();
                     FriendlyMessage f = new FriendlyMessage(null, mUsername, downloadPhoto.toString());
                     databaseReference.push().setValue(f);

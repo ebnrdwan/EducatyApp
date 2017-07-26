@@ -41,7 +41,7 @@ import com.google.firebase.storage.UploadTask;
 
 public class StudentRegister extends AppCompatActivity {
 
-    private static final String TAG = "createSTAG";
+    private final String TAG = "createSTAG";
     private static final int RC_PHOTO_PICKER = 2;
 
     // Edit Text Variables
@@ -77,8 +77,8 @@ public class StudentRegister extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
 
         // Firebase Reference
-        studentDatabaseReference = firebaseDatabase.getReference("students");
-        profilePhotoReference = firebaseStorage.getReference().child("Profile_photo");
+        studentDatabaseReference = firebaseDatabase.getReference(FirebaseUtil.studentObject);
+        profilePhotoReference = firebaseStorage.getReference().child(FirebaseUtil.profilePhoto);
 
 
         emailTextview = (EditText) findViewById(R.id.semail);
@@ -92,9 +92,9 @@ public class StudentRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/jpeg");
+                intent.setType(getString(R.string.image_type));
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.comp_action)), RC_PHOTO_PICKER);
             }
         });
 
@@ -112,7 +112,7 @@ public class StudentRegister extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
                         || TextUtils.isEmpty(username)) {
-                    Toast.makeText(StudentRegister.this, "all filds must be filled ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentRegister.this, R.string.must_filled, Toast.LENGTH_SHORT).show();
                 } else {
                     createAccount(email, password);
 
@@ -138,7 +138,7 @@ public class StudentRegister extends AppCompatActivity {
                                             profilePhotoReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                 @Override
                                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                    Toast.makeText(StudentRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(StudentRegister.this, R.string.suc_uploa, Toast.LENGTH_SHORT).show();
                                                     downloadPhoto = taskSnapshot.getDownloadUrl();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
@@ -169,7 +169,7 @@ public class StudentRegister extends AppCompatActivity {
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 if (dataSnapshot.hasChild(key)) {
 //
-                                                    Toast.makeText(StudentRegister.this, "this accoount already exist", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(StudentRegister.this, R.string.already_here, Toast.LENGTH_SHORT).show();
                                                 } else {
 
                                                     if (isRegistered) {
@@ -179,7 +179,7 @@ public class StudentRegister extends AppCompatActivity {
                                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                                 if (dataSnapshot.hasChild(key)) {
 
-                                                                    Toast.makeText(StudentRegister.this, "this account already existed", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(StudentRegister.this, R.string.not_need_new, Toast.LENGTH_SHORT).show();
                                                                 } else {
 
 
@@ -188,7 +188,7 @@ public class StudentRegister extends AppCompatActivity {
                                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
-                                                                                    Toast.makeText(StudentRegister.this, "saved Student", Toast.LENGTH_SHORT).show();
+                                                                                    Toast.makeText(StudentRegister.this, R.string.saved_s, Toast.LENGTH_SHORT).show();
                                                                                     SharedPreferencesUtils.setCurrentStudent(StudentRegister.this, key);
                                                                                     SharedPreferencesUtils.setTypeOfCurrentUser(StudentRegister.this, Constants.T_STUDENT);
                                                                                     startActivity(new Intent(StudentRegister.this, Home.class));
@@ -196,7 +196,7 @@ public class StudentRegister extends AppCompatActivity {
                                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                         @Override
                                                                         public void onFailure(@NonNull Exception e) {
-                                                                            Toast.makeText(StudentRegister.this, "faild regist Student" + e, Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(StudentRegister.this, getString(R.string.faild_s) + e, Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     });
                                                                 }
@@ -208,7 +208,7 @@ public class StudentRegister extends AppCompatActivity {
                                                             }
                                                         });
                                                     } else {
-                                                        Toast.makeText(StudentRegister.this, "invalid info to Register", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(StudentRegister.this, R.string.invalid_s, Toast.LENGTH_SHORT).show();
                                                     }
 
                                                 }
@@ -221,7 +221,7 @@ public class StudentRegister extends AppCompatActivity {
 
 
                                     } else {
-                                        Toast.makeText(StudentRegister.this, "not logined", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(StudentRegister.this, R.string.not, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             };
@@ -241,14 +241,14 @@ public class StudentRegister extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(StudentRegister.this, "check your email for verification ", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(StudentRegister.this, R.string.check, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, getString(R.string.suc));
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             isRegistered = true;
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(StudentRegister.this, "Authentication failed.",
+                            Log.w(TAG, getString(R.string.fail), task.getException());
+                            Toast.makeText(StudentRegister.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
                             isRegistered = false;
                         }
@@ -266,7 +266,7 @@ public class StudentRegister extends AppCompatActivity {
                     .load(imageUri)
                     .into(profilePic);
         } else {
-            Toast.makeText(StudentRegister.this, "error photo picker", Toast.LENGTH_SHORT).show();
+            Toast.makeText(StudentRegister.this, R.string.er_pick, Toast.LENGTH_SHORT).show();
         }
 
     }

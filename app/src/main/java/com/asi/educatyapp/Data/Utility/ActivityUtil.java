@@ -41,7 +41,7 @@ public class ActivityUtil {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/jpeg");
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-        a.startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+        a.startActivityForResult(Intent.createChooser(intent, a.getString(R.string.pcik)), RC_PHOTO_PICKER);
     }
 
     public static void widgetUpdate(final Context context) {

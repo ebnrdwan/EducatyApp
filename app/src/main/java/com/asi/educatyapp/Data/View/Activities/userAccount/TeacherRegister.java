@@ -41,7 +41,7 @@ import com.google.firebase.storage.UploadTask;
 public class TeacherRegister extends AppCompatActivity {
 
 
-    private static final String TAG = "createSTAG";
+    private final String TAG = "createSTAG";
     private static final int RC_PHOTO_PICKER = 2;
 
     // Edit Text Variables
@@ -75,8 +75,8 @@ public class TeacherRegister extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
 
         // Firebase Reference
-        teachersDatabaseReference = firebaseDatabase.getReference("teachers");
-        profilePhotoReference = firebaseStorage.getReference().child("Profile_photo");
+        teachersDatabaseReference = firebaseDatabase.getReference(FirebaseUtil.teacherObject);
+        profilePhotoReference = firebaseStorage.getReference().child(FirebaseUtil.profilePhoto);
 
 
         emailTextview = (EditText) findViewById(R.id.temail);
@@ -93,7 +93,7 @@ public class TeacherRegister extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/jpeg");
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-                startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.start_Action)), RC_PHOTO_PICKER);
             }
         });
 
@@ -112,10 +112,10 @@ public class TeacherRegister extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)
                         || TextUtils.isEmpty(username)) {
-                    Toast.makeText(TeacherRegister.this, "all filds must be filled ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherRegister.this, R.string.mus_fail, Toast.LENGTH_SHORT).show();
 
                 } else if (isValidEmail(email.toString().trim())) {
-                    Toast.makeText(TeacherRegister.this, "email not vaild", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherRegister.this, R.string.em_not, Toast.LENGTH_SHORT).show();
                 } else {
 
 
@@ -143,7 +143,7 @@ public class TeacherRegister extends AppCompatActivity {
                                             profilePhotoReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                 @Override
                                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                    Toast.makeText(TeacherRegister.this, "sucess uploading", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(TeacherRegister.this, R.string.suce_upload, Toast.LENGTH_SHORT).show();
                                                     downloadPhoto = taskSnapshot.getDownloadUrl();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
@@ -155,7 +155,7 @@ public class TeacherRegister extends AppCompatActivity {
                                         }
 
                                         if (downloadPhoto == null) {
-                                            downloadPhoto = Uri.parse("https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/Profile_photo%2Fstudentsample.jpg?alt=media&token=2a970b70-1b7f-4b27-b4b7-9805cc8f348e");
+                                            downloadPhoto = Uri.parse(FirebaseUtil.fakeImageProfile);
                                         }
                                         //// TODO: 01/07/2017 handle user account
                                         profileChangeRequest = new UserProfileChangeRequest.Builder()
@@ -173,8 +173,8 @@ public class TeacherRegister extends AppCompatActivity {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 if (dataSnapshot.hasChild(key)) {
-                                                    usernameEditText.setError("this account already existed ");
-                                                    Toast.makeText(TeacherRegister.this, "this account already existed", Toast.LENGTH_SHORT).show();
+                                                    usernameEditText.setError(getString(R.string.already_ex));
+                                                    Toast.makeText(TeacherRegister.this, R.string.acc_exis, Toast.LENGTH_SHORT).show();
                                                 } else {
 
 
@@ -185,13 +185,13 @@ public class TeacherRegister extends AppCompatActivity {
                                                                 public void onSuccess(Void aVoid) {
                                                                     SharedPreferencesUtils.setTypeOfCurrentUser(TeacherRegister.this, Constants.T_TEACHER);
                                                                     SharedPreferencesUtils.setCurrentTeacher(TeacherRegister.this, key);
-                                                                    Toast.makeText(TeacherRegister.this, "saved Teacher", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(TeacherRegister.this, R.string.saved_T, Toast.LENGTH_SHORT).show();
                                                                     startActivity(new Intent(TeacherRegister.this, Home.class));
                                                                 }
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(TeacherRegister.this, "faild regist Teacher" + e, Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(TeacherRegister.this, getString(R.string.failed_T) + e, Toast.LENGTH_SHORT).show();
                                                         }
                                                     });
                                                 }
@@ -204,7 +204,7 @@ public class TeacherRegister extends AppCompatActivity {
 
 
                                     } else {
-                                        Toast.makeText(TeacherRegister.this, "not logined", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(TeacherRegister.this, R.string.not_L, Toast.LENGTH_SHORT).show();
 
                                     }
 
@@ -225,7 +225,7 @@ public class TeacherRegister extends AppCompatActivity {
     }
 
     private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
+        Log.d(TAG, getString(R.string.create_ac) + email);
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
 
@@ -234,15 +234,15 @@ public class TeacherRegister extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(TeacherRegister.this, "check your email for verification ", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(TeacherRegister.this, R.string.check_em, Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, getString(R.string.cred_succ));
                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(TeacherRegister.this, "Authentication failed.",
+                            Log.w(TAG, getString(R.string.creat_faild), task.getException());
+                            Toast.makeText(TeacherRegister.this, R.string.auth_failed_acc,
                                     Toast.LENGTH_SHORT).show();
 
 
@@ -279,12 +279,12 @@ public class TeacherRegister extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             Toast.makeText(TeacherRegister.this,
-                                    "Verification email sent to " + user.getEmail(),
+                                    getString(R.string.verif_sent) + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Log.e(TAG, "sendEmailVerification", task.getException());
+                            Log.e(TAG, getString(R.string.log_verfy_send), task.getException());
                             Toast.makeText(TeacherRegister.this,
-                                    "Failed to send verification email.",
+                                    R.string.faild_verify,
                                     Toast.LENGTH_SHORT).show();
                         }
 

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.asi.educatyapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,7 @@ public class FirebaseUtil {
     private static final long SPLASH_DISPLAY_LENGTH = 1000;
     public boolean childStatus = false;
 
+    //constants
     public static String fakeImageProfile = "https://firebasestorage.googleapis.com/v0/b/educaty-9304b.appspot.com/o/profile_photo%2F31610-NYB3MB.jpg?alt=media&token=92d86e46-d9de-4eec-8f22-9d73f3f297db";
     static HashMap<String, String> groupmap = new HashMap<>();
     static HashMap<String, String> studentmap = new HashMap<>();
@@ -38,14 +40,15 @@ public class FirebaseUtil {
     public static String groupsPhotoStorage = "group_photo";
     public static String teacherObject = "teachers";
     public static String messageObject = "messages";
-    public static String messagePhotoStorage = "educaty_chat";
+
     public static String postsObject = "posts";
     public static String CommentsPostObject = "CommentsPost";
     public static String usersGroupObject = "usersGroup";
 
-
     //storage constances
     public static String postsPhoto = "posts_photo";
+    public static String profilePhoto = "Profile_photo";
+    public static String messagePhotoStorage = "educaty_chat";
 
 
     public static HashMap<String, String> getGroupmap() {
@@ -108,7 +111,6 @@ public class FirebaseUtil {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-                Log.d("IDID", "can't get your id ");
             }
         });
         return id.toString();
@@ -161,7 +163,7 @@ public class FirebaseUtil {
                 databaseReference.child(PushKey).setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(context, "you have added " + model.getClass().getName() + " successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.fire_added) + model.getClass().getName() + context.getString(R.string.fire_success), Toast.LENGTH_SHORT).show();
                     }
                 });
             } else {
@@ -170,20 +172,20 @@ public class FirebaseUtil {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         if (dataSnapshot.hasChild(username)) {
-                            Log.d("UPSTATE", "choose another name or username");
-                            Toast.makeText(context, "choose another name or username", Toast.LENGTH_SHORT).show();
+                            Log.d(context.getString(R.string.UPSTATE), context.getString(R.string.choos_ano_username));
+                            Toast.makeText(context, context.getString(R.string.choos_ano_username), Toast.LENGTH_SHORT).show();
                         } else {
                             databaseReference.child(username).setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(context, "you have added " + model.getClass().getName() + " successfully", Toast.LENGTH_SHORT).show();
-                                    Log.d("UPSTATE", "added successfully ");
+                                    Toast.makeText(context, context.getString(R.string.fire_added) + model.getClass().getName() + context.getString(R.string.fire_success), Toast.LENGTH_SHORT).show();
+                                    Log.d(context.getString(R.string.UPSTATE), context.getString(R.string.choos_ano_username));
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(context, "failed to add " + model.getClass().getName(), Toast.LENGTH_SHORT).show();
-                                    Log.d("UPSTATE", "faild to add ");
+                                    Toast.makeText(context, context.getString(R.string.fire_fail_add) + model.getClass().getName(), Toast.LENGTH_SHORT).show();
+                                    Log.d(context.getString(R.string.UPSTATE), context.getString(R.string.faild_add));
                                 }
                             });
                         }
@@ -195,7 +197,7 @@ public class FirebaseUtil {
                 });
             }
         } else
-            Toast.makeText(context, "you are not login ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.not), Toast.LENGTH_SHORT).show();
     }
 
 

@@ -75,7 +75,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        //TypefaceUtil.overrideFont(chatActivity.this, "SERIF", "fonts/Font-Bold.otf");
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -152,7 +152,7 @@ public class Home extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.contaner, homeFragment, null);
             fragmentTransaction.commit();
-            toolbar.setTitle("Home");
+            toolbar.setTitle(R.string.home_bar);
         }
 
 
@@ -193,7 +193,6 @@ public class Home extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem) {
         int id = menuItem.getItemId();
-        // FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left);
 
         if (id == R.id.nav_main) {
             Fragment homeFragment = new HomeF();
@@ -202,19 +201,12 @@ public class Home extends AppCompatActivity {
             fragmentTransaction.commit();
             toolbar.setTitle("Home");
         } else if (id == R.id.nav_friends) {
-//            Fragment homeFragment = new TimeLine();
-//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.contaner, homeFragment, null);
-//            fragmentTransaction.commit();
-//            toolbar.setTitle("Teacher");
+
             startActivity(new Intent(Home.this, ProfileActivity.class));
 
         } else if (id == R.id.nav_groups) {
             Fragment homeFragment = new GroupsF();
-//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.contaner, homeFragment, null);
-//            fragmentTransaction.commit();
-//            toolbar.setTitle("Teacher");
+
             startActivity(new Intent(Home.this, Groups.class));
         } else if (id == R.id.nav_progress) {
             Fragment homeFragment = new TimeLine();
@@ -224,11 +216,11 @@ public class Home extends AppCompatActivity {
             toolbar.setTitle("Time Line");
 
         } else if (id == R.id.nav_library) {
-            // startActivity(new Intent(chatActivity.this,Healthy.class));
+            // startActivity(new Intent(ChatActivity.this,Healthy.class));
         } else if (id == R.id.nav_timeline) {
-            // startActivity(new Intent(chatActivity.this,foodAndDrinks.class));
+            // startActivity(new Intent(ChatActivity.this,foodAndDrinks.class));
         } else if (id == R.id.nav_setting) {
-            // startActivity(new Intent(chatActivity.this,Offers.class));
+            // startActivity(new Intent(ChatActivity.this,Offers.class));
         } else if (id == R.id.nav_login) {
             AuthUI.getInstance()
                     .signOut(this)

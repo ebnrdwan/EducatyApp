@@ -23,7 +23,7 @@
             tools:replace="exported,authorities" />
 
         <activity
-            android:name=".Data.chat.chatActivity"
+            android:name=".Data.chat.ChatActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
         <activity

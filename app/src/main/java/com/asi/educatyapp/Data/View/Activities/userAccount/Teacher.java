@@ -37,7 +37,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
-    private static final String TAG = "STAG";
+    private final String TAG = "TTAG";
     Typeface fonts1;
     CheckBox remember;
     MyEditText password, email;
@@ -92,9 +92,9 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
                     signIn(emailS, passwS);
                     user = mAuth.getCurrentUser();
                     SharedPreferencesUtils.setTypeOfCurrentUser(Teacher.this, Constants.T_TEACHER);
-                    Toast.makeText(Teacher.this, "signed in ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Teacher.this, R.string.singned_go, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(Teacher.this, "fill your email and password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Teacher.this, R.string.fill_em, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -108,7 +108,7 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
 
         //// TODO: 30/06/2017 adding google sing in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("998044084954-k0i8s3vo7dsf5c3cuefdmqrn09bcavcb.apps.googleusercontent.com")
+                .requestIdToken(getString(R.string.google_toke))
                 .requestProfile()
                 .requestEmail()
                 .build();
@@ -124,7 +124,7 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
     }
 
     private void signIn(String email, String password) {
-        Log.d(TAG, "signIn:" + email);
+        Log.d(TAG, getString(R.string.sing) + email);
 
 //        animationView.playAnimation();
         mAuth.signInWithEmailAndPassword(email, password)
@@ -133,17 +133,16 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(Teacher.this, "Logined success", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, getString(R.string.success));
+                            Toast.makeText(Teacher.this, R.string.succes_log, Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Teacher.this, Home.class));
 
                         } else {
                             // [START_EXCLUDE]
                             if (!task.isSuccessful()) {
-                                Toast.makeText(Teacher.this, "check your email and password", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Teacher.this, R.string.check_em, Toast.LENGTH_SHORT).show();
                             }
-//                        hideProgressDialog();
-//                        animationView.pauseAnimation();
+
 
                         }
                     }
@@ -185,10 +184,7 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-        // [START_EXCLUDE silent]
-//        showProgressDialog();
-        // [END_EXCLUDE]
+        Log.d(TAG, getString(R.string.fire_goog) + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -197,19 +193,17 @@ public class Teacher extends AppCompatActivity implements GoogleApiClient.OnConn
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.d(TAG, getString(R.string.cred_succ));
                             FirebaseUser user = mAuth.getCurrentUser();
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(Teacher.this, "Authentication failed.",
+                            Log.w(TAG, getString(R.string.cred_fai), task.getException());
+                            Toast.makeText(Teacher.this, R.string.auth_failed_,
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        // [START_EXCLUDE]
-//                        hideProgressDialog();
-                        // [END_EXCLUDE]
+
                     }
                 });
     }

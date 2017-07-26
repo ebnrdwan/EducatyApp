@@ -22,7 +22,7 @@ import com.asi.educatyapp.Data.Utility.FirebaseUtil;
 import com.asi.educatyapp.Data.View.Fragments.ClassRoomStudents;
 import com.asi.educatyapp.Data.View.Fragments.Skills;
 import com.asi.educatyapp.Data.View.Fragments.TheGroupStudents;
-import com.asi.educatyapp.Data.chat.chatActivity;
+import com.asi.educatyapp.Data.chat.ChatActivity;
 import com.asi.educatyapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -81,7 +81,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(ProfileActivity.this, chatActivity.class));
+                startActivity(new Intent(ProfileActivity.this, ChatActivity.class));
             }
         });
 
@@ -186,7 +186,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
                 com.asi.educatyapp.Data.View.Fragments.Skills skills = new Skills();
                 trans.replace(R.id.fragment_frame, skills).commit();
-                Toast.makeText(ProfileActivity.this, "not implemented yet", Toast.LENGTH_SHORT);
+                Toast.makeText(ProfileActivity.this, R.string.not_imp_yet, Toast.LENGTH_SHORT);
 
             }
         });

@@ -35,7 +35,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class Student extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = "STAG";
+    private final String TAG = "STAG";
     Typeface fonts1;
     CheckBox remember;
     MyEditText password, email;
@@ -93,11 +93,11 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
 
                     signIn(emailS, passwS);
                     SharedPreferencesUtils.setTypeOfCurrentUser(Student.this, Constants.T_STUDENT);
-                    Toast.makeText(Student.this, "signed in ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Student.this, R.string.signed, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Student.this, Home.class));
 
                 } else {
-                    Toast.makeText(Student.this, "fill your email and password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Student.this, R.string.fill_blanks, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -114,7 +114,7 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
         // Configure sign-in to request the user's ID, email address, and basic
 // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("998044084954-k0i8s3vo7dsf5c3cuefdmqrn09bcavcb.apps.googleusercontent.com")
+                .requestIdToken(getString(R.string.token_google))
                 .requestEmail()
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -135,11 +135,11 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 
-                            Log.d(TAG, "signInWithEmail:success");
+                            Log.d(TAG, getString(R.string.log_sing));
                         } else {
 
                             if (!task.isSuccessful()) {
-                                Toast.makeText(Student.this, "check your email and password", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Student.this, R.string.check_mail_pass, Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -155,7 +155,7 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Log.d(TAG, getString(R.string.log_conn_fail) + connectionResult);
     }
 
 
@@ -178,7 +178,7 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        Log.d(TAG, getString(R.string.log_fire_goog) + acct.getId());
         // [START_EXCLUDE silent]
 //        showProgressDialog();
         // [END_EXCLUDE]
@@ -190,12 +190,12 @@ public class Student extends AppCompatActivity implements GoogleApiClient.OnConn
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.d(TAG, getString(R.string.log_fireauth_success));
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(Student.this, "Authentication failed.",
+                            Log.w(TAG, getString(R.string.log_sign_failed), task.getException());
+                            Toast.makeText(Student.this, R.string.auth_fail,
                                     Toast.LENGTH_SHORT).show();
 //                            updateUI(null);
                         }

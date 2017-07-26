@@ -11,7 +11,6 @@ import com.asi.educatyapp.R;
 ;
 
 public class LoginEdu extends AppCompatActivity {
-    private static final String TAG = "TAGG";
     MyTextView student, teacher;
 
     @Override
